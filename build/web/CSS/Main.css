@@ -1,0 +1,58 @@
+body {
+    font-family: "Segoe UI";
+}
+
+.nav-header {
+    background-color: #48d9fd;
+    color: black;
+}
+
+.nav-bar {
+    background-color: #abffff;
+    color: black; 
+}
+
+.body-main {
+    margin-top: 24px;
+    margin-bottom: 36px;
+}
+
+img {
+    display: block;
+    max-height: 300px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+table {
+    width: 100%;
+    min-width: 450px;
+}
+
+td {
+    max-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.cover {
+    padding: 8px 8px 8px 8px;
+}
+
+.break-line {
+    padding: 16px 0px 16px 0px;
+}
+
+.article-image {
+    width: 30%;
+    min-width: 150px;
+    float: left; 
+    margin-right: 16px;
+}
+
+.article-text {
+    width: 50%; 
+    float: left;
+    min-width: 300px;
+    word-wrap: break-word;
+}
