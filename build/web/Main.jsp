@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
@@ -22,7 +24,7 @@
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
-            <c:import url="/HeaderServlet" />
+            <c:import url="/header" />
             
             <!-- BODY -->
             <div class="body-main">
@@ -65,60 +67,32 @@
                 <div>
                     <h3>Các tin mới</h3>
                     <table>
-                        <tr>
-                            <td>
-                                <div class="article-image">
-                                    <img src="Images/placeholder-blue.png" alt=""/>
-                                </div>
-                                <div class="article-text">
-                                    <h2>Tiêu Đề 3</h2>
-                                    <div>
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                        <c:set var="result" value="${requestScope.result}"/>
+                        <c:if test="${not empty result}">
+                            <c:forEach var="entity" items="${result}">
+                                <tr>
+                                    <td>
+                                        <div class="article-image">
+                                            <img src="${entity.image}" alt=""/>
                                         </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="article-image">
-                                    <img src="Images/placeholder-blue.png" alt=""/>
-                                </div>
-                                <div class="article-text">
-                                    <h2>Tiêu Đề 3</h2>
-                                    <div>
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                                        <div class="article-text">
+                                            <h2>${entity.title}</h2>
+                                            <div>${fn:substring(entity.description, 0, 250)}</div>
                                         </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="article-image">
-                                    <img src="Images/placeholder-blue.png" alt=""/>
-                                </div>
-                                <div class="article-text">
-                                    <h2>Tiêu Đề 3</h2>
-                                    <div>
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                        Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                                        <div style="float: bottom">
+                                            <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
+                                            ${fmDate}
                                         </div>
-                                </div>
-                            </td>
-                        </tr>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </c:if>
                     </table>
                 </div>
             </div>
             
             <!-- Footer -->
-            <c:import url="/FooterServlet" />
+            <c:import url="/footer" />
         </div>
     </body>
 </html>

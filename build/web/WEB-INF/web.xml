@@ -2,7 +2,7 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>HeaderServlet</servlet-name>
-        <servlet-class>Servlet.HeaderServlet</servlet-class>
+        <servlet-class>Servlet.Partial.HeaderServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProcessServlet</servlet-name>
@@ -10,11 +10,23 @@
     </servlet>
     <servlet>
         <servlet-name>FooterServlet</servlet-name>
-        <servlet-class>Servlet.FooterServlet</servlet-class>
+        <servlet-class>Servlet.Partial.FooterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>Servlet.MainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExploreServlet</servlet-name>
+        <servlet-class>Servlet.ExploreServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExplorePartialServlet</servlet-name>
+        <servlet-class>Servlet.Partial.ExplorePartialServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HeaderServlet</servlet-name>
-        <url-pattern>/HeaderServlet</url-pattern>
+        <url-pattern>/header</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
@@ -22,7 +34,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FooterServlet</servlet-name>
-        <url-pattern>/FooterServlet</url-pattern>
+        <url-pattern>/footer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/MainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExploreServlet</servlet-name>
+        <url-pattern>/ExploreServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExplorePartialServlet</servlet-name>
+        <url-pattern>/explore</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

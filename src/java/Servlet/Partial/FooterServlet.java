@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package Servlet.Partial;
 
 import Resources.Resource;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class ProcessServlet extends HttpServlet {
+public class FooterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,16 +33,7 @@ public class ProcessServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String url = Resource.MainServlet;
-            
-            String requestLocation = request.getParameter("location");
-            if (requestLocation == null || requestLocation.isEmpty()) {
-                url = Resource.MainServlet;
-            } else if (requestLocation.equals("explore")) {
-                url = Resource.ExploreServlet;
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher(url);
+            RequestDispatcher rd = request.getRequestDispatcher(Resource.URL_FOOTER);
             rd.forward(request, response);
         }
     }

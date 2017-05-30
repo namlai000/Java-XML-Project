@@ -5,10 +5,12 @@
  */
 package Servlet;
 
+import Entities.News;
 import Resources.Resource;
+import Services.MainService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class ProcessServlet extends HttpServlet {
+public class ExploreServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,19 +34,19 @@ public class ProcessServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String url = Resource.MainServlet;
-            
-            String requestLocation = request.getParameter("location");
-            if (requestLocation == null || requestLocation.isEmpty()) {
-                url = Resource.MainServlet;
-            } else if (requestLocation.equals("explore")) {
-                url = Resource.ExploreServlet;
-            }
-            
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        
+        String menu = request.getParameter("menu");
+        if (menu == null) menu = "1";
+        
+        MainService service = new MainService();
+        List<News> list = service.GetAllNews();
+        for (News n: list) {
+            n.setTitle("Title of menu " + menu);
         }
+        
+        request.setAttribute("list", list);
+        
+        request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
