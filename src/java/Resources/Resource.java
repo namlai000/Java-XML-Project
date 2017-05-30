@@ -18,4 +18,6 @@ public class Resource {
     public final static String MainServlet_Page = "Main.jsp";
     public final static String ExploreServlet = "ExploreServlet";
     public final static String ExploreServlet_Page ="Explore.jsp";
+    public final static String ArticleServlet = "ArticleServlet";
+    public final static String ArticleServlet_Page ="Article.jsp";
 }

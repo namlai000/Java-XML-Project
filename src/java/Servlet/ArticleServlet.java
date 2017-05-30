@@ -10,8 +10,6 @@ import Resources.Resource;
 import Services.MainService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class ExploreServlet extends HttpServlet {
+public class ArticleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +34,19 @@ public class ExploreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        List<News> list = null;
+        String id = request.getParameter("id");
         try {
-            String menu = request.getParameter("menu");
-            if (menu == null) menu = "1";
-
             MainService service = new MainService();
-            list = service.GetAllNews();
+            int number = Integer.parseInt(id);
+            News news = service.GetNewsById(number);
+            if (news != null) {
+                request.setAttribute("news", news);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        request.setAttribute("exploreList", list);
-        request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
+        request.getRequestDispatcher(Resource.ArticleServlet_Page).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

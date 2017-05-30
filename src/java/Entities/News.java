@@ -5,13 +5,14 @@
  */
 package Entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author thegu
  */
-public class News {
+public class News implements Serializable {
     private int Id;
     private String Title;
     private String Image;
@@ -78,6 +79,4 @@ public class News {
     public void setDate(Date Date) {
         this.Date = Date;
     }
-    
-    
 }

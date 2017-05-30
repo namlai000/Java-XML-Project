@@ -24,6 +24,10 @@
         <servlet-name>ExplorePartialServlet</servlet-name>
         <servlet-class>Servlet.Partial.ExplorePartialServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ArticleServlet</servlet-name>
+        <servlet-class>Servlet.ArticleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HeaderServlet</servlet-name>
         <url-pattern>/header</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ExplorePartialServlet</servlet-name>
         <url-pattern>/explore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ArticleServlet</servlet-name>
+        <url-pattern>/ArticleServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

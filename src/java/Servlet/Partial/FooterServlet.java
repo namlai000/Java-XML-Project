@@ -32,10 +32,8 @@ public class FooterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            RequestDispatcher rd = request.getRequestDispatcher(Resource.URL_FOOTER);
-            rd.forward(request, response);
-        }
+        RequestDispatcher rd = request.getRequestDispatcher(Resource.URL_FOOTER);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

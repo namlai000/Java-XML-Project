@@ -11,10 +11,7 @@
 
 <!DOCTYPE html>
 
-<!-- INSERT SCRIPTS HERE-->
-
-<!-- LINK CSS HERE-->
-<link href="CSS/Main.css" rel="stylesheet" type="text/css"/>
+<%@include file="PartialPages/Plugins.jspf" %>
 
 <html>
     <head>
@@ -32,22 +29,32 @@
                     <c:import url="/explore" />
                 </div>
                 <div class="right-menu">
-                    <c:set var="result" value="${requestScope.list}"/>
+                    <c:set var="result" value="${requestScope.exploreList}"/>
                     <c:if test="${not empty result}">
                         <table>
-                            <c:forEach var="entity" items="${result}">
-                                <tr>
-                                    <td>
-                                        <div class="article-image">
-                                            <img src="${entity.image}" alt=""/>
-                                        </div>
-                                        <div class="article-text">
-                                            <h2>${entity.title}</h1>
-                                            ${entity.description}
-                                        </div> 
-                                    </td>
-                                </tr>
-                            </c:forEach>  
+                            <tbody>
+                                <c:forEach var="entity" items="${result}" varStatus="status">
+                                    <tr>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${status.first}">
+                                                    <div class="article-image">
+                                                        <img src="${entity.image}" alt=""/>
+                                                    </div>
+                                                    <div class="article-text">
+                                                        <h2>${entity.title}</h1>
+                                                            ${entity.description}
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <h2>${entity.title}</h2>
+                                                    <div>${entity.description}</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>  
+                            </tbody>
                         </table>
                     </c:if>
                 </div> 

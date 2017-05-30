@@ -11,10 +11,7 @@
 
 <!DOCTYPE html>
 
-<!-- INSERT SCRIPTS HERE-->
-
-<!-- LINK CSS HERE-->
-<link href="CSS/Main.css" rel="stylesheet" type="text/css"/>
+<%@include file="PartialPages/Plugins.jspf" %>
 
 <html>
     <head>
@@ -76,7 +73,7 @@
                                             <img src="${entity.image}" alt=""/>
                                         </div>
                                         <div class="article-text">
-                                            <h2>${entity.title}</h2>
+                                            <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
                                             <div>${fn:substring(entity.description, 0, 250)}</div>
                                         </div>
                                         <div style="float: bottom">

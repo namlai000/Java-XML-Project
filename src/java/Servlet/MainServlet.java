@@ -35,9 +35,14 @@ public class MainServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        MainService service = new MainService();
-        List<News> list = service.GetTop5RecentNews();
-        request.setAttribute("result", list);
+        try {
+            MainService service = new MainService();
+            List<News> list = service.GetTop5RecentNews();
+            request.setAttribute("result", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
         request.getRequestDispatcher(Resource.MainServlet_Page).forward(request, response);
     }
 
