@@ -9,6 +9,7 @@ import Entities.News;
 import Resources.Resource;
 import Services.MainService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -34,7 +35,7 @@ public class ExploreServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+       
         String menu = request.getParameter("menu");
         if (menu == null) menu = "1";
         
@@ -45,7 +46,6 @@ public class ExploreServlet extends HttpServlet {
         }
         
         request.setAttribute("list", list);
-        
         request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
     }
 
