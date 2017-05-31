@@ -5,8 +5,6 @@
 
 <!DOCTYPE html>
 
-<%@include file="PartialPages/Plugins.jspf" %>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -32,12 +30,12 @@
                                         <td>
                                             <c:choose>
                                                 <c:when test="${status.first}">
-                                                    <div>
-                                                        <img src="${entity.image}" alt=""/>
+                                                    <div class="first-image">
+                                                        <img src="${entity.image}" alt="" />
                                                     </div>
                                                     <div>
                                                         <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                                            ${entity.description}
+                                                        ${entity.description}
                                                     </div>
                                                     <div class="break-line">
                                                         <hr/>

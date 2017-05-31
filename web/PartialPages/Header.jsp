@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Plugins.jsp" %>
 <div>
     <table border="0">
         <tr class="nav-header">
@@ -13,7 +14,8 @@
             <td>
                 <a href="ProcessServlet?location=explore">Khám Phá</a>
             </td>
-            <td>Góc nhìn</td>
+            <td>
+                <a href="ProcessServlet?location=author">Góc nhìn</a></td>
             <td>Diễn đàn</td>
         </tr>
     </table>

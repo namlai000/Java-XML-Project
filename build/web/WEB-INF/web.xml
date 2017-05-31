@@ -28,6 +28,10 @@
         <servlet-name>ArticleServlet</servlet-name>
         <servlet-class>Servlet.ArticleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthorServlet</servlet-name>
+        <servlet-class>Servlet.AuthorServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HeaderServlet</servlet-name>
         <url-pattern>/header</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ArticleServlet</servlet-name>
         <url-pattern>/ArticleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorServlet</servlet-name>
+        <url-pattern>/AuthorServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

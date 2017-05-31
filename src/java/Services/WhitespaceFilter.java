@@ -52,15 +52,24 @@ public class WhitespaceFilter implements Filter {
 
     // Actions ------------------------------------------------------------------------------------
     /**
+     * @param config
+     * @throws javax.servlet.ServletException
      * @see Filter#init(FilterConfig)
      */
+    @Override
     public void init(FilterConfig config) throws ServletException {
         //
     }
 
     /**
+     * @param request
+     * @param response
+     * @param chain
+     * @throws java.io.IOException
+     * @throws javax.servlet.ServletException
      * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
      */
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         if (response instanceof HttpServletResponse) {
@@ -74,6 +83,7 @@ public class WhitespaceFilter implements Filter {
     /**
      * @see Filter#destroy()
      */
+    @Override
     public void destroy() {
         //
     }
@@ -93,21 +103,25 @@ public class WhitespaceFilter implements Filter {
             private StringBuilder builder = new StringBuilder();
             private boolean trim = false;
 
+            @Override
             public void write(int c) {
                 builder.append((char) c); // It is actually a char, not an int.
             }
 
+            @Override
             public void write(char[] chars, int offset, int length) {
                 builder.append(chars, offset, length);
                 this.flush(); // Preflush it.
             }
 
+            @Override
             public void write(String string, int offset, int length) {
                 builder.append(string, offset, length);
                 this.flush(); // Preflush it.
             }
 
             // Finally override the flush method so that it trims whitespace.
+            @Override
             public void flush() {
                 synchronized (builder) {
                     BufferedReader reader = new BufferedReader(new StringReader(builder.toString()));
@@ -172,6 +186,7 @@ public class WhitespaceFilter implements Filter {
     private static HttpServletResponse wrapResponse(
             final HttpServletResponse response, final PrintWriter writer) {
         return new HttpServletResponseWrapper(response) {
+            @Override
             public PrintWriter getWriter() throws IOException {
                 return writer;
             }

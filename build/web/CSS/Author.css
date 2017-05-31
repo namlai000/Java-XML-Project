@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    display: inline-table;
+}
+
+.container .container-item {
+    display: inline-table;
+    width: 20%;
+    height: 100%;
+    max-width: 300px;
+    max-height: 300px;
+    float: left;
+}
+
+.container .container-item img {
+    display: inline-table;
+    max-width: 150px;
+    max-height: 150px;
+}

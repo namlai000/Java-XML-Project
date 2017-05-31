@@ -10,8 +10,6 @@
 
 <!DOCTYPE html>
 
-<%@include file="PartialPages/Plugins.jspf" %>
-
 <html>
     <c:set var="entity" value="${requestScope.news}"/>
     <c:set var="blank" value="${empty entity.title}"/>
