@@ -10,8 +10,6 @@ package Resources;
  * @author thegu
  */
 public class Resource {
-    public final static String URL_HEADER = "PartialPages/Header.jsp";
-    public final static String URL_FOOTER = "PartialPages/Footer.jsp";
     public final static String URL_EXPLORE_PARTIAL = "PartialPages/ExplorePartial.jsp";
     
     public final static String MainServlet = "MainServlet";

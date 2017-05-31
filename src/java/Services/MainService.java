@@ -47,8 +47,8 @@ class Temporary {
         if (listNews == null) {
             listNews = new ArrayList<News>();
 
-            for (int i = 0; i < 25; i++) {
-                listNews.add(new News(1, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum ip ip " + i, "Author " + i, Calendar.getInstance().getTime()));
+            for (int i = 0; i < 15; i++) {
+                listNews.add(new News(i, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum ip ip " + i, "Author " + i, Calendar.getInstance().getTime()));
             }
         }
 
@@ -59,8 +59,8 @@ class Temporary {
         if (listAuthor == null) {
             listAuthor = new ArrayList<Author>();
 
-            for (int i = 0; i < 15; i++) {
-                listAuthor.add(new Author(1, "Images/avatar.png", "Firstname " + i, "Lastname " + i, "Address " + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime()));
+            for (int i = 0; i < 10; i++) {
+                listAuthor.add(new Author(i, "Images/avatar.png", "Firstname " + i, "Lastname " + i, "Address " + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime()));
             }
         }
 

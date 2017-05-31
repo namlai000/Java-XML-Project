@@ -13,12 +13,14 @@
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
-            <c:import url="/header" />
+            <%@include file="PartialPages/Header.jsp" %>
 
             <!-- BODY -->
             <div class="body-main">
                 <div class="left-menu">
-                    <c:import url="/explore" />
+                    <c:import url="/explore">
+                        <c:param name="menu" value="${param.menu}"/>
+                    </c:import>
                 </div>
                 <div class="right-menu">
                     <c:set var="result" value="${requestScope.exploreList}"/>
@@ -61,9 +63,7 @@
             </div>
 
             <!-- Footer -->
-            <c:import url="/footer" />
+            <%@include file="PartialPages/Footer.jsp" %>
         </div>
     </body>
 </html>
-
-<

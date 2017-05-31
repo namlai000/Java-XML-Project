@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
-        <servlet-name>HeaderServlet</servlet-name>
-        <servlet-class>Servlet.Partial.HeaderServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ProcessServlet</servlet-name>
         <servlet-class>Servlet.ProcessServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FooterServlet</servlet-name>
-        <servlet-class>Servlet.Partial.FooterServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MainServlet</servlet-name>
@@ -33,16 +25,8 @@
         <servlet-class>Servlet.AuthorServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HeaderServlet</servlet-name>
-        <url-pattern>/header</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FooterServlet</servlet-name>
-        <url-pattern>/footer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
@@ -86,10 +70,4 @@
         <filter-name>whitespaceFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <trim-directive-whitespaces>true</trim-directive-whitespaces>
-        </jsp-property-group>
-    </jsp-config>
 </web-app>
