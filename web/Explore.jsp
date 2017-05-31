@@ -43,7 +43,15 @@
                                                         <hr/>
                                                     </div>
                                                 </c:when>
-                                                <c:otherwise><div class="article-image"><img src="${entity.image}" alt=""/></div><div class="article-text"><h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>${entity.description}</div></c:otherwise>
+                                                <c:otherwise>
+                                                    <div class="article-image">
+                                                        <img src="${entity.image}" alt=""/>
+                                                    </div>
+                                                    <div class="article-text">
+                                                        <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
+                                                        ${entity.description}
+                                                    </div>
+                                                </c:otherwise>
                                             </c:choose>
                                         </td>
                                     </tr>
