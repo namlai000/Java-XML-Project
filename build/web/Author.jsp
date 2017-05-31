@@ -19,10 +19,11 @@
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
             <%@include file="PartialPages/Header.jsp" %>
-            
+
             <!-- BODY -->
             <div class="body-main">
                 <div class="container">
+                    <h2>Các tác giả tiêu biểu tuần này</h2>
                     <c:set var="au1" value="${requestScope.top5}"/>
                     <c:forEach var="en" items="${au1}">
                         <div class="container-item">
@@ -33,8 +34,50 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div class="break-line">
+                    <hr/>
+                </div>
+                <div class="container">
+                    <div class="left-menu">
+                        <h3>Tác giả mới nhất</h3>
+                        <ul>
+                            <c:set var="au1" value="${requestScope.top5}"/>
+                            <c:forEach var="en" items="${au1}">
+                                <li>
+                                    <div class="container">
+                                        <div class="small-avatar">
+                                            <img src="${en.image}"/>
+                                        </div>
+                                        <div>
+                                           ${en.firstname}  
+                                        </div>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <div class="right-menu">
+                        <h3>Góc nhìn mới nhất</h3>
+                        <table>
+                            <c:set var="au2" value="${requestScope.authorList}"/>
+                            <c:forEach var="en" items="${au2}">
+                                <tr>
+                                    <td>
+                                        <div class="article-image avatar">
+                                            <img src="${en.image}"/>
+                                        </div>
+                                        <div class="article-text">
+                                            <h4>${en.firstname}<i> </i>${en.lastname}</h4>
+                                            ${en.biography}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
             </div>
-            
+
             <!-- Footer -->
             <%@include file="PartialPages/Footer.jsp" %>
         </div>

@@ -48,7 +48,7 @@
                                                         <img src="${entity.image}" alt=""/>
                                                     </div>
                                                     <div class="article-text">
-                                                        <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
+                                                        <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h4>
                                                         ${entity.description}
                                                     </div>
                                                 </c:otherwise>

@@ -17,3 +17,18 @@
     max-width: 150px;
     max-height: 150px;
 }
+
+.avatar img {
+    border-radius: 50%;
+}
+
+.small-avatar {
+    float: left;
+    margin-right: 8px;
+}
+
+.small-avatar img {
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+}
