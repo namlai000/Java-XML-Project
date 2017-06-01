@@ -18,7 +18,7 @@
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
-            <%@include file="PartialPages/Header.jsp" %>
+            <c:import url="PartialPages/Header.jsp"/>
 
             <!-- BODY -->
             <div class="body-main">
@@ -79,7 +79,7 @@
             </div>
 
             <!-- Footer -->
-            <%@include file="PartialPages/Footer.jsp" %>
+            <c:import url="PartialPages/Footer.jsp"/>
         </div>
     </body>
 </html>

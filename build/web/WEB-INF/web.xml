@@ -13,10 +13,6 @@
         <servlet-class>Servlet.ExploreServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ExplorePartialServlet</servlet-name>
-        <servlet-class>Servlet.Partial.ExplorePartialServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ArticleServlet</servlet-name>
         <servlet-class>Servlet.ArticleServlet</servlet-class>
     </servlet>
@@ -35,10 +31,6 @@
     <servlet-mapping>
         <servlet-name>ExploreServlet</servlet-name>
         <url-pattern>/ExploreServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ExplorePartialServlet</servlet-name>
-        <url-pattern>/explore</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ArticleServlet</servlet-name>

@@ -1,5 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="Plugins.jsp" %>
+<c:import url="PartialPages/Plugins.jsp"/>
 <div>
     <table border="0">
         <tr class="nav-header">

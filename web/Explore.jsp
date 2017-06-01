@@ -13,12 +13,12 @@
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
-            <%@include file="PartialPages/Header.jsp" %>
+            <c:import url="PartialPages/Header.jsp"/>
 
             <!-- BODY -->
             <div class="body-main">
                 <div class="left-menu">
-                    <c:import url="/explore">
+                    <c:import url="PartialPages/ExplorePartial.jsp">
                         <c:param name="menu" value="${param.menu}"/>
                     </c:import>
                 </div>
@@ -63,7 +63,7 @@
             </div>
 
             <!-- Footer -->
-            <%@include file="PartialPages/Footer.jsp" %>
+            <c:import url="PartialPages/Footer.jsp"/>
         </div>
     </body>
 </html>
