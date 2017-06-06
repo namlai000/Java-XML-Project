@@ -4,7 +4,7 @@
 <div>
     <table border="0">
         <tr class="nav-header">
-            <td colspan="4">
+            <td colspan="5">
                 <h2>Title Placeholder</h2>
             </td>
         </tr>
