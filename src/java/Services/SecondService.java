@@ -7,6 +7,7 @@ package Services;
 
 import Entities.Author;
 import Entities.AuthorArticle;
+import Entities.News;
 import java.util.List;
 
 /**
@@ -45,6 +46,15 @@ public class SecondService {
             return Temporary.getAuthorArticles().subList(page * 10 - 10, GetAuthorArticlesSize());
         }
         
+        return null;
+    }
+    
+    public AuthorArticle GetAuthorArticleById(int id) {
+        for (AuthorArticle n : Temporary.getAuthorArticles()) {
+            if (n.getId() == id) {
+                return n;
+            }
+        }
         return null;
     }
     

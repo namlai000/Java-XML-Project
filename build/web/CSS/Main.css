@@ -20,6 +20,10 @@ body {
     float: left;
 }
 
+.row {
+    width: 100%;
+}
+
 div {
     display: block;
 }

@@ -63,7 +63,7 @@ class Temporary {
             listNews = new ArrayList<>();
 
             for (int i = 0; i < 45; i++) {
-                listNews.add(new News(i, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum ip ip " + i, "Author " + i, Calendar.getInstance().getTime()));
+                listNews.add(new News(i, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." + i, "Author " + i, Calendar.getInstance().getTime()));
             }
         }
 
@@ -87,7 +87,7 @@ class Temporary {
             listArticles = new ArrayList<>();
             Random random = new Random();
             for (int i = 0; i < 25; i++) {
-                listArticles.add(new AuthorArticle(i, "Title" + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime(), getAuthors().get(random.nextInt(getAuthors().size()))));
+                listArticles.add(new AuthorArticle(i, "Title" + i, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." + i, Calendar.getInstance().getTime(), getAuthors().get(random.nextInt(getAuthors().size()))));
             }
         }
 

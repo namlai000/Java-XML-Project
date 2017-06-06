@@ -20,7 +20,7 @@
         <div style="margin: 0px auto 0px auto; width: 60%;">
             <!-- Header -->
             <c:import url="PartialPages/Header.jsp"/>
-            
+
             <!-- BODY -->
             <div class="body-main">
                 <div>
@@ -35,9 +35,7 @@
                                     <h2>Tiêu đề 1</h2>
                                 </div>
                                 <div>
-                                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                    Lorem Ipsum 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                 </div>
                             </td>
                             <td class="cover">
@@ -48,9 +46,7 @@
                                     <h2>Tiêu đề 2</h2>
                                 </div>
                                 <div>
-                                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum 
-                                    Lorem Ipsum 
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                 </div>
                             </td>
                         </tr>
@@ -59,33 +55,35 @@
                 <div class="break-line">
                     <hr/>
                 </div>
-                <div>
-                    <h3>Các tin mới</h3>
-                    <table>
-                        <c:set var="result" value="${requestScope.result}"/>
-                        <c:if test="${not empty result}">
-                            <c:forEach var="entity" items="${result}">
-                                <tr>
-                                    <td>
-                                        <div class="article-image">
-                                            <img src="${entity.image}" alt=""/>
-                                        </div>
-                                        <div class="article-text">
-                                            <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                            <div>${fn:substring(entity.description, 0, 250)}</div>
-                                        </div>
-                                        <div style="float: bottom">
-                                            <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
-                                            ${fmDate}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </c:if>
-                    </table>
+                <div class="row">
+                    <div style="width: 75%">
+                        <h3>Các tin mới</h3>
+                        <table>
+                            <c:set var="result" value="${requestScope.result}"/>
+                            <c:if test="${not empty result}">
+                                <c:forEach var="entity" items="${result}">
+                                    <tr>
+                                        <td>
+                                            <div class="article-image">
+                                                <img src="${entity.image}" alt=""/>
+                                            </div>
+                                            <div class="article-text">
+                                                <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
+                                                <div>${fn:substring(entity.description, 0, 250)}</div>
+                                            </div>
+                                            <div style="float: bottom">
+                                                <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
+                                                ${fmDate}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
+                        </table>
+                    </div>
                 </div>
             </div>
-            
+
             <!-- Footer -->
             <c:import url="PartialPages/Footer.jsp"/>
         </div>
