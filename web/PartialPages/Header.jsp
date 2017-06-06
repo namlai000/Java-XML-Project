@@ -17,7 +17,12 @@
             </td>
             <td>
                 <a href="ProcessServlet?location=author">Góc nhìn</a></td>
-            <td>Diễn đàn</td>
+            <td>
+                Thế giới trò chơi
+            </td>
+            <td>
+                Về chúng tôi
+            </td>
         </tr>
     </table>
 </div>
