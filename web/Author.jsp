@@ -41,7 +41,7 @@
                     <div class="left-menu">
                         <h3>Tác giả mới nhất</h3>
                         <ul>
-                            <c:set var="au1" value="${requestScope.top5}"/>
+                            <c:set var="au1" value="${requestScope.newest10}"/>
                             <c:forEach var="en" items="${au1}">
                                 <li>
                                     <div class="container">
@@ -64,11 +64,13 @@
                                 <tr>
                                     <td>
                                         <div class="article-image avatar">
-                                            <img src="${en.image}"/>
+                                            <img src="${en.author.image}"/>
                                         </div>
                                         <div class="article-text">
-                                            <h4>${en.firstname}<i> </i>${en.lastname}</h4>
-                                            ${en.biography}
+                                            <h3>${en.title}</h3>
+                                            <h5>${en.author.firstname}<i> </i>${en.author.lastname}</h5>
+                                            <hr/>
+                                            ${en.description}
                                         </div>
                                     </td>
                                 </tr>

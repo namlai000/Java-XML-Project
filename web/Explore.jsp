@@ -29,13 +29,13 @@
                                     <tr>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${status.first}">
+                                                <c:when test="${status.first and ((empty param.page) or (param.page eq 1))}">
                                                     <div class="first-image">
                                                         <img src="${entity.image}" alt="" />
                                                     </div>
                                                     <div>
                                                         <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                                        ${entity.description}
+                                                            ${entity.description}
                                                     </div>
                                                     <div class="break-line">
                                                         <hr/>
@@ -47,7 +47,7 @@
                                                     </div>
                                                     <div class="article-text">
                                                         <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h4>
-                                                        ${entity.description}
+                                                            ${entity.description}
                                                     </div>
                                                 </c:otherwise>
                                             </c:choose>
@@ -56,6 +56,19 @@
                                 </c:forEach>  
                             </tbody>
                         </table>
+                        <div style="float: right">
+                            <c:forEach var="pages" items="${requestScope.pages}" >
+                                <span>
+                                    <a href="ProcessServlet?location=explore&menu=${param.menu}&page=${pages}">
+                                        <button type="button">
+                                            <c:if test="${pages eq param.page}"><b></c:if>
+                                            ${pages}
+                                            <c:if test="${pages eq param.page}"></b></c:if>
+                                        </button>
+                                    </a>
+                                </span>
+                            </c:forEach>
+                        </div>
                     </c:if>
                 </div> 
             </div>

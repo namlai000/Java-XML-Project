@@ -6,6 +6,7 @@
 package Services;
 
 import Entities.Author;
+import Entities.AuthorArticle;
 import Entities.News;
 import java.io.Serializable;
 import java.time.Instant;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -20,8 +22,20 @@ import java.util.List;
  */
 public class MainService {
 
-    public List<News> GetAllNews() {
-        return Temporary.getNews();
+    public List<News> GetNewsByPage(int page) {
+        if (page == 1) {
+            return Temporary.getNews().subList(0, 10);
+        } else if (page > 1 && page * 10 < GetNewsLength()) {
+            return Temporary.getNews().subList(page * 10 - 10, page * 10);
+        } else if (page > 1 && page * 10 >= GetNewsLength()) {
+            return Temporary.getNews().subList(page * 10 - 10, GetNewsLength());
+        }
+        
+        return null;
+    }
+    
+    public int GetNewsLength() {
+        return Temporary.getNews().size();
     }
 
     public List<News> GetTop5RecentNews() {
@@ -42,12 +56,13 @@ class Temporary {
 
     private static List<News> listNews;
     private static List<Author> listAuthor;
+    private static List<AuthorArticle> listArticles;
 
     public static List<News> getNews() {
         if (listNews == null) {
-            listNews = new ArrayList<News>();
+            listNews = new ArrayList<>();
 
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 45; i++) {
                 listNews.add(new News(i, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum ip ip " + i, "Author " + i, Calendar.getInstance().getTime()));
             }
         }
@@ -57,13 +72,25 @@ class Temporary {
 
     public static List<Author> getAuthors() {
         if (listAuthor == null) {
-            listAuthor = new ArrayList<Author>();
+            listAuthor = new ArrayList<>();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 20; i++) {
                 listAuthor.add(new Author(i, "Images/avatar.png", "Firstname " + i, "Lastname " + i, "Address " + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime()));
             }
         }
 
         return listAuthor;
+    }
+    
+    public static List<AuthorArticle> getAuthorArticles() {
+        if (listArticles == null) {
+            listArticles = new ArrayList<>();
+            Random random = new Random();
+            for (int i = 0; i < 10; i++) {
+                listArticles.add(new AuthorArticle(i, "Title" + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime(), getAuthors().get(random.nextInt(getAuthors().size()))));
+            }
+        }
+
+        return listArticles;
     }
 }

@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.Date;
  *
  * @author thegu
  */
-public class Author {
+public class Author implements Serializable {
 
     private int Id;
     private String Image;

@@ -62,5 +62,26 @@
                 <c:if test="${param.menu eq 8}"></b></c:if>
             </a>
         </li>
+        <li>
+            <a href="ProcessServlet?location=explore&menu=9">
+                <c:if test="${param.menu eq 9}"><b></c:if>
+                Xe cộ
+                <c:if test="${param.menu eq 9}"></b></c:if>
+            </a>
+        </li>
+        <li>
+            <a href="ProcessServlet?location=explore&menu=10">
+                <c:if test="${param.menu eq 10}"><b></c:if>
+                Thời trang
+                <c:if test="${param.menu eq 10}"></b></c:if>
+            </a>
+        </li>
+        <li>
+            <a href="ProcessServlet?location=explore&menu=11">
+                <c:if test="${param.menu eq 11}"><b></c:if>
+                Bóng đá
+                <c:if test="${param.menu eq 11}"></b></c:if>
+            </a>
+        </li>
     </ul>
 </div>

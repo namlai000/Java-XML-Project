@@ -36,7 +36,8 @@ public class AuthorServlet extends HttpServlet {
         try {
             SecondService service = new SecondService();
             request.setAttribute("top5", service.getTop5Authors());
-            request.setAttribute("authorList", service.getAllAuthor());
+            request.setAttribute("newest10", service.getNewest10Authors());
+            request.setAttribute("authorList", service.GetAuthorArticles());
         } catch (Exception e) {
             e.printStackTrace();
         }

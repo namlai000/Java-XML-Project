@@ -6,6 +6,7 @@
 package Services;
 
 import Entities.Author;
+import Entities.AuthorArticle;
 import java.util.List;
 
 /**
@@ -17,11 +18,15 @@ public class SecondService {
     public List<Author> getTop5Authors() {
         return Temporary.getAuthors().subList(0, 5);
     }
+    
+    public List<Author> getNewest10Authors() {
+        return Temporary.getAuthors().subList(0, 10);
+    }
 
     public List<Author> getAllAuthor() {
         return Temporary.getAuthors();
     }
-
+    
     public Author getAuthorById(int id) {
         for (Author au : Temporary.getAuthors()) {
             if (au.getId() == id) {
@@ -29,5 +34,9 @@ public class SecondService {
             }
         }
         return null;
+    }
+    
+    public List<AuthorArticle> GetAuthorArticles() {
+        return Temporary.getAuthorArticles();
     }
 }
