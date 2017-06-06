@@ -32,17 +32,53 @@ public class AuthorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        String page = request.getParameter("page");
+        int i = 0;
         try {
+            if (page == null || page.isEmpty() || !isInteger(page)) {
+                page = "1";
+            }
+
             SecondService service = new SecondService();
             request.setAttribute("top5", service.getTop5Authors());
             request.setAttribute("newest10", service.getNewest10Authors());
-            request.setAttribute("authorList", service.GetAuthorArticles());
+
+            i = Integer.parseInt(page);
+            request.setAttribute("authorList", service.GetAuthorArticlesByPage(i));
+
+            i = service.GetAuthorArticlesSize();
+            request.setAttribute("pages", getPages(i));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         request.getRequestDispatcher(Resource.AuthorServlet_Page).forward(request, response);
+    }
+
+    private boolean isInteger(String number) {
+        try {
+            int i = Integer.parseInt(number);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private int[] getPages(int sizes) {
+        int length;
+        if (sizes % 10 == 0) {
+            length = sizes / 10;
+        } else {
+            length = sizes / 10 + 1;
+        }
+        int[] pages = new int[length];
+        int j = 1;
+        for (int i = 0; i < length; i++) {
+            pages[i] = j++;
+        }
+        return pages;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

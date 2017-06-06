@@ -49,7 +49,7 @@
                                             <img src="${en.image}"/>
                                         </div>
                                         <div>
-                                           ${en.firstname}  
+                                            ${en.firstname}  
                                         </div>
                                     </div>
                                 </li>
@@ -76,6 +76,23 @@
                                 </tr>
                             </c:forEach>
                         </table>
+                        <hr/>
+                        <div style="float: left">
+                            Trang ${param.page}<c:if test="${empty param.page}">1</c:if> trong tổng số ${fn:length(requestScope.pages)}
+                            </div>
+                            <div style="float: right">
+                            <c:forEach var="pages" items="${requestScope.pages}" >
+                                <span>
+                                    <a href="ProcessServlet?location=author&page=${pages}">
+                                        <button type="button">
+                                            <c:if test="${pages eq param.page}"><b></c:if>
+                                                ${pages}
+                                                <c:if test="${pages eq param.page}"></b></c:if>
+                                            </button>
+                                        </a>
+                                    </span>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>

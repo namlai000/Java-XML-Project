@@ -36,7 +36,19 @@ public class SecondService {
         return null;
     }
     
-    public List<AuthorArticle> GetAuthorArticles() {
-        return Temporary.getAuthorArticles();
+    public List<AuthorArticle> GetAuthorArticlesByPage(int page) {
+        if (page == 1) {
+            return Temporary.getAuthorArticles().subList(0, 10);
+        } else if (page > 1 && page * 10 < GetAuthorArticlesSize()) {
+            return Temporary.getAuthorArticles().subList(page * 10 - 10, page * 10);
+        } else if (page > 1 && page * 10 >= GetAuthorArticlesSize()) {
+            return Temporary.getAuthorArticles().subList(page * 10 - 10, GetAuthorArticlesSize());
+        }
+        
+        return null;
+    }
+    
+    public int GetAuthorArticlesSize() {
+        return Temporary.getAuthorArticles().size();
     }
 }

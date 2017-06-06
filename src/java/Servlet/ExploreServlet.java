@@ -35,38 +35,43 @@ public class ExploreServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         List<News> list = null;
         String menu = request.getParameter("menu");
         String page = request.getParameter("page");
         int i = 0;
         try {
-            if (page == null || page.isEmpty() || !isInteger(page)) page = "1";
-            if (menu == null) menu = "1";
-           
+            if (page == null || page.isEmpty() || !isInteger(page)) {
+                page = "1";
+            }
+            if (menu == null) {
+                menu = "1";
+            }
+
             MainService service = new MainService();
             int p = Integer.parseInt(page);
             list = service.GetNewsByPage(p);
             i = service.GetNewsLength();
+
+            request.setAttribute("exploreList", list);
+            request.setAttribute("pages", getPages(i));
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        request.setAttribute("exploreList", list);
-        request.setAttribute("pages", getPages(i));
         request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
     }
-    
+
     private boolean isInteger(String number) {
         try {
             int i = Integer.parseInt(number);
         } catch (Exception e) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     private int[] getPages(int sizes) {
         int length;
         if (sizes % 10 == 0) {

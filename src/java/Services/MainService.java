@@ -86,7 +86,7 @@ class Temporary {
         if (listArticles == null) {
             listArticles = new ArrayList<>();
             Random random = new Random();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 25; i++) {
                 listArticles.add(new AuthorArticle(i, "Title" + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime(), getAuthors().get(random.nextInt(getAuthors().size()))));
             }
         }

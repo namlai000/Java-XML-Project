@@ -56,6 +56,10 @@
                                 </c:forEach>  
                             </tbody>
                         </table>
+                        <hr/>
+                        <div style="float: left">
+                            Trang ${param.page}<c:if test="${empty param.page}">1</c:if> trong tổng số ${fn:length(requestScope.pages)}
+                        </div>
                         <div style="float: right">
                             <c:forEach var="pages" items="${requestScope.pages}" >
                                 <span>
