@@ -6,7 +6,8 @@
 package Servlet;
 
 import Resources.Resource;
-import Services.SecondService;
+import Services.AuthorArticleService;
+import Services.AuthorService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -40,14 +41,15 @@ public class AuthorServlet extends HttpServlet {
                 page = "1";
             }
 
-            SecondService service = new SecondService();
+            AuthorService service = new AuthorService();
             request.setAttribute("top5", service.getTop5Authors());
             request.setAttribute("newest10", service.getNewest10Authors());
 
             i = Integer.parseInt(page);
-            request.setAttribute("authorList", service.GetAuthorArticlesByPage(i));
+            AuthorArticleService auService = new AuthorArticleService();
+            request.setAttribute("authorList", auService.GetAuthorArticlesByPage(i));
 
-            i = service.GetAuthorArticlesSize();
+            i = auService.GetAuthorArticlesSize();
             request.setAttribute("pages", getPages(i));
         } catch (Exception e) {
             e.printStackTrace();

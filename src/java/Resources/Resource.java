@@ -20,4 +20,8 @@ public class Resource {
     public final static String ArticleServlet_Page ="Article.jsp";
     public final static String AuthorServlet = "AuthorServlet";
     public final static String AuthorServlet_Page = "Author.jsp";
+    public final static String AuthorArticleServlet = "AuthorArticleServlet";
+    public final static String AuthorArticleServlet_Page = "AuthorArticle.jsp";
+    public final static String AuthorDetailServlet = "AuthorDetailServlet";
+    public final static String AuthorDetailServlet_Page = "AuthorDetail.jsp";
 }

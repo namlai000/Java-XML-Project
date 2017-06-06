@@ -92,8 +92,6 @@ public class Author implements Serializable {
         this.Birthday = Birthday;
     }
 
-    
-
     public int getAuthorAge() {
         if (this.Birthday != null) {
             return Calendar.getInstance().getTime().getYear() - this.Birthday.getYear();

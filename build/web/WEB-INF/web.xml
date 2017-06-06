@@ -20,6 +20,14 @@
         <servlet-name>AuthorServlet</servlet-name>
         <servlet-class>Servlet.AuthorServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuthorArticleServlet</servlet-name>
+        <servlet-class>Servlet.AuthorArticleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorDetailServlet</servlet-name>
+        <servlet-class>Servlet.AuthorDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>AuthorServlet</servlet-name>
         <url-pattern>/AuthorServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorArticleServlet</servlet-name>
+        <url-pattern>/AuthorArticleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorDetailServlet</servlet-name>
+        <url-pattern>/AuthorDetailServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

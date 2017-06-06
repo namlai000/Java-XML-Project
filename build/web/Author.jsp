@@ -30,7 +30,7 @@
                             <div>
                                 <img src="${en.image}"/>
                             </div>
-                            <h4>${en.firstname}<i> </i>${en.lastname}</h4>
+                            <h4><a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a></h4>
                         </div>
                     </c:forEach>
                 </div>
@@ -49,7 +49,7 @@
                                             <img src="${en.image}"/>
                                         </div>
                                         <div>
-                                            ${en.firstname}  
+                                            <a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a> 
                                         </div>
                                     </div>
                                 </li>
@@ -67,8 +67,8 @@
                                             <img src="${en.author.image}"/>
                                         </div>
                                         <div class="article-text">
-                                            <h3>${en.title}</h3>
-                                            <h5>${en.author.firstname}<i> </i>${en.author.lastname}</h5>
+                                            <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.title}</a></h3>
+                                            <h5><a href="ProcessServlet?location=detail&id=${en.author.id}">${en.author.firstname}<i> </i>${en.author.lastname}</a></h5>
                                             <hr/>
                                             ${en.description}
                                         </div>

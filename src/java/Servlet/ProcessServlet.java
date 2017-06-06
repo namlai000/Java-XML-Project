@@ -34,7 +34,7 @@ public class ProcessServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String url = Resource.MainServlet;
-            
+
             String requestLocation = request.getParameter("location");
             if (requestLocation == null || requestLocation.isEmpty()) {
                 url = Resource.MainServlet;
@@ -44,8 +44,12 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.ArticleServlet;
             } else if (requestLocation.equals("author")) {
                 url = Resource.AuthorServlet;
+            } else if (requestLocation.equals("read")) {
+                url = Resource.AuthorArticleServlet;
+            } else if (requestLocation.equals("detail")) {
+                url = Resource.AuthorDetailServlet;
             }
-            
+
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
