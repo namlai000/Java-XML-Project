@@ -18,9 +18,7 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="left-menu">
-                    <c:import url="PartialPages/ExplorePartial.jsp">
-                        <c:param name="menu" value="${param.menu}"/>
-                    </c:import>
+                    <c:import url="PartialPages/ExplorePartial.jsp"/>
                 </div>
                 <div class="right-menu">
                     <c:set var="result" value="${requestScope.exploreList}"/>
