@@ -8,6 +8,7 @@ package Servlet;
 import Entities.Author;
 import Entities.AuthorArticle;
 import Resources.Resource;
+import Services.AuthorArticleService;
 import Services.AuthorService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -36,7 +37,7 @@ public class AuthorDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String id = request.getParameter("id");
         try {
             AuthorService service = new AuthorService();
@@ -47,7 +48,7 @@ public class AuthorDetailServlet extends HttpServlet {
                 request.setAttribute("author", author);
                 request.setAttribute("articlesList", articleList);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorDetailServlet_Page);

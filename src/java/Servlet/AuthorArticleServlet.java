@@ -10,6 +10,7 @@ import Resources.Resource;
 import Services.AuthorArticleService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,9 @@ public class AuthorArticleServlet extends HttpServlet {
                 AuthorArticleService service = new AuthorArticleService();
                 AuthorArticle article = service.GetAuthorArticleById(i);
                 request.setAttribute("auArticle", article);
+
+                List<AuthorArticle> list = service.Random3Articles();
+                request.setAttribute("ran3", list);
             }
         } catch (Exception e) {
             e.printStackTrace();

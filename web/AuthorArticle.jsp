@@ -24,14 +24,24 @@
 
             <!-- BODY -->
             <div class="body-main">
-                <div class="auArticle-image">
-                    <img src="${entity.author.image}"/>
-                </div>
-                <div class="auArticle-text">
-                    <h2>${entity.title}</h2>
-                    <h5>${entity.author.firstname}<i> </i>${entity.author.lastname}</h5>
-                    <hr/>
-                    ${entity.description}
+                <div class="row">
+                    <div class="auArticle-image">
+                        <img src="${entity.author.image}"/>
+                    </div>
+                    <div class="auArticle-text">
+                        <h2>${entity.title}</h2>
+                        <h5>${entity.author.firstname}<i> </i>${entity.author.lastname}</h5>
+                        <hr/>
+                        ${entity.description}
+                        <div class="row" style="padding-top: 60px">
+                            <h4>Các bài viết tương tự</h4>
+                            <c:forEach var="ran" items="${requestScope.ran3}">
+                                <div class="row">
+                                    >>>> <a href="ProcessServlet?location=read&id=${ran.id}">${ran.title}</a>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
                 </div>
             </div>
 
