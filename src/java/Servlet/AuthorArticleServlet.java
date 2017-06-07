@@ -5,12 +5,12 @@
  */
 package Servlet;
 
-import Entities.News;
+import Entities.AuthorArticle;
 import Resources.Resource;
-import Services.MainService;
+import Services.AuthorArticleService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class ArticleServlet extends HttpServlet {
+public class AuthorArticleServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,22 +34,21 @@ public class ArticleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String id = request.getParameter("id");
         try {
-            MainService service = new MainService();
-            int number = Integer.parseInt(id);
-            News news = service.GetNewsById(number);
-            if (news != null) {
-                request.setAttribute("news", news);
+            if (id != null) {
+                int i = Integer.parseInt(id);
+                AuthorArticleService service = new AuthorArticleService();
+                AuthorArticle article = service.GetAuthorArticleById(i);
+                request.setAttribute("auArticle", article);
             }
-            List<News> ran3 = service.Random3News();
-            request.setAttribute("ran3", ran3);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorArticleServlet_Page);
+            rd.forward(request, response);
         }
-        
-        request.getRequestDispatcher(Resource.ArticleServlet_Page).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

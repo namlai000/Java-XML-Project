@@ -5,12 +5,14 @@
  */
 package Servlet;
 
-import Entities.News;
+import Entities.Author;
+import Entities.AuthorArticle;
 import Resources.Resource;
-import Services.MainService;
+import Services.AuthorService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class ArticleServlet extends HttpServlet {
+public class AuthorDetailServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,19 +39,20 @@ public class ArticleServlet extends HttpServlet {
         
         String id = request.getParameter("id");
         try {
-            MainService service = new MainService();
-            int number = Integer.parseInt(id);
-            News news = service.GetNewsById(number);
-            if (news != null) {
-                request.setAttribute("news", news);
+            AuthorService service = new AuthorService();
+            int i = Integer.parseInt(id);
+            Author author = service.getAuthorById(i);
+            if (author != null) {
+                List<AuthorArticle> articleList = service.GetAuthorArticleListByAuthorId(author.getId());
+                request.setAttribute("author", author);
+                request.setAttribute("articlesList", articleList);
             }
-            List<News> ran3 = service.Random3News();
-            request.setAttribute("ran3", ran3);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorDetailServlet_Page);
+            rd.forward(request, response);
         }
-        
-        request.getRequestDispatcher(Resource.ArticleServlet_Page).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

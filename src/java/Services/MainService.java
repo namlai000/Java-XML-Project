@@ -41,6 +41,15 @@ public class MainService {
     public List<News> GetTop5RecentNews() {
         return Temporary.getNews().subList(0, 5);
     }
+    
+    public List<News> Random3News() {
+        List<News> random3 = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            random3.add(Temporary.getNews().get(new Random().nextInt(GetNewsLength())));
+        }
+        
+        return random3;
+    }
 
     public News GetNewsById(int id) {
         for (News n : Temporary.getNews()) {
