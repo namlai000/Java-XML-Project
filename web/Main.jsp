@@ -69,6 +69,7 @@
                                             </div>
                                             <div class="article-text">
                                                 <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
+                                                <h5>${entity.author}</h5>
                                                 <div>${fn:substring(entity.description, 0, 250)}</div>
                                             </div>
                                             <div style="float: bottom">

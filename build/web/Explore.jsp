@@ -35,7 +35,8 @@
                                                     </div>
                                                     <div>
                                                         <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                                            ${entity.description}
+                                                        <h5>${entity.author}</h5>
+                                                        ${entity.description}
                                                     </div>
                                                     <div class="break-line">
                                                         <hr/>
@@ -47,7 +48,8 @@
                                                     </div>
                                                     <div class="article-text">
                                                         <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h4>
-                                                            ${entity.description}
+                                                        <h5>${entity.author}</h5>    
+                                                        ${entity.description}
                                                     </div>
                                                 </c:otherwise>
                                             </c:choose>
@@ -59,18 +61,18 @@
                         <hr/>
                         <div style="float: left">
                             Trang ${param.page}<c:if test="${empty param.page}">1</c:if> trong tổng số ${fn:length(requestScope.pages)}
-                        </div>
-                        <div style="float: right">
+                            </div>
+                            <div style="float: right">
                             <c:forEach var="pages" items="${requestScope.pages}" >
                                 <span>
                                     <a href="ProcessServlet?location=explore&menu=${param.menu}&page=${pages}">
                                         <button type="button">
                                             <c:if test="${pages eq param.page}"><b></c:if>
-                                            ${pages}
-                                            <c:if test="${pages eq param.page}"></b></c:if>
-                                        </button>
-                                    </a>
-                                </span>
+                                                ${pages}
+                                                <c:if test="${pages eq param.page}"></b></c:if>
+                                            </button>
+                                        </a>
+                                    </span>
                             </c:forEach>
                         </div>
                     </c:if>
