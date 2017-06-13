@@ -44,6 +44,10 @@ li {
     vertical-align: middle;
 }
 
+a {
+    text-decoration: none;
+}
+
 .cover {
     padding: 8px 8px 8px 8px;
 }
