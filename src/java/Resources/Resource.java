@@ -9,9 +9,8 @@ package Resources;
  *
  * @author thegu
  */
-public class Resource {
-    public final static String URL_EXPLORE_PARTIAL = "PartialPages/ExplorePartial.jsp";
-    
+public class Resource { 
+    public final static String ProcessServlet = "ProcessServlet";
     public final static String MainServlet = "MainServlet";
     public final static String MainServlet_Page = "Main.jsp";
     public final static String ExploreServlet = "ExploreServlet";
@@ -24,4 +23,6 @@ public class Resource {
     public final static String AuthorArticleServlet_Page = "AuthorArticle.jsp";
     public final static String AuthorDetailServlet = "AuthorDetailServlet";
     public final static String AuthorDetailServlet_Page = "AuthorDetail.jsp";
+    public final static String LoginServlet = "LoginServlet";
+    public final static String LoginServlet_Page = "Login.jsp";
 }

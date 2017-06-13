@@ -5,7 +5,19 @@
     <table border="0">
         <tr class="nav-header">
             <td colspan="5">
-                <h2>Title Placeholder</h2>
+                <h2>
+                    Title Placeholder
+                    <span style="display: inline-table; float: right;">
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.username and not empty sessionScope.password}">
+                                <span class="small-avatar"><img src="Images/avatar.png" alt=""/></span> ${sessionScope.username} ${sessionScope.password}
+                            </c:when>
+                            <c:otherwise>
+                                <a href="ProcessServlet?location=loginPage">Login / Sign Up</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </span>
+                </h2>
             </td>
         </tr>
         <tr class="nav-bar">
@@ -16,9 +28,7 @@
                 <a href="ProcessServlet?location=explore">Khám Phá</a>
             </td>
             <td>
-                <a href="ProcessServlet?location=author">Góc nhìn</a></td>
-            <td>
-                Thế giới trò chơi
+                <a href="ProcessServlet?location=author">Góc nhìn</a>
             </td>
             <td>
                 Về chúng tôi

@@ -48,6 +48,10 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.AuthorArticleServlet;
             } else if (requestLocation.equals("detail")) {
                 url = Resource.AuthorDetailServlet;
+            } else if (requestLocation.equals("login")) {
+                url = Resource.LoginServlet;
+            } else if (requestLocation.equals("loginPage")) {
+                url = Resource.LoginServlet_Page;
             }
 
             RequestDispatcher rd = request.getRequestDispatcher(url);
