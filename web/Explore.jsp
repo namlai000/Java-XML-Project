@@ -50,7 +50,7 @@
                                     <a href="ProcessServlet?location=explore&menu=${entity.id}">
                                         <c:if test="${param.menu eq entity.id}"><b></c:if>
                                             ${entity.categoryName}
-                                        <c:if test="${param.menu eq entity.id}"></b></c:if>
+                                            <c:if test="${param.menu eq entity.id}"></b></c:if>
                                         </a>
                                     </li>
                             </c:forEach>
@@ -68,11 +68,11 @@
                                             <c:choose>
                                                 <c:when test="${status.first and ((empty param.page) or (param.page eq 1))}">
                                                     <div class="first-image">
-                                                        <img src="${entity.image}" alt="" />
+                                                        <img src="${entity.tblNewsList[0].tblImageList[0].link}" />
                                                     </div>
                                                     <div>
-                                                        <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                                        <h5>${entity.author}</h5>
+                                                        <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h2>
+                                                        <h5>${entity.tblNewsList[0].authorID.lastname}</h5>
                                                         ${entity.description}
                                                     </div>
                                                     <div class="break-line">
@@ -81,11 +81,11 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="article-image">
-                                                        <img src="${entity.image}" alt=""/>
+                                                        <img src="${entity.tblNewsList[0].tblImageList[0].link}" />
                                                     </div>
                                                     <div class="article-text">
-                                                        <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h4>
-                                                        <h5>${entity.author}</h5>    
+                                                        <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h4>
+                                                        <h5>${entity.tblNewsList[0].authorID.lastname}</h5>
                                                         ${entity.description}
                                                     </div>
                                                 </c:otherwise>

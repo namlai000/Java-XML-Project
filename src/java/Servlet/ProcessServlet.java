@@ -34,6 +34,8 @@ public class ProcessServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String url = Resource.MainServlet;
+            
+            Resource.LOCATION_PATH = getServletContext().getRealPath("/");
 
             String requestLocation = request.getParameter("location");
             if (requestLocation == null || requestLocation.isEmpty()) {

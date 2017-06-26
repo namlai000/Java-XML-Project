@@ -7,6 +7,7 @@ package Servlet;
 
 import Entities.News;
 import Entities.TblCategory;
+import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.ExploreService;
 import Services.MainService;
@@ -38,7 +39,7 @@ public class ExploreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        List<News> list = null;
+        List<TblNewsHeader> list = null;
         String menu = request.getParameter("menu");
         String page = request.getParameter("page");
         int i = 0;
@@ -50,16 +51,18 @@ public class ExploreServlet extends HttpServlet {
                 menu = "1";
             }
 
-            MainService service = new MainService();
+            ExploreService service = new ExploreService();            
             int p = Integer.parseInt(page);
-            list = service.GetNewsByPage(p);
-            i = service.GetNewsLength();
-
+            int m = Integer.parseInt(menu);
+            
+            list = service.GetNewsByPage(p, m);
             request.setAttribute("exploreList", list);
+            
+            i = service.GetNewsLength(m);
             request.setAttribute("pages", getPages(i));
             
-            ExploreService service2 = new ExploreService();
-            List<TblCategory> list2 = service2.getAllCategories();
+            
+            List<TblCategory> list2 = service.getAllCategories();
             request.setAttribute("menuList", list2);
         } catch (Exception e) {
             e.printStackTrace();

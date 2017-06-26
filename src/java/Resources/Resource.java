@@ -27,4 +27,6 @@ public class Resource {
     public final static String LoginServlet_Page = "Login.jsp";
     
     public final static String Persistence = "JAVAXMLPROJECTPU";
+    
+    public static String LOCATION_PATH = "none";
 }
