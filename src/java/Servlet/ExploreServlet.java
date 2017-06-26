@@ -6,7 +6,9 @@
 package Servlet;
 
 import Entities.News;
+import Entities.TblCategory;
 import Resources.Resource;
+import Services.ExploreService;
 import Services.MainService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +57,10 @@ public class ExploreServlet extends HttpServlet {
 
             request.setAttribute("exploreList", list);
             request.setAttribute("pages", getPages(i));
+            
+            ExploreService service2 = new ExploreService();
+            List<TblCategory> list2 = service2.getAllCategories();
+            request.setAttribute("menuList", list2);
         } catch (Exception e) {
             e.printStackTrace();
         }

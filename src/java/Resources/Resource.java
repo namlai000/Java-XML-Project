@@ -25,4 +25,6 @@ public class Resource {
     public final static String AuthorDetailServlet_Page = "AuthorDetail.jsp";
     public final static String LoginServlet = "LoginServlet";
     public final static String LoginServlet_Page = "Login.jsp";
+    
+    public final static String Persistence = "JAVAXMLPROJECTPU";
 }
