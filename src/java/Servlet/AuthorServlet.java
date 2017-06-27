@@ -49,7 +49,7 @@ public class AuthorServlet extends HttpServlet {
             AuthorArticleService auService = new AuthorArticleService();
             request.setAttribute("authorList", auService.GetAuthorArticlesByPage(i));
 
-            i = auService.GetAuthorArticlesSize();
+            i = (int)auService.GetAuthorArticlesSize();
             request.setAttribute("pages", getPages(i));
         } catch (Exception e) {
             e.printStackTrace();

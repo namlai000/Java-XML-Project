@@ -12,10 +12,10 @@
 
 <html>
     <c:set var="entity" value="${requestScope.auArticle}"/>
-    <c:set var="blank" value="${empty entity.title}"/>
+    <c:set var="blank" value="${empty entity.tittle}"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${blank ? 'Not Found' : entity.title} - Website Name</title>
+        <title>${blank ? 'Not Found' : entity.tittle} - Website Name</title>
     </head>
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
@@ -26,18 +26,20 @@
             <div class="body-main">
                 <div class="row">
                     <div class="auArticle-image">
-                        <img src="${entity.author.image}"/>
+                        <img src="Images/avatar.png"/>
                     </div>
                     <div class="auArticle-text">
-                        <h2>${entity.title}</h2>
-                        <h5>${entity.author.firstname}<i> </i>${entity.author.lastname}</h5>
+                        <h2>${entity.tittle}</h2>
+                        <h3><a href="ProcessServlet?location=detail&id=${entity.tblNewsList[0].authorID.userId.id}">${entity.tblNewsList[0].authorID.lastname}</a></h3>
                         <hr/>
                         ${entity.description}
+                        <br/>
+                        ${entity.tblNewsList[0].content}
                         <div class="row" style="padding-top: 60px">
                             <h4>Các bài viết tương tự</h4>
                             <c:forEach var="ran" items="${requestScope.ran3}">
                                 <div class="row">
-                                    >>>> <a href="ProcessServlet?location=read&id=${ran.id}">${ran.title}</a>
+                                    >>>> <a href="ProcessServlet?location=read&id=${ran.id}">${ran.tittle}</a>
                                 </div>
                             </c:forEach>
                         </div>

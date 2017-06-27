@@ -29,4 +29,8 @@ public class Resource {
     public final static String Persistence = "JAVAXMLPROJECTPU";
     
     public static String LOCATION_PATH = "none";
+    
+    public static int ROLE_JOURNALIST = 1;
+    public static int ROLE_AUTHORIZEDUSER = 2;
+    public static int ROLE_NORMALUSER = 3;
 }

@@ -5,7 +5,6 @@
  */
 package Servlet;
 
-import Entities.News;
 import Entities.TblNews;
 import Entities.TblNewsHeader;
 import Resources.Resource;

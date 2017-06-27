@@ -5,9 +5,6 @@
  */
 package Services;
 
-import Entities.Author;
-import Entities.AuthorArticle;
-import Entities.News;
 import Entities.TblCategory;
 import Entities.TblNews;
 import Entities.TblNewsHeader;
@@ -34,50 +31,9 @@ public class MainService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> GetTop5RecentNews() {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT TOP 5 c FROM TblNewsHeader c ORDER BY c.date DESC", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID e JOIN e.userId f WHERE f.role.id = :role ORDER BY c.date DESC", TblNewsHeader.class);
+        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        query.setMaxResults(5);
         return query.getResultList();
-    }
-}
-
-class Temporary {
-
-    private static List<News> listNews;
-    private static List<Author> listAuthor;
-    private static List<AuthorArticle> listArticles;
-
-    public static List<News> getNews() {
-        if (listNews == null) {
-            listNews = new ArrayList<>();
-
-            for (int i = 0; i < 45; i++) {
-                listNews.add(new News(i, "Title " + i, "Images/placeholder-blue.png", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." + i, "Author " + i, Calendar.getInstance().getTime()));
-            }
-        }
-
-        return listNews;
-    }
-
-    public static List<Author> getAuthors() {
-        if (listAuthor == null) {
-            listAuthor = new ArrayList<>();
-
-            for (int i = 0; i < 20; i++) {
-                listAuthor.add(new Author(i, "Images/avatar.png", "Firstname " + i, "Lastname " + i, "Address " + i, "Lorem ipsum author " + i, Calendar.getInstance().getTime()));
-            }
-        }
-
-        return listAuthor;
-    }
-
-    public static List<AuthorArticle> getAuthorArticles() {
-        if (listArticles == null) {
-            listArticles = new ArrayList<>();
-            Random random = new Random();
-            for (int i = 0; i < 25; i++) {
-                listArticles.add(new AuthorArticle(i, "Title" + i, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." + i, Calendar.getInstance().getTime(), getAuthors().get(random.nextInt(getAuthors().size()))));
-            }
-        }
-
-        return listArticles;
     }
 }

@@ -5,11 +5,15 @@
  */
 package Services;
 
-import Entities.Author;
-import Entities.AuthorArticle;
-import Entities.News;
+import Entities.TblNewsHeader;
+import Entities.TblUserInfo;
+import Resources.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -17,37 +21,36 @@ import java.util.List;
  */
 public class AuthorService {
 
-    public List<Author> getTop5Authors() {
-        return Temporary.getAuthors().subList(0, 5);
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
+    private EntityManager em = emf.createEntityManager();
+
+    public List<TblUserInfo> getTop5Authors() {
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.userId.role.id = :id ORDER BY c.birthday DESC", TblUserInfo.class);
+        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        return query.getResultList();
     }
 
-    public List<Author> getNewest10Authors() {
-        return Temporary.getAuthors().subList(0, 10);
+    public List<TblUserInfo> getNewest10Authors() {
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.userId.role.id = :id ORDER BY c.birthday ASC", TblUserInfo.class);
+        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        return query.getResultList();
     }
 
-    public List<Author> getAllAuthor() {
-        return Temporary.getAuthors();
+    public List<TblUserInfo> getAllAuthor() {
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.userId.role.id = :id", TblUserInfo.class);
+        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        return query.getResultList();
     }
 
-    public Author getAuthorById(int id) {
-        for (Author au : Temporary.getAuthors()) {
-            if (au.getId() == id) {
-                return au;
-            }
-        }
-        return null;
+    public TblUserInfo getAuthorById(int id) {
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.userId.id = :id", TblUserInfo.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
-    public List<AuthorArticle> GetAuthorArticleListByAuthorId(int authorId) {
-        List<AuthorArticle> list = null;
-        for (AuthorArticle n : Temporary.getAuthorArticles()) {
-            if (n.getAuthor().getId() == authorId) {
-                if (list == null) {
-                    list = new ArrayList<>();
-                }
-                list.add(n);
-            }
-        }
-        return list;
+    public List<TblNewsHeader> GetAuthorArticleListByAuthorId(int authorId) {
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID e WHERE e.userId.id = :id", TblNewsHeader.class);
+        query.setParameter("id", authorId);
+        return query.getResultList();
     }
 }

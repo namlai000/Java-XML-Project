@@ -5,7 +5,6 @@
  */
 package Servlet;
 
-import Entities.News;
 import Entities.TblCategory;
 import Entities.TblNewsHeader;
 import Resources.Resource;
@@ -42,7 +41,7 @@ public class ExploreServlet extends HttpServlet {
         List<TblNewsHeader> list = null;
         String menu = request.getParameter("menu");
         String page = request.getParameter("page");
-        int i = 0;
+        long i = 0;
         try {
             if (page == null || page.isEmpty() || !isInteger(page)) {
                 page = "1";
@@ -59,8 +58,7 @@ public class ExploreServlet extends HttpServlet {
             request.setAttribute("exploreList", list);
             
             i = service.GetNewsLength(m);
-            request.setAttribute("pages", getPages(i));
-            
+            request.setAttribute("pages", getPages((int)i));
             
             List<TblCategory> list2 = service.getAllCategories();
             request.setAttribute("menuList", list2);

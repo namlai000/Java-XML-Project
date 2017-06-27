@@ -5,7 +5,6 @@
  */
 package Services;
 
-import Entities.News;
 import Entities.TblCategory;
 import Entities.TblNewsHeader;
 import Resources.Resource;
@@ -31,14 +30,15 @@ public class ExploreService {
     }
 
     public List<TblNewsHeader> GetNewsByPage(int page, int menu) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e WHERE e.id = :menu", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE e.id = :menu AND g.role.id = :role", TblNewsHeader.class);
         query.setParameter("menu", menu);
+        query.setParameter("role", Resource.ROLE_JOURNALIST);
 
         if (page == 1) {
             query.setFirstResult(0);
             query.setMaxResults(10);
             return query.getResultList();
-        } else if (page > 1 && page * 10 < GetNewsLength(menu)) {
+        } else if (page > 1 && page * 10 < (int)GetNewsLength(menu)) {
             query.setFirstResult(page * 10);
             query.setMaxResults(10);
             return query.getResultList();
@@ -47,9 +47,10 @@ public class ExploreService {
         return null;
     }
 
-    public int GetNewsLength(int menu) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e WHERE e.id = :menu", TblNewsHeader.class);
+    public long GetNewsLength(int menu) {
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE e.id = :menu AND g.role.id = :role", long.class);
         query.setParameter("menu", menu);
-        return query.getResultList().size();
+        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        return (long)query.getSingleResult();
     }
 }

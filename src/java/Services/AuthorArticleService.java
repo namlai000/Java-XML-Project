@@ -5,11 +5,15 @@
  */
 package Services;
 
-import Entities.AuthorArticle;
-import Entities.News;
+import Entities.TblNewsHeader;
+import Resources.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -17,37 +21,44 @@ import java.util.Random;
  */
 public class AuthorArticleService {
 
-    public List<AuthorArticle> GetAuthorArticlesByPage(int page) {
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
+    private EntityManager em = emf.createEntityManager();
+
+    public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", TblNewsHeader.class);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+
         if (page == 1) {
-            return Temporary.getAuthorArticles().subList(0, 10);
-        } else if (page > 1 && page * 10 < GetAuthorArticlesSize()) {
-            return Temporary.getAuthorArticles().subList(page * 10 - 10, page * 10);
-        } else if (page > 1 && page * 10 >= GetAuthorArticlesSize()) {
-            return Temporary.getAuthorArticles().subList(page * 10 - 10, GetAuthorArticlesSize());
+            query.setFirstResult(0);
+            query.setMaxResults(10);
+            return query.getResultList();
+        } else if (page > 1 && page * 10 < (int) GetAuthorArticlesSize()) {
+            query.setFirstResult(page * 10);
+            query.setMaxResults(10);
+            return query.getResultList();
         }
 
         return null;
     }
 
-    public AuthorArticle GetAuthorArticleById(int id) {
-        for (AuthorArticle n : Temporary.getAuthorArticles()) {
-            if (n.getId() == id) {
-                return n;
-            }
-        }
-        return null;
+    public TblNewsHeader GetAuthorArticleById(int id) {
+        TblNewsHeader news = em.find(TblNewsHeader.class, id);
+        return news;
     }
 
-    public int GetAuthorArticlesSize() {
-        return Temporary.getAuthorArticles().size();
+    public long GetAuthorArticlesSize() {
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", long.class);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+        return (long) query.getSingleResult();
     }
 
-    public List<AuthorArticle> Random3Articles() {
-        List<AuthorArticle> random3 = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            random3.add(Temporary.getAuthorArticles().get(new Random().nextInt(GetAuthorArticlesSize())));
-        }
-
-        return random3;
+    public List<TblNewsHeader> Random3Articles() {
+        int size = (int)GetAuthorArticlesSize();
+        int random = new Random().nextInt(size);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", TblNewsHeader.class);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+        query.setFirstResult(random);
+        query.setMaxResults(3);
+        return query.getResultList();
     }
 }

@@ -28,7 +28,7 @@
                     <c:forEach var="en" items="${au1}">
                         <div class="container-item">
                             <div>
-                                <img src="${en.image}"/>
+                                <img src="Images/avatar.png"/>
                             </div>
                             <h4><a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a></h4>
                         </div>
@@ -46,7 +46,7 @@
                                 <li>
                                     <div class="container">
                                         <div class="small-avatar">
-                                            <img src="${en.image}"/>
+                                            <img src="Images/avatar.png"/>
                                         </div>
                                         <div>
                                             <a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a> 
@@ -64,11 +64,11 @@
                                 <tr>
                                     <td>
                                         <div class="article-image avatar">
-                                            <img src="${en.author.image}"/>
+                                            <img src="Images/avatar.png"/>
                                         </div>
                                         <div class="article-text">
-                                            <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.title}</a></h3>
-                                            <h5><a href="ProcessServlet?location=detail&id=${en.author.id}">${en.author.firstname}<i> </i>${en.author.lastname}</a></h5>
+                                            <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.tittle}</a></h3>
+                                            <h5><a href="ProcessServlet?location=detail&id=${en.tblNewsList[0].authorID.userId.id}">${en.tblNewsList[0].authorID.lastname}</a></h5>
                                             <hr/>
                                             ${en.description}
                                         </div>

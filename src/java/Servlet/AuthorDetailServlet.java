@@ -5,8 +5,6 @@
  */
 package Servlet;
 
-import Entities.Author;
-import Entities.AuthorArticle;
 import Resources.Resource;
 import Services.AuthorArticleService;
 import Services.AuthorService;
@@ -42,12 +40,12 @@ public class AuthorDetailServlet extends HttpServlet {
         try {
             AuthorService service = new AuthorService();
             int i = Integer.parseInt(id);
-            Author author = service.getAuthorById(i);
-            if (author != null) {
-                List<AuthorArticle> articleList = service.GetAuthorArticleListByAuthorId(author.getId());
-                request.setAttribute("author", author);
-                request.setAttribute("articlesList", articleList);
-            }
+//            Author author = service.getAuthorById(i);
+//            if (author != null) {
+//                List<AuthorArticle> articleList = service.GetAuthorArticleListByAuthorId(author.getId());
+//                request.setAttribute("author", author);
+//                request.setAttribute("articlesList", articleList);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

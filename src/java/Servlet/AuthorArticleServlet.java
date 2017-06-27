@@ -5,7 +5,7 @@
  */
 package Servlet;
 
-import Entities.AuthorArticle;
+import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.AuthorArticleService;
 import java.io.IOException;
@@ -41,10 +41,11 @@ public class AuthorArticleServlet extends HttpServlet {
             if (id != null) {
                 int i = Integer.parseInt(id);
                 AuthorArticleService service = new AuthorArticleService();
-                AuthorArticle article = service.GetAuthorArticleById(i);
+                
+                TblNewsHeader article = service.GetAuthorArticleById(i);
                 request.setAttribute("auArticle", article);
 
-                List<AuthorArticle> list = service.Random3Articles();
+                List<TblNewsHeader> list = service.Random3Articles();
                 request.setAttribute("ran3", list);
             }
         } catch (Exception e) {

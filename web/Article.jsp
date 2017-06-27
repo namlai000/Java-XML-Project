@@ -12,10 +12,10 @@
 
 <html>
     <c:set var="entity" value="${requestScope.news}"/>
-    <c:set var="blank" value="${empty entity.title}"/>
+    <c:set var="blank" value="${empty entity.tittle}"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${blank ? 'Not Found' : entity.title} - Website Name</title>
+        <title>${blank ? 'Not Found' : entity.tittle} - Website Name</title>
     </head>
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
@@ -29,7 +29,7 @@
                         <h1>${entity.tittle}</h1>
                         <h3>${entity.tblNewsList[0].authorID.lastname}</h3>
                     </div>
-                    <div>
+                    <div style="margin-bottom: 18px;">
                         <b>${entity.description}</b>
                     </div>
                     <div class="news-image">
