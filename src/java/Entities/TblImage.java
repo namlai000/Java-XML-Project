@@ -17,8 +17,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  *
@@ -26,6 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tblImage")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TblImage", propOrder = {
+    "id",
+    "description",
+    "origin",
+    "link",
+    "tblNewsList"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblImage.findAll", query = "SELECT t FROM TblImage t")
@@ -51,6 +64,7 @@ public class TblImage implements Serializable {
         @JoinColumn(name = "ImageID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "NewsID")})
     @ManyToMany
+    @XmlElement(name = "TblNews")
     private List<TblNews> tblNewsList;
 
     public TblImage() {
@@ -130,5 +144,5 @@ public class TblImage implements Serializable {
     public String toString() {
         return "Entities.TblImage[ id=" + id + " ]";
     }
-    
+
 }

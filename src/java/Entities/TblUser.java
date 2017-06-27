@@ -18,8 +18,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -27,6 +31,14 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tblUser")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TblUser", propOrder = {
+    "id",
+    "username",
+    "password",
+    "role",
+    "tblUserInfoList"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblUser.findAll", query = "SELECT t FROM TblUser t")
@@ -50,6 +62,7 @@ public class TblUser implements Serializable {
     @ManyToOne(optional = false)
     private TblRole role;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @XmlElement(name = "TblUserInfo")
     private List<TblUserInfo> tblUserInfoList;
 
     public TblUser() {

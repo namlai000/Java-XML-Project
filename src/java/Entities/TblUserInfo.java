@@ -20,8 +20,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -29,6 +33,20 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tblUserInfo")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TblUserInfo", propOrder = {
+    "id",
+    "firstname",
+    "middlename",
+    "lastname",
+    "address",
+    "phone",
+    "iDNumber",
+    "imageID",
+    "birthday",
+    "tblNewsList",
+    "userId"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblUserInfo.findAll", query = "SELECT t FROM TblUserInfo t")
@@ -69,6 +87,7 @@ public class TblUserInfo implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @OneToMany(mappedBy = "authorID")
+    @XmlElement(name = "TblNews")
     private List<TblNews> tblNewsList;
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
     @ManyToOne(optional = false)

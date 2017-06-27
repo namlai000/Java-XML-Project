@@ -9,15 +9,15 @@ import Entities.TblCategory;
 import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.ExploreService;
-import Services.MainService;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -50,22 +50,22 @@ public class ExploreServlet extends HttpServlet {
                 menu = "1";
             }
 
-            ExploreService service = new ExploreService();            
+            ExploreService service = new ExploreService();
             int p = Integer.parseInt(page);
             int m = Integer.parseInt(menu);
-            
+
             list = service.GetNewsByPage(p, m);
             request.setAttribute("exploreList", list);
-            
+
             i = service.GetNewsLength(m);
-            request.setAttribute("pages", getPages((int)i));
-            
+            request.setAttribute("pages", getPages((int) i));
+
             List<TblCategory> list2 = service.getAllCategories();
             request.setAttribute("menuList", list2);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
     }
 

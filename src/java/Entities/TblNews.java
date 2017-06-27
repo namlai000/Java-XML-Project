@@ -18,8 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -27,6 +31,15 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tblNews")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TblNews", propOrder = {
+    "newsID",
+    "content",
+    "tblImageList",
+    "tblCategoryList",
+    "headerID",
+    "authorID"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblNews.findAll", query = "SELECT t FROM TblNews t")
@@ -43,8 +56,10 @@ public class TblNews implements Serializable {
     @Column(name = "Content")
     private String content;
     @ManyToMany(mappedBy = "tblNewsList")
+    @XmlElement(name = "TblImage")
     private List<TblImage> tblImageList;
     @ManyToMany(mappedBy = "tblNewsList")
+    @XmlElement(name = "TblCategory")
     private List<TblCategory> tblCategoryList;
     @JoinColumn(name = "HeaderID", referencedColumnName = "Id")
     @ManyToOne(optional = false)
@@ -139,5 +154,5 @@ public class TblNews implements Serializable {
     public String toString() {
         return "Entities.TblNews[ newsID=" + newsID + " ]";
     }
-    
+
 }

@@ -17,8 +17,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -26,6 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tblCategory")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "TblCategory", propOrder = {
+    "id",
+    "categoryName",
+    "tblNewsList"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblCategory.findAll", query = "SELECT t FROM TblCategory t")
@@ -45,6 +55,7 @@ public class TblCategory implements Serializable {
         @JoinColumn(name = "CategoryID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "NewsID")})
     @ManyToMany
+    @XmlElement(name = "TblNews")
     private List<TblNews> tblNewsList;
 
     public TblCategory() {
