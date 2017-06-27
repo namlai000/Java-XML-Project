@@ -6,7 +6,9 @@
 package Servlet;
 
 import Entities.News;
+import Entities.TblNewsHeader;
 import Resources.Resource;
+import Services.ArticleService;
 import Services.MainService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,21 +36,21 @@ public class ArticleServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String id = request.getParameter("id");
         try {
-            MainService service = new MainService();
+            ArticleService service = new ArticleService();
             int number = Integer.parseInt(id);
-            News news = service.GetNewsById(number);
+            TblNewsHeader news = service.GetNewsById(number);
             if (news != null) {
                 request.setAttribute("news", news);
+                List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNewsList().get(0).getTblCategoryList());
+                request.setAttribute("ran3", ran3);
             }
-            List<News> ran3 = service.Random3News();
-            request.setAttribute("ran3", ran3);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         request.getRequestDispatcher(Resource.ArticleServlet_Page).forward(request, response);
     }
 

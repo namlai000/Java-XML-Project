@@ -6,6 +6,8 @@
 package Servlet;
 
 import Entities.News;
+import Entities.TblNews;
+import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.MainService;
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class MainServlet extends HttpServlet {
         
         try {
             MainService service = new MainService();
-            List<News> list = service.GetTop5RecentNews();
+            List<TblNewsHeader> list = service.GetTop5RecentNews();
             request.setAttribute("result", list);
         } catch (Exception e) {
             e.printStackTrace();

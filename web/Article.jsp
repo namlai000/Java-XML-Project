@@ -26,14 +26,19 @@
             <div class="body-main">
                 <div class="row">
                     <div>
-                        <h1>${entity.title}</h1>
-                        <h3>${entity.author}</h3>
-                    </div>
-                    <div class="news-image">
-                        <img src="${entity.image}"/>
+                        <h1>${entity.tittle}</h1>
+                        <h3>${entity.tblNewsList[0].authorID.lastname}</h3>
                     </div>
                     <div>
-                        ${entity.description}
+                        <b>${entity.description}</b>
+                    </div>
+                    <div class="news-image">
+                        <c:forEach var="image" items="${entity.tblNewsList[0].tblImageList}">
+                            <img src="${image.link}" alt=""/>                            
+                        </c:forEach>
+                    </div>
+                    <div>
+                        ${entity.tblNewsList[0].content}
                     </div>
                     <div>
                         <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
@@ -44,7 +49,7 @@
                     <h4>Các bài báo tương tự</h4>
                     <c:forEach var="ran" items="${requestScope.ran3}">
                         <div class="row">
-                            >>>> <a href="ProcessServlet?location=article&id=${ran.id}">${ran.title}</a>
+                            >>>> <a href="ProcessServlet?location=article&id=${ran.id}">${ran.tittle}</a>
                         </div>
                     </c:forEach>
                 </div>

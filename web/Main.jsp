@@ -65,12 +65,12 @@
                                     <tr>
                                         <td>
                                             <div class="article-image">
-                                                <img src="${entity.image}" alt=""/>
+                                                <img src="${entity.tblNewsList[0].tblImageList[0].link}" alt=""/>
                                             </div>
                                             <div class="article-text">
-                                                <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h2>
-                                                <h5>${entity.author}</h5>
-                                                <div>${fn:substring(entity.description, 0, 250)}</div>
+                                                <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h2>
+                                                <h5>${entity.tblNewsList[0].authorID.lastname}</h5>
+                                                ${entity.description}
                                             </div>
                                             <div style="float: bottom">
                                                 <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />

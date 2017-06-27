@@ -8,6 +8,10 @@ package Services;
 import Entities.Author;
 import Entities.AuthorArticle;
 import Entities.News;
+import Entities.TblCategory;
+import Entities.TblNews;
+import Entities.TblNewsHeader;
+import Resources.Resource;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,6 +19,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,42 +30,12 @@ import java.util.Random;
  */
 public class MainService {
 
-    public List<News> GetNewsByPage(int page) {
-        if (page == 1) {
-            return Temporary.getNews().subList(0, 10);
-        } else if (page > 1 && page * 10 < GetNewsLength()) {
-            return Temporary.getNews().subList(page * 10 - 10, page * 10);
-        } else if (page > 1 && page * 10 >= GetNewsLength()) {
-            return Temporary.getNews().subList(page * 10 - 10, GetNewsLength());
-        }
-        
-        return null;
-    }
-    
-    public int GetNewsLength() {
-        return Temporary.getNews().size();
-    }
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
+    private EntityManager em = emf.createEntityManager();
 
-    public List<News> GetTop5RecentNews() {
-        return Temporary.getNews().subList(0, 5);
-    }
-    
-    public List<News> Random3News() {
-        List<News> random3 = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            random3.add(Temporary.getNews().get(new Random().nextInt(GetNewsLength())));
-        }
-        
-        return random3;
-    }
-
-    public News GetNewsById(int id) {
-        for (News n : Temporary.getNews()) {
-            if (n.getId() == id) {
-                return n;
-            }
-        }
-        return null;
+    public List<TblNewsHeader> GetTop5RecentNews() {
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT TOP 5 c FROM TblNewsHeader c ORDER BY c.date DESC", TblNewsHeader.class);
+        return query.getResultList();
     }
 }
 
@@ -90,7 +68,7 @@ class Temporary {
 
         return listAuthor;
     }
-    
+
     public static List<AuthorArticle> getAuthorArticles() {
         if (listArticles == null) {
             listArticles = new ArrayList<>();
