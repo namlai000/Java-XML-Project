@@ -24,22 +24,21 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="auArticle-image">
-                    <img src="${author.image}"/>
+                    <img src="Images/avatar.png"/>
                 </div>
                 <div class="auArticle-text">
                     <div class="row">
-                        <h3>${author.firstname}<i> </i>${author.lastname}</h3>
+                        <h3>${author.firstname}<i> </i>${author.middlename}<i> </i>${author.lastname}</h3>
                         <fm:formatDate value="${author.birthday}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
                         Ngày sinh: ${fmDate}<br/>
-                        Tuổi: ${author.getAuthorAge()}<br/>
                         Địa chỉ: ${author.address}<br/>
-                        Tiểu sử: ${author.biography}<br/>
+                        Số điện thoại: ${author.phone}<br/>
                     </div>
                     <div class="break-line">
                         <hr/>
                     </div>
                     <div class="row">
-                        <c:set var="result" value="${requestScope.articlesList}"/>
+                        <c:set var="result" value="${requestScope.author.tblNewsList}"/>
                         <c:if test="${not empty result}">
                             <h2>Các bài viết đã đăng</h2>
                             <div style="margin: 0px auto 0px auto; width: 85%;">
@@ -49,8 +48,8 @@
                                             <tr>
                                                 <td>
                                                     <div>
-                                                        <h3><a href="ProcessServlet?location=article&id=${entity.id}">${entity.title}</a></h3>
-                                                            ${entity.description}
+                                                        <h3><a href="ProcessServlet?location=read&id=${entity.headerID.id}">${entity.headerID.tittle}</a></h3>
+                                                            ${entity.headerID.description}
                                                     </div>
                                                 </td>
                                             </tr>

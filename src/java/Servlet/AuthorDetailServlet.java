@@ -5,6 +5,8 @@
  */
 package Servlet;
 
+import Entities.TblNewsHeader;
+import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.AuthorArticleService;
 import Services.AuthorService;
@@ -40,12 +42,8 @@ public class AuthorDetailServlet extends HttpServlet {
         try {
             AuthorService service = new AuthorService();
             int i = Integer.parseInt(id);
-//            Author author = service.getAuthorById(i);
-//            if (author != null) {
-//                List<AuthorArticle> articleList = service.GetAuthorArticleListByAuthorId(author.getId());
-//                request.setAttribute("author", author);
-//                request.setAttribute("articlesList", articleList);
-//            }
+            TblUserInfo author = service.getAuthorById(i);
+            request.setAttribute("author", author);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
