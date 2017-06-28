@@ -44,8 +44,6 @@ import javax.xml.bind.annotation.XmlType;
     "iDNumber",
     "imageID",
     "birthday",
-    "tblNewsList",
-    "userId"
 })
 @XmlRootElement
 @NamedQueries({
@@ -87,10 +85,11 @@ public class TblUserInfo implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @OneToMany(mappedBy = "authorID")
-    @XmlElement(name = "TblNews")
+    @XmlTransient
     private List<TblNews> tblNewsList;
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
     @ManyToOne(optional = false)
+    @XmlTransient
     private TblUser userId;
 
     public TblUserInfo() {
@@ -220,5 +219,5 @@ public class TblUserInfo implements Serializable {
     public String toString() {
         return "Entities.TblUserInfo[ id=" + id + " ]";
     }
-    
+
 }

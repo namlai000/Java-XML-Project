@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TblCategory", propOrder = {
     "id",
     "categoryName",
-    "tblNewsList"
 })
 @XmlRootElement
 @NamedQueries({
@@ -55,7 +54,7 @@ public class TblCategory implements Serializable {
         @JoinColumn(name = "CategoryID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "NewsID")})
     @ManyToMany
-    @XmlElement(name = "TblNews")
+    @XmlTransient
     private List<TblNews> tblNewsList;
 
     public TblCategory() {

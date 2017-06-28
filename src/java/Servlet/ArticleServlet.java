@@ -9,9 +9,12 @@ import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.ArticleService;
 import Services.MainService;
+import Wrapper.TblNewsHeaderWrapper;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.stream.XMLStreamWriter;
 
 /**
  *
@@ -48,6 +52,14 @@ public class ArticleServlet extends HttpServlet {
                 request.setAttribute("news", news);
                 List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNewsList().get(0).getTblCategoryList());
                 request.setAttribute("ran3", ran3);
+
+                JAXBContext con = JAXBContext.newInstance(TblNewsHeader.class);
+                Marshaller mar = con.createMarshaller();
+                mar.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+                mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                StringWriter writer = new StringWriter();
+                mar.marshal(news, writer);
+                System.out.println(writer.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();

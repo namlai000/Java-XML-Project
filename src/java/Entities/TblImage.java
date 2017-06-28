@@ -23,7 +23,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 /**
  *
@@ -37,7 +36,6 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
     "description",
     "origin",
     "link",
-    "tblNewsList"
 })
 @XmlRootElement
 @NamedQueries({
@@ -64,7 +62,7 @@ public class TblImage implements Serializable {
         @JoinColumn(name = "ImageID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "NewsID")})
     @ManyToMany
-    @XmlElement(name = "TblNews")
+    @XmlTransient
     private List<TblNews> tblNewsList;
 
     public TblImage() {

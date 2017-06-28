@@ -32,9 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TblRole", propOrder = {
     "id",
-    "roleName",
-    "tblUserList"
-})
+    "roleName",})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblRole.findAll", query = "SELECT t FROM TblRole t")
@@ -51,7 +49,7 @@ public class TblRole implements Serializable {
     @Column(name = "RoleName")
     private String roleName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
-    @XmlElement(name = "TblUser")
+    @XmlTransient
     private List<TblUser> tblUserList;
 
     public TblRole() {
@@ -115,5 +113,5 @@ public class TblRole implements Serializable {
     public String toString() {
         return "Entities.TblRole[ id=" + id + " ]";
     }
-    
+
 }

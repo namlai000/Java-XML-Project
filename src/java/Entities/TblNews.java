@@ -37,7 +37,6 @@ import javax.xml.bind.annotation.XmlType;
     "content",
     "tblImageList",
     "tblCategoryList",
-    "headerID",
     "authorID"
 })
 @XmlRootElement
@@ -63,6 +62,7 @@ public class TblNews implements Serializable {
     private List<TblCategory> tblCategoryList;
     @JoinColumn(name = "HeaderID", referencedColumnName = "Id")
     @ManyToOne(optional = false)
+    @XmlTransient
     private TblNewsHeader headerID;
     @JoinColumn(name = "AuthorID", referencedColumnName = "Id")
     @ManyToOne
