@@ -54,8 +54,9 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.LoginServlet;
             } else if (requestLocation.equals("loginPage")) {
                 url = Resource.LoginServlet_Page;
-            }
-
+            } else if (requestLocation.equals("search")) {
+                url = Resource.SearchServlet;
+            }            
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

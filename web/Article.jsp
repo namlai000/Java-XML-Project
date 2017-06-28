@@ -27,7 +27,8 @@
                 <div class="row">
                     <div>
                         <h1>${entity.tittle}</h1>
-                        <h3>${entity.tblNewsList[0].authorID.lastname}</h3>
+                        <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
+                        <h3>${entity.tblNewsList[0].authorID.lastname} | ${fmDate}</h3>
                     </div>
                     <div style="margin-bottom: 18px;">
                         <b>${entity.description}</b>
@@ -39,10 +40,6 @@
                     </div>
                     <div>
                         ${entity.tblNewsList[0].content}
-                    </div>
-                    <div>
-                        <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
-                        ${fmDate}
                     </div>
                 </div>
                 <div class="row" style="padding-top: 60px">

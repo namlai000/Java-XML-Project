@@ -8,16 +8,10 @@
                 <div>
                     <h2 style="display: inline-table">Title Placeholder</h2>
                     <span style="display: inline-table">
-                        <input type="text" name="search" placeholder="Search"/><br/>
-                        <label>
-                            <input type="checkbox" name="author"> Author   
-                        </label>
-                        <label>
-                            <input type="checkbox" name="news"> News   
-                        </label>
-                        <label>
-                            <input type="checkbox" name="article"> Article   
-                        </label>
+                        <form id="form" action="ProcessServlet">
+                            <input type="hidden" name="location" value="search"/>
+                            <input id="txtSearch" type="text" name="query" placeholder="Search"/>
+                        </form>
                     </span>
                     <span style="display: inline-table; float: right; margin-top: 30px">
                         <c:choose>
@@ -48,3 +42,12 @@
         </tr>
     </table>
 </div>
+
+<script>
+    document.getElementById("txtSearch")
+            .addEventListener("keydown", function (event) {
+                if (event.keyCode == 13) {
+                    document.getElementById("form").submit();
+                }
+            });
+</script>

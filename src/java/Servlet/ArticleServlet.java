@@ -52,14 +52,6 @@ public class ArticleServlet extends HttpServlet {
                 request.setAttribute("news", news);
                 List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNewsList().get(0).getTblCategoryList());
                 request.setAttribute("ran3", ran3);
-
-                JAXBContext con = JAXBContext.newInstance(TblNewsHeader.class);
-                Marshaller mar = con.createMarshaller();
-                mar.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-                mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                StringWriter writer = new StringWriter();
-                mar.marshal(news, writer);
-                System.out.println(writer.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
