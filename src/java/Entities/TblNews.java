@@ -53,8 +53,9 @@ public class TblNews implements Serializable {
     private String content;
     @ManyToMany(mappedBy = "tblNewsList", fetch = FetchType.LAZY)
     private List<TblImage> tblImageList;
-    @ManyToMany(mappedBy = "tblNewsList", fetch = FetchType.LAZY)
-    private List<TblSubCategory> tblSubCategoryList;
+    @JoinColumn(name = "CatID", referencedColumnName = "Id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TblSubCategory catID;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "tblNews", fetch = FetchType.LAZY)
     @XmlTransient
     private TblNewsHeader tblNewsHeader;
@@ -99,15 +100,6 @@ public class TblNews implements Serializable {
 
     public void setTblImageList(List<TblImage> tblImageList) {
         this.tblImageList = tblImageList;
-    }
-
-    @XmlTransient
-    public List<TblSubCategory> getTblSubCategoryList() {
-        return tblSubCategoryList;
-    }
-
-    public void setTblSubCategoryList(List<TblSubCategory> tblSubCategoryList) {
-        this.tblSubCategoryList = tblSubCategoryList;
     }
 
     public TblNewsHeader getTblNewsHeader() {
@@ -158,6 +150,14 @@ public class TblNews implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblNews[ headerID=" + headerID + " ]";
+    }
+
+    public TblSubCategory getCatID() {
+        return catID;
+    }
+
+    public void setCatID(TblSubCategory catID) {
+        this.catID = catID;
     }
     
 }

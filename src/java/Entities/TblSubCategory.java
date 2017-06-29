@@ -18,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -50,7 +51,7 @@ public class TblSubCategory implements Serializable {
     @JoinTable(name = "tblNewsCategory", joinColumns = {
         @JoinColumn(name = "CategoryID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "HeaderID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "catID", fetch = FetchType.LAZY)
     @XmlTransient
     private List<TblNews> tblNewsList;
     @JoinColumn(name = "CategoryId", referencedColumnName = "ID")
@@ -126,5 +127,4 @@ public class TblSubCategory implements Serializable {
     public String toString() {
         return "Entities.TblSubCategory[ id=" + id + " ]";
     }
-    
 }

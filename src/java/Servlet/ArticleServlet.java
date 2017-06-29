@@ -56,7 +56,7 @@ public class ArticleServlet extends HttpServlet {
             TblNewsHeader news = service.GetNewsById(number);
             if (news != null) {
                 request.setAttribute("news", news);
-                List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNews().getTblSubCategoryList());
+                List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNews().getCatID().getId());
                 request.setAttribute("ran3", ran3);
             }
 

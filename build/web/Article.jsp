@@ -45,10 +45,8 @@
                         <hr/>
                     </div>
                     <div>
-                        <i>Tags: 
-                            <c:forEach var="cat" items="${entity.tblNews.tblSubCategoryList}">
-                                <span><a href="ProcessServlet?location=explore&menu=${cat.id}">${cat.subCategoryName}</a> | </span>                   
-                            </c:forEach>
+                        <i>
+                            Tags: <span><a href="ProcessServlet?location=explore&menu=${entity.tblNews.catID.id}">${entity.tblNews.catID.subCategoryName}</a> | </span>                   
                         </i>
                     </div>
                 </div>
