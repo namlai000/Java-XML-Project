@@ -7,6 +7,7 @@ package Services;
 
 import Entities.TblCategory;
 import Entities.TblNewsHeader;
+import Entities.TblSubCategory;
 import Resources.Resource;
 import java.util.List;
 import java.util.Random;
@@ -25,17 +26,18 @@ public class ArticleService {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em = emf.createEntityManager();
 
-    public List<TblNewsHeader> Random3NewsByCategories(List<TblCategory> category) {
+    public List<TblNewsHeader> Random3NewsByCategories(List<TblSubCategory> subCategory) {
         String str = "";
-        for (int i = 0; i < category.size(); i++) {
-            if (i == category.size() - 1) {
-                str += category.get(i).getId();
+        for (int i = 0; i < subCategory.size(); i++) {
+            if (i == subCategory.size() - 1) {
+                str += subCategory.get(i).getId();
             } else {
-                str += category.get(i).getId() + " OR e.id = ";
+                str += subCategory.get(i).getId() + " OR e.id = ";
             }
         }
-        int random = new Random().nextInt((int) GetNewsRow(str));
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role"
+        int tmp = (int)GetNewsRow(str);
+        int random = new Random().nextInt(tmp);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.tblSubCategoryList e JOIN d.authorID f WHERE f.tblUser.role.id = :role"
                 + " AND e.id = "
                 + str, TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
@@ -50,7 +52,7 @@ public class ArticleService {
     }
 
     public long GetNewsRow(String str) {
-        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role"
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.tblSubCategoryList e JOIN d.authorID f WHERE f.tblUser.role.id = :role"
                 + " AND e.id = "
                 + str, long.class);
         query.setParameter("role", Resource.ROLE_JOURNALIST);

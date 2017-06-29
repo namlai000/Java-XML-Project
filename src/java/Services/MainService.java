@@ -30,10 +30,17 @@ public class MainService {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em = emf.createEntityManager();
 
-    public List<TblNewsHeader> GetTop5RecentNews() {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID e JOIN e.userId f WHERE f.role.id = :role ORDER BY c.date DESC", TblNewsHeader.class);
+    public List<TblNewsHeader> GetTopRecentNews() {
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e JOIN e.tblUser f WHERE f.role.id = :role ORDER BY c.date DESC", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
-        query.setMaxResults(5);
+        query.setMaxResults(10);
+        return query.getResultList();
+    }
+    
+    public List<TblNewsHeader> GetTopHotNews() {
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e JOIN e.tblUser f WHERE f.role.id = :role ORDER BY c.date ASC", TblNewsHeader.class);
+        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        query.setMaxResults(10);
         return query.getResultList();
     }
 }

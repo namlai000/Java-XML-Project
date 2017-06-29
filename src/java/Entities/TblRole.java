@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,10 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -30,9 +29,6 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblRole")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TblRole", propOrder = {
-    "id",
-    "roleName",})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblRole.findAll", query = "SELECT t FROM TblRole t")
@@ -48,7 +44,7 @@ public class TblRole implements Serializable {
     @Basic(optional = false)
     @Column(name = "RoleName")
     private String roleName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role", fetch = FetchType.LAZY)
     @XmlTransient
     private List<TblUser> tblUserList;
 
@@ -113,5 +109,5 @@ public class TblRole implements Serializable {
     public String toString() {
         return "Entities.TblRole[ id=" + id + " ]";
     }
-
+    
 }

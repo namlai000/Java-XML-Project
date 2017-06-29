@@ -19,40 +19,23 @@
             <div class="body-main">
                 <div class="left-menu">
                     <div>
-                        <h3>Xếp hạng</h3>
+                        <h3>Các chuyên mục</h3>
                         <ul>
-                            <li>
-                                <a href="ProcessServlet?location=explore&menu=21">
-                                    <c:if test="${(empty param.menu) or (param.menu eq 21)}"><b></c:if>
-                                            Các tin mới nổi
-                                        <c:if test="${(empty param.menu) or (param.menu eq 21)}"></b></c:if>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="ProcessServlet?location=explore&menu=22">
-                                    <c:if test="${param.menu eq 22}"><b></c:if>
-                                            Nổi bật nhất
-                                        <c:if test="${param.menu eq 22}"></b></c:if>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="ProcessServlet?location=explore&menu=23">
-                                    <c:if test="${param.menu eq 23}"><b></c:if>
-                                            Mới nhất
-                                        <c:if test="${param.menu eq 23}"></b></c:if>
-                                    </a>
-                                </li>
-                            </ul>
-                            <h3>Các chuyên mục</h3>
-                            <ul>
                             <c:forEach var="entity" items="${requestScope.menuList}" varStatus="status">
                                 <li>
-                                    <a href="ProcessServlet?location=explore&menu=${entity.id}">
-                                        <c:if test="${param.menu eq entity.id}"><b></c:if>
-                                            ${entity.categoryName}
-                                            <c:if test="${param.menu eq entity.id}"></b></c:if>
-                                        </a>
-                                    </li>
+                                    <h4>${entity.mainCategoryName}</h4>
+                                    <ul>
+                                        <c:forEach var="sub" items="${entity.tblSubCategoryList}" varStatus="status">
+                                            <li>
+                                                <a href="ProcessServlet?location=explore&menu=${sub.id}">
+                                                    <c:if test="${param.menu eq sub.id or (empty param.menu and sub.id eq 1)}"><b></c:if>
+                                                        ${sub.subCategoryName}
+                                                        <c:if test="${param.menu eq sub.id or (empty param.menu and sub.id eq 1)}"></b></c:if>
+                                                    </a>
+                                                </li>
+                                        </c:forEach>
+                                    </ul>
+                                </li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -68,11 +51,11 @@
                                             <c:choose>
                                                 <c:when test="${status.first and ((empty param.page) or (param.page eq 1))}">
                                                     <div class="first-image">
-                                                        <img src="${entity.tblNewsList[0].tblImageList[0].link}" />
+                                                        <img src="${entity.tblNews.tblImageList[0].link}" />
                                                     </div>
                                                     <div>
                                                         <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h2>
-                                                        <h5>${entity.tblNewsList[0].authorID.lastname}</h5>
+                                                        <h5>${entity.tblNews.authorID.lastname}</h5>
                                                         ${entity.description}
                                                     </div>
                                                     <div class="break-line">
@@ -81,11 +64,11 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="article-image">
-                                                        <img src="${entity.tblNewsList[0].tblImageList[0].link}" />
+                                                        <img src="${entity.tblNews.tblImageList[0].link}" />
                                                     </div>
                                                     <div class="article-text">
                                                         <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h4>
-                                                        <h5>${entity.tblNewsList[0].authorID.lastname}</h5>
+                                                        <h5>${entity.tblNews.authorID.lastname}</h5>
                                                         ${entity.description}
                                                     </div>
                                                 </c:otherwise>
@@ -102,13 +85,19 @@
                             <div style="float: right">
                             <c:forEach var="pages" items="${requestScope.pages}" >
                                 <span>
-                                    <a href="ProcessServlet?location=explore&menu=${param.menu}&page=${pages}">
-                                        <button type="button">
-                                            <c:if test="${pages eq param.page}"><b></c:if>
-                                                ${pages}
-                                                <c:if test="${pages eq param.page}"></b></c:if>
-                                            </button>
-                                        </a>
+                                    <c:set var="a" value="${param.menu}"/>
+                                    <c:if test="${not empty a}">
+                                        <a href="ProcessServlet?location=explore&menu=${a}&page=${pages}">
+                                        </c:if>
+                                        <c:if test="${empty a}">
+                                            <a href="ProcessServlet?location=explore&menu=1&page=${pages}">
+                                            </c:if>
+                                            <button type="button">
+                                                <c:if test="${pages eq param.page}"><b></c:if>
+                                                    ${pages}
+                                                    <c:if test="${pages eq param.page}"></b></c:if>
+                                                </button>
+                                            </a>
                                     </span>
                             </c:forEach>
                         </div>

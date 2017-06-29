@@ -10,19 +10,16 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -31,31 +28,24 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblCategory")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TblCategory", propOrder = {
-    "id",
-    "categoryName",
-})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblCategory.findAll", query = "SELECT t FROM TblCategory t")
     , @NamedQuery(name = "TblCategory.findById", query = "SELECT t FROM TblCategory t WHERE t.id = :id")
-    , @NamedQuery(name = "TblCategory.findByCategoryName", query = "SELECT t FROM TblCategory t WHERE t.categoryName = :categoryName")})
+    , @NamedQuery(name = "TblCategory.findByMainCategoryName", query = "SELECT t FROM TblCategory t WHERE t.mainCategoryName = :mainCategoryName")})
 public class TblCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "Id")
+    @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "CategoryName")
-    private String categoryName;
-    @JoinTable(name = "tblNewsCategory", joinColumns = {
-        @JoinColumn(name = "CategoryID", referencedColumnName = "Id")}, inverseJoinColumns = {
-        @JoinColumn(name = "NewsID", referencedColumnName = "NewsID")})
-    @ManyToMany
+    @Column(name = "MainCategoryName")
+    private String mainCategoryName;
+    @OneToMany(mappedBy = "categoryId", fetch = FetchType.LAZY)
     @XmlTransient
-    private List<TblNews> tblNewsList;
+    private List<TblSubCategory> tblSubCategoryList;
 
     public TblCategory() {
     }
@@ -64,9 +54,9 @@ public class TblCategory implements Serializable {
         this.id = id;
     }
 
-    public TblCategory(Integer id, String categoryName) {
+    public TblCategory(Integer id, String mainCategoryName) {
         this.id = id;
-        this.categoryName = categoryName;
+        this.mainCategoryName = mainCategoryName;
     }
 
     public Integer getId() {
@@ -77,21 +67,21 @@ public class TblCategory implements Serializable {
         this.id = id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getMainCategoryName() {
+        return mainCategoryName;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setMainCategoryName(String mainCategoryName) {
+        this.mainCategoryName = mainCategoryName;
     }
 
     @XmlTransient
-    public List<TblNews> getTblNewsList() {
-        return tblNewsList;
+    public List<TblSubCategory> getTblSubCategoryList() {
+        return tblSubCategoryList;
     }
 
-    public void setTblNewsList(List<TblNews> tblNewsList) {
-        this.tblNewsList = tblNewsList;
+    public void setTblSubCategoryList(List<TblSubCategory> tblSubCategoryList) {
+        this.tblSubCategoryList = tblSubCategoryList;
     }
 
     @Override

@@ -14,7 +14,7 @@
                     <tr>
                         <td>
                             <div class="article-image">
-                                <img src="{TblNews/TblImage/link}" />
+                                <img src="{tblNews/tblImageList/link}" />
                             </div>
                             <div class="article-text">
                                 <h2>

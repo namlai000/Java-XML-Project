@@ -30,25 +30,23 @@ public class ExploreService {
     }
 
     public List<TblNewsHeader> GetNewsByPage(int page, int menu) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE e.id = :menu AND g.role.id = :role", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.tblSubCategoryList e WHERE e.id = :menu AND d.authorID.tblUser.role.id = :role", TblNewsHeader.class);
         query.setParameter("menu", menu);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
 
-        if (page == 1) {
+        if (page == 0) {
             query.setFirstResult(0);
             query.setMaxResults(10);
             return query.getResultList();
-        } else if (page > 1 && page * 10 < (int)GetNewsLength(menu)) {
-            query.setFirstResult(page * 10);
+        } else {
+            query.setFirstResult((page - 1) * 10);
             query.setMaxResults(10);
             return query.getResultList();
         }
-
-        return null;
     }
 
     public long GetNewsLength(int menu) {
-        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.tblCategoryList e JOIN d.authorID f JOIN f.userId g WHERE e.id = :menu AND g.role.id = :role", long.class);
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.tblSubCategoryList e WHERE e.id = :menu AND d.authorID.tblUser.role.id = :role", long.class);
         query.setParameter("menu", menu);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
         return (long)query.getSingleResult();

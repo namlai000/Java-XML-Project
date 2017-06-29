@@ -5,29 +5,23 @@
  */
 package Entities;
 
-import Wrapper.TblNewsHeaderWrapper;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.Vector;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -36,15 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblNewsHeader")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TblNewsHeader", propOrder = {
-    "id",
-    "tittle",
-    "description",
-    "date",
-    "tblNewsList"
-})
 @XmlRootElement
-@XmlSeeAlso(TblNewsHeaderWrapper.class)
 @NamedQueries({
     @NamedQuery(name = "TblNewsHeader.findAll", query = "SELECT t FROM TblNewsHeader t")
     , @NamedQuery(name = "TblNewsHeader.findById", query = "SELECT t FROM TblNewsHeader t WHERE t.id = :id")
@@ -68,9 +54,9 @@ public class TblNewsHeader implements Serializable {
     @Column(name = "Date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "headerID")
-    @XmlElement(name = "TblNews")
-    private List<TblNews> tblNewsList;
+    @JoinColumn(name = "Id", referencedColumnName = "HeaderID", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private TblNews tblNews;
 
     public TblNewsHeader() {
     }
@@ -118,13 +104,12 @@ public class TblNewsHeader implements Serializable {
         this.date = date;
     }
 
-    @XmlTransient
-    public List<TblNews> getTblNewsList() {
-        return tblNewsList;
+    public TblNews getTblNews() {
+        return tblNews;
     }
 
-    public void setTblNewsList(List<TblNews> tblNewsList) {
-        this.tblNewsList = tblNewsList;
+    public void setTblNews(TblNews tblNews) {
+        this.tblNews = tblNews;
     }
 
     @Override

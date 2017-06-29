@@ -5,9 +5,16 @@
  */
 package Servlet;
 
+import Entities.TblNews;
+import Entities.TblNewsHeader;
+import Entities.TblUserInfo;
 import Resources.Resource;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -57,6 +64,7 @@ public class ProcessServlet extends HttpServlet {
             } else if (requestLocation.equals("search")) {
                 url = Resource.SearchServlet;
             }            
+                    
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

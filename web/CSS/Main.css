@@ -48,11 +48,30 @@ a {
     text-decoration: none;
 }
 
-.cover {
+.cover-left {
+    width: 50%;
+    float: left;
+    min-width: 300px;
     padding: 8px 8px 8px 8px;
 }
 
-.cover div img {
+.cover-right {
+    float: left;
+    width: 45%;
+    min-width: 150px;
+    max-width: 250px;
+    padding: 8px 8px 8px 8px;
+}
+
+.cover-right div img {
+    display: inline-table;
+    min-height: 150px;
+    max-height: 300px;
+    height: 100%;
+    width: 100%;
+}
+
+.cover-left div img {
     display: inline-table;
     min-height: 150px;
     max-height: 300px;

@@ -6,21 +6,20 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -32,13 +31,6 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblUser")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TblUser", propOrder = {
-    "id",
-    "username",
-    "password",
-    "role",
-    "tblUserInfoList"
-})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblUser.findAll", query = "SELECT t FROM TblUser t")
@@ -59,11 +51,11 @@ public class TblUser implements Serializable {
     @Column(name = "Password")
     private String password;
     @JoinColumn(name = "Role", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private TblRole role;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    @XmlElement(name = "TblUserInfo")
-    private List<TblUserInfo> tblUserInfoList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tblUser", fetch = FetchType.LAZY)
+    @XmlTransient
+    private TblUserInfo tblUserInfo;
 
     public TblUser() {
     }
@@ -110,13 +102,12 @@ public class TblUser implements Serializable {
         this.role = role;
     }
 
-    @XmlTransient
-    public List<TblUserInfo> getTblUserInfoList() {
-        return tblUserInfoList;
+    public TblUserInfo getTblUserInfo() {
+        return tblUserInfo;
     }
 
-    public void setTblUserInfoList(List<TblUserInfo> tblUserInfoList) {
-        this.tblUserInfoList = tblUserInfoList;
+    public void setTblUserInfo(TblUserInfo tblUserInfo) {
+        this.tblUserInfo = tblUserInfo;
     }
 
     @Override

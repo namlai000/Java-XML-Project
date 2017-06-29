@@ -28,18 +28,28 @@
                     <div>
                         <h1>${entity.tittle}</h1>
                         <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
-                        <h3>${entity.tblNewsList[0].authorID.lastname} | ${fmDate}</h3>
+                        <h3>${entity.tblNews.authorID.lastname} | ${fmDate}</h3>
                     </div>
                     <div style="margin-bottom: 18px;">
                         <b>${entity.description}</b>
                     </div>
                     <div class="news-image">
-                        <c:forEach var="image" items="${entity.tblNewsList[0].tblImageList}">
+                        <c:forEach var="image" items="${entity.tblNews.tblImageList}">
                             <img src="${image.link}" alt=""/>                            
                         </c:forEach>
                     </div>
                     <div>
-                        ${entity.tblNewsList[0].content}
+                        ${entity.tblNews.content}
+                    </div>
+                    <div class="break-line">
+                        <hr/>
+                    </div>
+                    <div>
+                        <i>Tags: 
+                            <c:forEach var="cat" items="${entity.tblNews.tblSubCategoryList}">
+                                <span><a href="ProcessServlet?location=explore&menu=${cat.id}">${cat.subCategoryName}</a> | </span>                   
+                            </c:forEach>
+                        </i>
                     </div>
                 </div>
                 <div class="row" style="padding-top: 60px">

@@ -8,22 +8,25 @@ package Entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -32,60 +35,53 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblNews")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TblNews", propOrder = {
-    "newsID",
-    "content",
-    "tblImageList",
-    "tblCategoryList",
-    "authorID"
-})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblNews.findAll", query = "SELECT t FROM TblNews t")
-    , @NamedQuery(name = "TblNews.findByNewsID", query = "SELECT t FROM TblNews t WHERE t.newsID = :newsID")})
+    , @NamedQuery(name = "TblNews.findByHeaderID", query = "SELECT t FROM TblNews t WHERE t.headerID = :headerID")
+    , @NamedQuery(name = "TblNews.findByContent", query = "SELECT t FROM TblNews t WHERE t.content = :content")})
 public class TblNews implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "NewsID")
-    private Integer newsID;
+    @Column(name = "HeaderID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer headerID;
     @Basic(optional = false)
-    @Lob
     @Column(name = "Content")
     private String content;
-    @ManyToMany(mappedBy = "tblNewsList")
-    @XmlElement(name = "TblImage")
+    @ManyToMany(mappedBy = "tblNewsList", fetch = FetchType.LAZY)
     private List<TblImage> tblImageList;
-    @ManyToMany(mappedBy = "tblNewsList")
-    @XmlElement(name = "TblCategory")
-    private List<TblCategory> tblCategoryList;
-    @JoinColumn(name = "HeaderID", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
+    @ManyToMany(mappedBy = "tblNewsList", fetch = FetchType.LAZY)
+    private List<TblSubCategory> tblSubCategoryList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tblNews", fetch = FetchType.LAZY)
     @XmlTransient
-    private TblNewsHeader headerID;
-    @JoinColumn(name = "AuthorID", referencedColumnName = "Id")
-    @ManyToOne
+    private TblNewsHeader tblNewsHeader;
+    @JoinColumn(name = "AuthorID", referencedColumnName = "UserId")
+    @ManyToOne(fetch = FetchType.LAZY)
     private TblUserInfo authorID;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "newsID", fetch = FetchType.LAZY)
+    private List<TblComment> tblCommentList;
 
     public TblNews() {
     }
 
-    public TblNews(Integer newsID) {
-        this.newsID = newsID;
+    public TblNews(Integer headerID) {
+        this.headerID = headerID;
     }
 
-    public TblNews(Integer newsID, String content) {
-        this.newsID = newsID;
+    public TblNews(Integer headerID, String content) {
+        this.headerID = headerID;
         this.content = content;
     }
 
-    public Integer getNewsID() {
-        return newsID;
+    public Integer getHeaderID() {
+        return headerID;
     }
 
-    public void setNewsID(Integer newsID) {
-        this.newsID = newsID;
+    public void setHeaderID(Integer headerID) {
+        this.headerID = headerID;
     }
 
     public String getContent() {
@@ -106,20 +102,20 @@ public class TblNews implements Serializable {
     }
 
     @XmlTransient
-    public List<TblCategory> getTblCategoryList() {
-        return tblCategoryList;
+    public List<TblSubCategory> getTblSubCategoryList() {
+        return tblSubCategoryList;
     }
 
-    public void setTblCategoryList(List<TblCategory> tblCategoryList) {
-        this.tblCategoryList = tblCategoryList;
+    public void setTblSubCategoryList(List<TblSubCategory> tblSubCategoryList) {
+        this.tblSubCategoryList = tblSubCategoryList;
     }
 
-    public TblNewsHeader getHeaderID() {
-        return headerID;
+    public TblNewsHeader getTblNewsHeader() {
+        return tblNewsHeader;
     }
 
-    public void setHeaderID(TblNewsHeader headerID) {
-        this.headerID = headerID;
+    public void setTblNewsHeader(TblNewsHeader tblNewsHeader) {
+        this.tblNewsHeader = tblNewsHeader;
     }
 
     public TblUserInfo getAuthorID() {
@@ -130,10 +126,19 @@ public class TblNews implements Serializable {
         this.authorID = authorID;
     }
 
+    @XmlTransient
+    public List<TblComment> getTblCommentList() {
+        return tblCommentList;
+    }
+
+    public void setTblCommentList(List<TblComment> tblCommentList) {
+        this.tblCommentList = tblCommentList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (newsID != null ? newsID.hashCode() : 0);
+        hash += (headerID != null ? headerID.hashCode() : 0);
         return hash;
     }
 
@@ -144,7 +149,7 @@ public class TblNews implements Serializable {
             return false;
         }
         TblNews other = (TblNews) object;
-        if ((this.newsID == null && other.newsID != null) || (this.newsID != null && !this.newsID.equals(other.newsID))) {
+        if ((this.headerID == null && other.headerID != null) || (this.headerID != null && !this.headerID.equals(other.headerID))) {
             return false;
         }
         return true;
@@ -152,7 +157,7 @@ public class TblNews implements Serializable {
 
     @Override
     public String toString() {
-        return "Entities.TblNews[ newsID=" + newsID + " ]";
+        return "Entities.TblNews[ headerID=" + headerID + " ]";
     }
-
+    
 }

@@ -28,9 +28,9 @@
                     <c:forEach var="en" items="${au1}">
                         <div class="container-item">
                             <div>
-                                <img src="Images/avatar.png"/>
+                                <img src="${en.imageID.link}"/>
                             </div>
-                            <h4><a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a></h4>
+                            <h4><a href="ProcessServlet?location=detail&id=${en.userId}">${en.firstname}<i> </i>${en.lastname}</a></h4>
                         </div>
                     </c:forEach>
                 </div>
@@ -46,10 +46,10 @@
                                 <li>
                                     <div class="container">
                                         <div class="small-avatar">
-                                            <img src="Images/avatar.png"/>
+                                            <img src="${en.imageID.link}"/>
                                         </div>
                                         <div>
-                                            <a href="ProcessServlet?location=detail&id=${en.id}">${en.firstname}<i> </i>${en.lastname}</a> 
+                                            <a href="ProcessServlet?location=detail&id=${en.userId}">${en.firstname}<i> </i>${en.lastname}</a> 
                                         </div>
                                     </div>
                                 </li>
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="article-text">
                                             <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.tittle}</a></h3>
-                                            <h5><a href="ProcessServlet?location=detail&id=${en.tblNewsList[0].authorID.userId.id}">${en.tblNewsList[0].authorID.lastname}</a></h5>
+                                            <h5><a href="ProcessServlet?location=detail&id=${en.tblNews.authorID.userId}">${en.tblNews.authorID.lastname}</a></h5>
                                             <hr/>
                                             ${en.description}
                                         </div>

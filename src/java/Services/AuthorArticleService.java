@@ -25,20 +25,18 @@ public class AuthorArticleService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
 
-        if (page == 1) {
+        if (page == 0) {
             query.setFirstResult(0);
             query.setMaxResults(10);
             return query.getResultList();
-        } else if (page > 1 && page * 10 < (int) GetAuthorArticlesSize()) {
-            query.setFirstResult(page * 10);
+        } else {
+            query.setFirstResult((page - 1) * 10);
             query.setMaxResults(10);
             return query.getResultList();
         }
-
-        return null;
     }
 
     public TblNewsHeader GetAuthorArticleById(int id) {
@@ -47,7 +45,7 @@ public class AuthorArticleService {
     }
 
     public long GetAuthorArticlesSize() {
-        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", long.class);
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", long.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
         return (long) query.getSingleResult();
     }
@@ -55,7 +53,7 @@ public class AuthorArticleService {
     public List<TblNewsHeader> Random3Articles() {
         int size = (int)GetAuthorArticlesSize();
         int random = new Random().nextInt(size);
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNewsList d JOIN d.authorID f JOIN f.userId g WHERE g.role.id = :role", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
         query.setFirstResult(random);
         query.setMaxResults(3);

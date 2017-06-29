@@ -38,18 +38,17 @@
                         <hr/>
                     </div>
                     <div class="row">
-                        <c:set var="result" value="${requestScope.author.tblNewsList}"/>
-                        <c:if test="${not empty result}">
+                        <c:if test="${not empty author.tblNewsList}">
                             <h2>Các bài viết đã đăng</h2>
                             <div style="margin: 0px auto 0px auto; width: 85%;">
                                 <table>
                                     <tbody>
-                                        <c:forEach var="entity" items="${result}" varStatus="status">
+                                        <c:forEach var="entity" items="${author.tblNewsList}" varStatus="status">
                                             <tr>
                                                 <td>
                                                     <div>
-                                                        <h3><a href="ProcessServlet?location=read&id=${entity.headerID.id}">${entity.headerID.tittle}</a></h3>
-                                                            ${entity.headerID.description}
+                                                        <h3><a href="ProcessServlet?location=read&id=${entity.tblNewsHeader.id}">${entity.tblNewsHeader.tittle}</a></h3>
+                                                            ${entity.tblNewsHeader.description}
                                                     </div>
                                                 </td>
                                             </tr>

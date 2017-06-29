@@ -5,17 +5,15 @@
  */
 package Servlet;
 
-import Entities.TblNews;
 import Entities.TblNewsHeader;
 import Resources.Resource;
-import Services.MainService;
+import Services.SearchService;
 import Ultilities.XMLUltilities;
 import Wrapper.TblNewsHeaderWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class MainServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,26 +37,22 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try {
-            MainService service = new MainService();
-            List<TblNewsHeader> list = service.GetTopRecentNews();
-            request.setAttribute("result", list);
-
-            List<TblNewsHeader> list2 = service.GetTopHotNews();
-            int ran = new Random().nextInt(list2.size());
-            List<TblNewsHeader> list3 = new ArrayList<>();
-            for (int i = 0; i < 12; i++) {
-                list3.add(list2.get(ran));
+            String query = request.getParameter("query").trim();
+            if (query != null) {
+                SearchService service = new SearchService();
+                List<TblNewsHeader> result = service.SearchByTittle(query);
+                TblNewsHeaderWrapper wrap = new TblNewsHeaderWrapper();
+                wrap.setListOfHeaders(result);
+                String path = Resource.LOCATION_PATH + "WEB-INF/searchResult.xml";
+                XMLUltilities.JAXBMarshallerWithPath(wrap, path, true);
             }
-
-            String path = Resource.LOCATION_PATH + "WEB-INF/cover.xml";
-            XMLUltilities.JAXBMarshallerWithPath(new TblNewsHeaderWrapper(list3), path, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        request.getRequestDispatcher(Resource.MainServlet_Page).forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher(Resource.SearchServlet_Page);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

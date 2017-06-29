@@ -26,15 +26,15 @@
             <div class="body-main">
                 <div class="row">
                     <div class="auArticle-image">
-                        <img src="Images/avatar.png"/>
+                        <img src="${entity.tblNews.authorID.imageID.link}"/>
                     </div>
                     <div class="auArticle-text">
                         <h2>${entity.tittle}</h2>
-                        <h3><a href="ProcessServlet?location=detail&id=${entity.tblNewsList[0].authorID.userId.id}">${entity.tblNewsList[0].authorID.lastname}</a></h3>
+                        <h3><a href="ProcessServlet?location=detail&id=${entity.tblNews.authorID.userId}">${entity.tblNews.authorID.lastname}</a></h3>
                         <hr/>
                         ${entity.description}
                         <br/>
-                        ${entity.tblNewsList[0].content}
+                        ${entity.tblNews.content}
                         <div class="row" style="padding-top: 60px">
                             <h4>Các bài viết tương tự</h4>
                             <c:forEach var="ran" items="${requestScope.ran3}">
