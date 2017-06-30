@@ -53,7 +53,8 @@ public class MainServlet extends HttpServlet {
             }
 
             String path = Resource.LOCATION_PATH + "WEB-INF/cover.xml";
-            XMLUltilities.JAXBMarshallerWithPath(new TblNewsHeaderWrapper(list3), path, true);
+            String xml = XMLUltilities.JAXBMarshallerToString(new TblNewsHeaderWrapper(list3));
+            request.setAttribute("xml", xml);
         } catch (Exception e) {
             e.printStackTrace();
         }

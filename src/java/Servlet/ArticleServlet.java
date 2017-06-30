@@ -5,12 +5,16 @@
  */
 package Servlet;
 
+import Entities.TblComment;
 import Entities.TblNews;
 import Entities.TblNewsHeader;
 import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.ArticleService;
+import Services.CommentService;
 import Services.MainService;
+import Ultilities.XMLUltilities;
+import Wrapper.TblCommentWrapper;
 import Wrapper.TblNewsHeaderWrapper;
 import java.io.File;
 import java.io.IOException;

@@ -36,6 +36,14 @@
         <servlet-name>SearchServlet</servlet-name>
         <servlet-class>Servlet.SearchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>Servlet.CommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PostCommentServlet</servlet-name>
+        <servlet-class>Servlet.PostCommentServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -72,6 +80,14 @@
         <servlet-name>SearchServlet</servlet-name>
         <url-pattern>/SearchServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/CommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PostCommentServlet</servlet-name>
+        <url-pattern>/PostCommentServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -86,4 +102,8 @@
             <trim-directive-whitespaces>true</trim-directive-whitespaces>
         </jsp-property-group>
     </jsp-config>
+    <listener>
+        <description>RequestListener</description>
+        <listener-class>Servlet.RequestServletListener</listener-class>
+    </listener>
 </web-app>

@@ -80,6 +80,7 @@ public class TblUserInfo implements Serializable {
     @XmlTransient
     private List<TblNews> tblNewsList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.LAZY)
+    @XmlTransient
     private List<TblComment> tblCommentList;
     @JoinColumn(name = "ImageID", referencedColumnName = "Id")
     @ManyToOne(fetch = FetchType.LAZY)

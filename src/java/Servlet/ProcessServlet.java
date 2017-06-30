@@ -39,9 +39,10 @@ public class ProcessServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String url = Resource.MainServlet;
-            
+
+        String url = Resource.MainServlet;
+        
+        try {
             Resource.LOCATION_PATH = getServletContext().getRealPath("/");
 
             String requestLocation = request.getParameter("location");
@@ -63,11 +64,18 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.LoginServlet_Page;
             } else if (requestLocation.equals("search")) {
                 url = Resource.SearchServlet;
-            }            
-                    
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            } else if (requestLocation.equals("comment")) {
+                url = Resource.CommentServlet;
+            } else if (requestLocation.equals("post")) {
+                url = Resource.PostCommentServlet;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher(url);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

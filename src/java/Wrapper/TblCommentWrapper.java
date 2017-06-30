@@ -5,6 +5,8 @@
  */
 package Wrapper;
 
+import Entities.TblComment;
+import Entities.TblCommentCustom;
 import Entities.TblNewsHeader;
 import java.io.Serializable;
 import java.util.List;
@@ -19,24 +21,24 @@ import javax.xml.bind.annotation.XmlType;
  * @author thegu
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "TblNewsHeaders")
-public class TblNewsHeaderWrapper implements Serializable {
+@XmlRootElement(name = "TblComments")
+public class TblCommentWrapper implements Serializable {
     
-    @XmlElement(name = "TblNewsHeader")
-    private List<TblNewsHeader> listOfHeaders;
-    
-    public TblNewsHeaderWrapper() {
+    @XmlElement(name = "TblComment")
+    private List<TblCommentCustom> listOfComments;
+
+    public TblCommentWrapper() {
     }
 
-    public TblNewsHeaderWrapper(List<TblNewsHeader> listOfHeaders) {
-        this.listOfHeaders = listOfHeaders;
+    public TblCommentWrapper(List<TblCommentCustom> listOfComments) {
+        this.listOfComments = listOfComments;
     }
 
-    public List<TblNewsHeader> getListOfHeaders() {
-        return listOfHeaders;
+    public List<TblCommentCustom> getListOfComments() {
+        return listOfComments;
     }
 
-    public void setListOfHeaders(List<TblNewsHeader> listOfHeaders) {
-        this.listOfHeaders = listOfHeaders;
+    public void setListOfComments(List<TblCommentCustom> listOfComments) {
+        this.listOfComments = listOfComments;
     }
 }

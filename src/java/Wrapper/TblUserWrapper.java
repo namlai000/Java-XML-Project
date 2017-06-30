@@ -5,7 +5,10 @@
  */
 package Wrapper;
 
+import Entities.TblComment;
+import Entities.TblCommentCustom;
 import Entities.TblNewsHeader;
+import Entities.TblUser;
 import java.io.Serializable;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -19,24 +22,25 @@ import javax.xml.bind.annotation.XmlType;
  * @author thegu
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "TblNewsHeaders")
-public class TblNewsHeaderWrapper implements Serializable {
+@XmlRootElement(name = "TblUsers")
+public class TblUserWrapper implements Serializable {
     
-    @XmlElement(name = "TblNewsHeader")
-    private List<TblNewsHeader> listOfHeaders;
-    
-    public TblNewsHeaderWrapper() {
+    @XmlElement(name = "TblUser")
+    private List<TblUser> listUsers;
+
+    public TblUserWrapper() {
     }
 
-    public TblNewsHeaderWrapper(List<TblNewsHeader> listOfHeaders) {
-        this.listOfHeaders = listOfHeaders;
+    public TblUserWrapper(List<TblUser> listUsers) {
+        this.listUsers = listUsers;
     }
 
-    public List<TblNewsHeader> getListOfHeaders() {
-        return listOfHeaders;
+    public List<TblUser> getListUsers() {
+        return listUsers;
     }
 
-    public void setListOfHeaders(List<TblNewsHeader> listOfHeaders) {
-        this.listOfHeaders = listOfHeaders;
+    public void setListUsers(List<TblUser> listUsers) {
+        this.listUsers = listUsers;
     }
+   
 }

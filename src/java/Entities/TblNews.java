@@ -63,6 +63,7 @@ public class TblNews implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private TblUserInfo authorID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "newsID", fetch = FetchType.LAZY)
+    @XmlTransient
     private List<TblComment> tblCommentList;
 
     public TblNews() {

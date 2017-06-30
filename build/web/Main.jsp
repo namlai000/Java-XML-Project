@@ -27,9 +27,8 @@
                 <div>
                     <h3>Các tin tức nổi bật</h3>
                     <div class="row" style="display: inline-table">
-                        <c:import url="WEB-INF/cover.xml" var="xmlDoc" charEncoding="UTF-8"/>
                         <c:import url="WEB-INF/cover.xsl" var="xslDoc" charEncoding="UTF-8"/>
-                        <x:transform xml="${xmlDoc}" xslt="${xslDoc}"/>
+                        <x:transform xml="${requestScope.xml}" xslt="${xslDoc}"/>
                     </div>
                 </div>
                 <div class="break-line">

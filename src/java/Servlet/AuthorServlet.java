@@ -8,6 +8,7 @@ package Servlet;
 import Resources.Resource;
 import Services.AuthorArticleService;
 import Services.AuthorService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class AuthorServlet extends HttpServlet {
         String page = request.getParameter("page");
         int i = 0;
         try {
-            if (page == null || page.isEmpty() || !isInteger(page)) {
+            if (page == null || page.isEmpty() || !XMLUltilities.isInteger(page)) {
                 page = "1";
             }
 
@@ -50,37 +51,12 @@ public class AuthorServlet extends HttpServlet {
             request.setAttribute("authorList", auService.GetAuthorArticlesByPage(i));
 
             i = (int)auService.GetAuthorArticlesSize();
-            request.setAttribute("pages", getPages(i));
+            request.setAttribute("pages", XMLUltilities.getPages(i));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         request.getRequestDispatcher(Resource.AuthorServlet_Page).forward(request, response);
-    }
-
-    private boolean isInteger(String number) {
-        try {
-            int i = Integer.parseInt(number);
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private int[] getPages(int sizes) {
-        int length;
-        if (sizes % 10 == 0) {
-            length = sizes / 10;
-        } else {
-            length = sizes / 10 + 1;
-        }
-        int[] pages = new int[length];
-        int j = 1;
-        for (int i = 0; i < length; i++) {
-            pages[i] = j++;
-        }
-        return pages;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

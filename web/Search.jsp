@@ -22,9 +22,8 @@
 
             <!-- BODY -->
             <div class="body-main">
-                <c:import url="WEB-INF/searchResult.xml" var="xmlDoc" charEncoding="UTF-8"/>
                 <c:import url="WEB-INF/searchResult.xsl" var="xslDoc" charEncoding="UTF-8"/>
-                <x:transform xml="${xmlDoc}" xslt="${xslDoc}"/>
+                <x:transform xml="${xml}" xslt="${xslDoc}"/>
             </div>
 
             <!-- Footer -->

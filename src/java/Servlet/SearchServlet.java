@@ -45,7 +45,8 @@ public class SearchServlet extends HttpServlet {
                 TblNewsHeaderWrapper wrap = new TblNewsHeaderWrapper();
                 wrap.setListOfHeaders(result);
                 String path = Resource.LOCATION_PATH + "WEB-INF/searchResult.xml";
-                XMLUltilities.JAXBMarshallerWithPath(wrap, path, true);
+                String xml = XMLUltilities.JAXBMarshallerToString(wrap);
+                request.setAttribute("xml", xml);
             }
         } catch (Exception e) {
             e.printStackTrace();

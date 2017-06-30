@@ -9,6 +9,7 @@ import Entities.TblCategory;
 import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.ExploreService;
+import Ultilities.XMLUltilities;
 import Wrapper.TblNewsHeaderWrapper;
 import java.io.File;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class ExploreServlet extends HttpServlet {
         String page = request.getParameter("page");
         long i = 0;
         try {
-            if (page == null || page.isEmpty() || !isInteger(page)) {
+            if (page == null || page.isEmpty() || !XMLUltilities.isInteger(page)) {
                 page = "1";
             }
             if (menu == null) {
@@ -60,7 +61,7 @@ public class ExploreServlet extends HttpServlet {
             request.setAttribute("exploreList", list);
 
             i = service.GetNewsLength(m);
-            request.setAttribute("pages", getPages((int) i));
+            request.setAttribute("pages", XMLUltilities.getPages((int) i));
 
             List<TblCategory> list2 = service.getAllCategories();
             request.setAttribute("menuList", list2);
@@ -69,31 +70,6 @@ public class ExploreServlet extends HttpServlet {
         }
 
         request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);
-    }
-
-    private boolean isInteger(String number) {
-        try {
-            int i = Integer.parseInt(number);
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private int[] getPages(int sizes) {
-        int length;
-        if (sizes % 10 == 0) {
-            length = sizes / 10;
-        } else {
-            length = sizes / 10 + 1;
-        }
-        int[] pages = new int[length];
-        int j = 1;
-        for (int i = 0; i < length; i++) {
-            pages[i] = j++;
-        }
-        return pages;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

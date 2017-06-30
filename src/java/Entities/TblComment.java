@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,6 +24,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -30,6 +34,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "tblComment")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "id",
+    "content",
+    "uploadDate",
+    "userID"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblComment.findAll", query = "SELECT t FROM TblComment t")
@@ -42,6 +52,7 @@ public class TblComment implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "Content")
     private String content;
@@ -50,6 +61,7 @@ public class TblComment implements Serializable {
     private Date uploadDate;
     @JoinColumn(name = "NewsID", referencedColumnName = "HeaderID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @XmlTransient
     private TblNews newsID;
     @JoinColumn(name = "UserID", referencedColumnName = "UserId")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -126,5 +138,5 @@ public class TblComment implements Serializable {
     public String toString() {
         return "Entities.TblComment[ id=" + id + " ]";
     }
-    
+
 }

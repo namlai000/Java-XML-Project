@@ -36,12 +36,16 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         try {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("username", username);
-            session.setAttribute("password", password);
+            
+            
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute("username", username);
+//            session.setAttribute("password", password);
         } finally {
-            response.sendRedirect(Resource.ProcessServlet);
+            
         }
+        
+        response.sendRedirect(Resource.ProcessServlet);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

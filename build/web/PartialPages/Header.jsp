@@ -47,7 +47,11 @@
     document.getElementById("txtSearch")
             .addEventListener("keydown", function (event) {
                 if (event.keyCode == 13) {
-                    document.getElementById("form").submit();
+                    event.preventDefault();
+                    var s = document.getElementById("txtSearch");
+                    if (s.value != '') {
+                        document.getElementById("form").submit();
+                    }
                 }
             });
 </script>
