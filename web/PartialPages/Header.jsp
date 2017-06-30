@@ -15,8 +15,8 @@
                     </span>
                     <span style="display: inline-table; float: right; margin-top: 30px">
                         <c:choose>
-                            <c:when test="${not empty sessionScope.username and not empty sessionScope.password}">
-                                <span class="small-avatar"><img src="Images/avatar.png" alt=""/></span> ${sessionScope.username} ${sessionScope.password}
+                            <c:when test="${not empty sessionScope.user}">
+                                <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt=""/></span> ${sessionScope.user.lastname}
                                 </c:when>
                                 <c:otherwise>
                                 <a href="ProcessServlet?location=loginPage">Login / Sign Up</a>

@@ -24,7 +24,7 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="auArticle-image">
-                    <img src="Images/avatar.png"/>
+                    <img src="${author.imageID.link}"/>
                 </div>
                 <div class="auArticle-text">
                     <div class="row">

@@ -6,13 +6,22 @@
 package Servlet;
 
 import Resources.Resource;
+import Services.LoginService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.StringReader;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 /**
  *
@@ -32,19 +41,34 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         try {
-            
-            
-//            HttpSession session = request.getSession(true);
-//            session.setAttribute("username", username);
-//            session.setAttribute("password", password);
-        } finally {
-            
+            String list = (String) request.getAttribute("loginList");
+            if (list != null) {
+                InputSource source = new InputSource(new StringReader(list));
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                Document document = db.parse(source);
+
+                XPathFactory fac = XPathFactory.newInstance();
+                XPath path = fac.newXPath();
+                String expression = "//TblUsers//TblUser[username='" + username + "' and password='" + password + "']";
+
+                Node result = (Node) path.evaluate(expression, document, XPathConstants.NODE);
+                if (result != null) {
+                    String id = result.getChildNodes().item(0).getTextContent();
+
+                    HttpSession session = request.getSession();
+                    LoginService service = new LoginService();
+                    session.setAttribute("user", service.GetUserInfoById(Integer.parseInt(id)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
+
         response.sendRedirect(Resource.ProcessServlet);
     }
 
