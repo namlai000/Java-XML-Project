@@ -52,14 +52,16 @@ public class PrintServet extends HttpServlet {
             String foPath = path + "WEB-INF/article.fo";
             String foConfig = path + "WEB-INF/fop.xconf";
             
+            // TO PDF
             XMLUltilities.methodTrAX(xslPath, xmlPath, foPath, path);
-            File f = new File(foPath);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             FopFactory ff = FopFactory.newInstance();
             ff.setUserConfig(foConfig);
             ff.setBaseURL(path);
             FOUserAgent fua = ff.newFOUserAgent();
             Fop fop = ff.newFop(MimeConstants.MIME_PDF, fua, out);
+            
+            // TO FO FILE
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer trans = tf.newTransformer();
             File fo = new File(foPath);
