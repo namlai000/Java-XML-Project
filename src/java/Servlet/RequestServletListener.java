@@ -21,7 +21,7 @@ public class RequestServletListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        System.out.println("Request Destroyed");
+        
     }
 
     @Override

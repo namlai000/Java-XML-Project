@@ -59,7 +59,7 @@ public class ArticleServlet extends HttpServlet {
             int number = Integer.parseInt(id);
             TblNewsHeader news = service.GetNewsById(number);
             if (news != null) {
-                request.setAttribute("news", news);
+                XMLUltilities.JAXBMarshallerWithPath(news, Resource.LOCATION_PATH + "WEB-INF/article.xml", true);
                 List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNews().getCatID().getId());
                 request.setAttribute("ran3", ran3);
             }

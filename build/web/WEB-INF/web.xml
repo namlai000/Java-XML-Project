@@ -48,6 +48,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>Servlet.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintServet</servlet-name>
+        <servlet-class>Servlet.PrintServet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintServet</servlet-name>
+        <url-pattern>/PrintServet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,28 +5,33 @@
  */
 package Servlet;
 
-import Entities.TblNews;
-import Entities.TblNewsHeader;
-import Entities.TblUserInfo;
 import Resources.Resource;
+import Ultilities.XMLUltilities;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
+import org.apache.xmlgraphics.image.loader.ImageManager;
+import org.apache.xmlgraphics.image.loader.impl.DefaultImageContext;
 
 /**
  *
  * @author thegu
  */
-public class ProcessServlet extends HttpServlet {
+public class PrintServet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,48 +44,36 @@ public class ProcessServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        String url = Resource.MainServlet;
-        
+        response.setContentType("application/pdf;charset=UTF-8");
         try {
-            Resource.LOCATION_PATH = getServletContext().getRealPath("/");
-
-            String requestLocation = request.getParameter("location");
-            if (requestLocation == null || requestLocation.isEmpty()) {
-                url = Resource.MainServlet;
-            } else if (requestLocation.equals("explore")) {
-                url = Resource.ExploreServlet;
-            } else if (requestLocation.equals("article")) {
-                url = Resource.ArticleServlet;
-            } else if (requestLocation.equals("author")) {
-                url = Resource.AuthorServlet;
-            } else if (requestLocation.equals("read")) {
-                url = Resource.AuthorArticleServlet;
-            } else if (requestLocation.equals("detail")) {
-                url = Resource.AuthorDetailServlet;
-            } else if (requestLocation.equals("login")) {
-                url = Resource.LoginServlet;
-            } else if (requestLocation.equals("loginPage")) {
-                url = Resource.LoginServlet_Page;
-            } else if (requestLocation.equals("search")) {
-                url = Resource.SearchServlet;
-            } else if (requestLocation.equals("comment")) {
-                url = Resource.CommentServlet;
-            } else if (requestLocation.equals("post")) {
-                url = Resource.PostCommentServlet;
-            } else if (requestLocation.equals("logout")) {
-                url = Resource.LogoutServlet;
-            } else if (requestLocation.equals("print")) {
-                url = Resource.PrintServlet;
-            }
-
+            String path = Resource.LOCATION_PATH;
+            String xslPath = path + "WEB-INF/articleFO.xsl";
+            String xmlPath = path + "WEB-INF/article.xml";
+            String foPath = path + "WEB-INF/article.fo";
+            String foConfig = path + "WEB-INF/fop.xconf";
+            
+            XMLUltilities.methodTrAX(xslPath, xmlPath, foPath, path);
+            File f = new File(foPath);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            FopFactory ff = FopFactory.newInstance();
+            ff.setUserConfig(foConfig);
+            ff.setBaseURL(path);
+            FOUserAgent fua = ff.newFOUserAgent();
+            Fop fop = ff.newFop(MimeConstants.MIME_PDF, fua, out);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer trans = tf.newTransformer();
+            File fo = new File(foPath);
+            Source src = new StreamSource(fo);
+            SAXResult result = new SAXResult(fop.getDefaultHandler());
+            trans.transform(src, result);
+            
+            byte[] content = out.toByteArray();
+            response.setContentLength(content.length);
+            response.getOutputStream().write(content);
+            response.getOutputStream().flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

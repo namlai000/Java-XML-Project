@@ -7,15 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 
 <!DOCTYPE html>
 
 <html>
-    <c:set var="entity" value="${requestScope.news}"/>
-    <c:set var="blank" value="${empty entity.tittle}"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${blank ? 'Not Found' : entity.tittle} - Website Name</title>
+        <title>Article</title>
     </head>
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
@@ -25,38 +24,9 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="row">
-                    <div>
-                        <h1>${entity.tittle}</h1>
-                        <fm:formatDate value="${entity.date}" var="fmDate" type="date" pattern="MM-dd-yyyy" />
-                        <h3>${entity.tblNews.authorID.lastname} | ${fmDate}</h3>
-                    </div>
-                    <div style="margin-bottom: 18px;">
-                        <b>${entity.description}</b>
-                    </div>
-                    <div class="row">
-                        <div class="news-image">
-                            <table>
-                                <tr>
-                                    <c:forEach var="image" items="${entity.tblNews.tblImageList}">
-                                        <td>
-                                            <img src="${image.link}" alt=""/>                            
-                                        </td>
-                                    </c:forEach> 
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div>
-                        ${entity.tblNews.content}
-                    </div>
-                    <div class="break-line">
-                        <hr/>
-                    </div>
-                    <div>
-                        <i>
-                            Tags: <span><a href="ProcessServlet?location=explore&menu=${entity.tblNews.catID.id}">${entity.tblNews.catID.subCategoryName}</a> | </span>                   
-                        </i>
-                    </div>
+                    <c:import url="WEB-INF/article.xml" var="xmlDoc" charEncoding="UTF-8"/>
+                    <c:import url="WEB-INF/article.xsl" var="xslDoc" charEncoding="UTF-8"/>
+                    <x:transform xml="${xmlDoc}" xslt="${xslDoc}"/>
                 </div>
                 <div class="row" style="padding-top: 48px">
                     <h4>Các bài báo tương tự</h4>
@@ -118,7 +88,7 @@
             return;
         }
 
-        var new_id = '${entity.id}';
+        var new_id = document.getElementById("newid").value;
         var user_id = '${sessionScope.user != null ? sessionScope.user.userId : "-1"}';
 
         var url = "ProcessServlet?location=post";
@@ -236,7 +206,7 @@
             return;
         }
 
-        var new_id = '${entity.id}';
+        var new_id = document.getElementById("newid").value;
         var url = "ProcessServlet?location=comment&id=" + new_id;
         xmlHttp.open("GET", url, true);
         xmlHttp.setRequestHeader('Content-Type', 'application/xml');

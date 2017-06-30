@@ -18,3 +18,16 @@
     max-width: 100px;
     max-height: 100px;
 }
+
+.print {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.print a {
+    color: white;
+}
