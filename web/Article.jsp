@@ -68,10 +68,19 @@
                 </div>
                 <div class="row" style="padding-top: 48px">
                     <h5>Comments</h5>
-                    <div>
-                        Post your comment: <input type="text" id="comment" placeholder="Write your comment ..." maxlength="150"/>
-                        <p id="error">Bạn còn 150 ký tự còn lại</p>
-                    </div>
+                    <c:if test="${empty sessionScope.user}">
+                        <div class="row">
+                            <div style="margin: 0px auto 0px auto; width: 60%;">
+                                Hãy <a href="ProcessServlet?location=loginPage">đăng nhập</a> trước khi comment
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty sessionScope.user}">
+                        <div>
+                            Post your comment: <input type="text" id="comment" placeholder="Write your comment ..." maxlength="150"/>
+                            <p id="error">Bạn còn 150 ký tự còn lại</p>
+                        </div>
+                    </c:if>
                     <table border="0" id="dataTable" style="margin-top: 24px;">
                     </table>
                 </div>
@@ -84,19 +93,23 @@
 </html>
 
 <script>
-    document.getElementById("comment").addEventListener("keyup", function (event) {
-        var s = document.getElementById("comment");
-        var e = document.getElementById("error");
-        var len = 150 - s.value.length
-        var msg = 'Bạn còn ' + len + ' ký tự còn lại';
-        e.innerHTML = msg;
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            if (s.value != '') {
-                postComment(s.value);
+    var com = document.getElementById("comment");
+    if (com != null) {
+        com.addEventListener("keyup", function (event) {
+            var s = document.getElementById("comment");
+            var e = document.getElementById("error");
+            var len = 150 - s.value.length
+            var msg = 'Bạn còn ' + len + ' ký tự còn lại';
+            e.innerHTML = msg;
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                document.getElementById("comment").disabled = true;
+                if (s.value != '') {
+                    postComment(s.value);
+                }
             }
-        }
-    });
+        });
+    }
 
     function postComment(comment) {
         xmlHttp = GetXMLHttpObject();
@@ -106,7 +119,7 @@
         }
 
         var new_id = '${entity.id}';
-        var user_id = '4';
+        var user_id = '${sessionScope.user != null ? sessionScope.user.userId : "-1"}';
 
         var url = "ProcessServlet?location=post";
         xmlHttp.open("POST", url, true);
@@ -120,6 +133,7 @@
                     s.value = '';
                     var e = document.getElementById("error");
                     var msg = 'Bạn còn 150 ký tự còn lại';
+                    document.getElementById("comment").disabled = false;
                     e.innerHTML = msg;
                     traversalDOMTree(table);
                 }

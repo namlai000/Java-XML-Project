@@ -16,9 +16,20 @@
                     <span style="display: inline-table; float: right; margin-top: 30px">
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
-                                <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt=""/></span> ${sessionScope.user.lastname}
-                                </c:when>
-                                <c:otherwise>
+                                <div class="dropdown">
+                                    <div onclick="myFunction()" class="dropbtn">
+                                        <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt=""/></span> ${sessionScope.user.lastname}
+                                    </div>
+                                    <div id="myDropdown" class="dropdown-content">
+                                        <a href="#">Write Article</a>
+                                        <a href="#">Edit your Articles</a>
+                                        <a href="#">Your profile</a>
+                                        <hr/>
+                                        <a href="ProcessServlet?location=logout">Logout</a>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
                                 <a href="ProcessServlet?location=loginPage">Login / Sign Up</a>
                             </c:otherwise>
                         </c:choose>
@@ -54,4 +65,22 @@
                     }
                 }
             });
+
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
 </script>

@@ -32,6 +32,7 @@ public class Resource {
     public final static String SearchServlet_Page = "Search.jsp";
     public final static String CommentServlet = "CommentServlet";
     public final static String PostCommentServlet = "PostCommentServlet";
+    public final static String LogoutServlet = "LogoutServlet";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 

@@ -24,10 +24,6 @@ body {
     width: 100%;
 }
 
-div {
-    display: block;
-}
-
 table {
     width: 100%;
     min-width: 450px;
