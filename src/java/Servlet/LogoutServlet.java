@@ -37,7 +37,7 @@ public class LogoutServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("user") != null) {
                 session.removeAttribute("user");
-            };
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

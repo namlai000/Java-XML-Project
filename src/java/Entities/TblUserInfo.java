@@ -36,6 +36,19 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @Table(name = "tblUserInfo")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = {
+    "userId",
+    "firstname",
+    "middlename",
+    "lastname",
+    "address",
+    "phone",
+    "iDNumber",
+    "birthday",
+    "createDate",
+    "imageID",
+    "tblUser"
+})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TblUserInfo.findAll", query = "SELECT t FROM TblUserInfo t")

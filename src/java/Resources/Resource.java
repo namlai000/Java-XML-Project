@@ -35,6 +35,8 @@ public class Resource {
     public final static String LogoutServlet = "LogoutServlet";
     public final static String PrintServlet = "PrintServet";
     public final static String RegisterServlet = "RegisterServlet";
+    public final static String EditProfileServlet = "EditProfileServlet";
+    public final static String EditProfileServlet_Page = "Profile.jsp";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 
@@ -43,6 +45,6 @@ public class Resource {
     public static int ROLE_JOURNALIST = 1;
     public static int ROLE_AUTHORIZEDUSER = 2;
     public static int ROLE_NORMALUSER = 3;
-    
+
     public static String DefaultUserAvatar = "Images/avatar.png";
 }

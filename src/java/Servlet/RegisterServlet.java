@@ -10,6 +10,7 @@ import Entities.TblUser;
 import Entities.TblUserInfo;
 import Resources.Resource;
 import Ultilities.RegisterValidator;
+import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -27,6 +28,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 /**
@@ -67,26 +69,31 @@ public class RegisterServlet extends HttpServlet {
 
             if (validator.getError()) {
                 String error = validator.errorMessage();
-                System.out.println(error);
                 response.getWriter().write("{ \"success\" : false , \"error\" : \"" + error + "\" }");
             } else {
                 userinfo.setCreateDate(Calendar.getInstance().getTime());
                 TblUser user = userinfo.getTblUser();
                 user.setRole(em.find(TblRole.class, Resource.ROLE_NORMALUSER));
 
-                em.getTransaction().begin();
-                em.persist(user);
-                em.flush();
-                userinfo.setTblUser(null);
-                userinfo.setUserId(user.getId());
-                em.persist(userinfo);
-                em.flush();
-                em.getTransaction().commit();
-                
-                request.getSession().setAttribute("user", userinfo);
-                request.getSession().setMaxInactiveInterval(5 * 60);
-                
-                response.getWriter().write("{ \"success\" : true }");
+                String list = (String) request.getAttribute("loginList");
+                Node node = XMLUltilities.CheckUsernameExists(user.getUsername(), list);
+                if (node == null) {
+                    em.getTransaction().begin();
+                    em.persist(user);
+                    em.flush();
+                    userinfo.setTblUser(null);
+                    userinfo.setUserId(user.getId());
+                    em.persist(userinfo);
+                    em.flush();
+                    em.getTransaction().commit();
+
+                    request.getSession().setAttribute("user", userinfo);
+                    request.getSession().setMaxInactiveInterval(5 * 60);
+
+                    response.getWriter().write("{ \"success\" : true }");
+                } else {
+                    response.getWriter().write("{ \"success\" : false , \"error\" : \"This username has already existed!\" }");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

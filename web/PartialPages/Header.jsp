@@ -23,7 +23,7 @@
                                     <div id="myDropdown" class="dropdown-content">
                                         <a href="#">Write Article</a>
                                         <a href="#">Edit your Articles</a>
-                                        <a href="#">Your profile</a>
+                                        <a href="ProcessServlet?location=profile">Your profile</a>
                                         <hr/>
                                         <a href="ProcessServlet?location=logout">Logout</a>
                                     </div>

@@ -75,6 +75,8 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.PrintServlet;
             } else if (requestLocation.equals("register")) {
                 url = Resource.RegisterServlet;
+            } else if (requestLocation.equals("profile")) {
+                url = Resource.EditProfileServlet;
             }
 
         } catch (Exception e) {

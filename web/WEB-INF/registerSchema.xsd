@@ -12,12 +12,14 @@ and open the template in the editor.
         <xsd:restriction base="xsd:string">
             <xsd:maxLength value="20" />
             <xsd:minLength value="1"/>
+            <xsd:whiteSpace value="collapse"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="Max20-Min6">
         <xsd:restriction base="xsd:string">
             <xsd:maxLength value="20" />
             <xsd:minLength value="6"/>
+            <xsd:whiteSpace value="collapse"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="IdentifyCardNumber">
