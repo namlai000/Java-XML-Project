@@ -49,7 +49,7 @@ public class CommentServlet extends HttpServlet {
                     TblCommentCustom cus = new TblCommentCustom();
                     cus.setContent(c.getContent());
                     cus.setFullname(c.getUserID().getLastname());
-                    cus.setImageLink(c.getUserID().getImageID().getLink());
+                    cus.setImageLink(c.getUserID().getImageID() == null ? Resource.DefaultUserAvatar : c.getUserID().getImageID().getLink());
                     tmp.add(cus);
                 }
                 TblCommentWrapper wrap = new TblCommentWrapper(tmp);

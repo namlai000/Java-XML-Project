@@ -10,7 +10,7 @@
                     <span style="display: inline-table">
                         <form id="form" action="ProcessServlet">
                             <input type="hidden" name="location" value="search"/>
-                            <input id="txtSearch" type="text" name="query" placeholder="Search"/>
+                            <input id="txtSearch" type="text" name="query" placeholder="Search" class="form-control form-search"/>
                         </form>
                     </span>
                     <span style="display: inline-table; float: right; margin-top: 30px">

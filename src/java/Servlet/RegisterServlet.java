@@ -5,29 +5,38 @@
  */
 package Servlet;
 
+import Entities.TblRole;
+import Entities.TblUser;
+import Entities.TblUserInfo;
 import Resources.Resource;
-import Services.LoginService;
+import Ultilities.RegisterValidator;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Calendar;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import org.xml.sax.InputSource;
 
 /**
  *
  * @author thegu
  */
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
+
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
+    private EntityManager em = emf.createEntityManager();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,33 +51,42 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        String content = request.getParameter("content").trim();
+        RegisterValidator validator = null;
         try {
-            String list = (String) request.getAttribute("loginList");
-            if (list != null) {
-                InputSource source = new InputSource(new StringReader(list));
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                Document document = db.parse(source);
+            String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = sf.newSchema(new File(path));
+            JAXBContext context = JAXBContext.newInstance(TblUserInfo.class);
+            Unmarshaller u = context.createUnmarshaller();
+            u.setSchema(schema);
+            validator = new RegisterValidator();
+            u.setEventHandler(validator);
 
-                XPathFactory fac = XPathFactory.newInstance();
-                XPath path = fac.newXPath();
-                String expression = "//TblUsers//TblUser[username='" + username + "' and password='" + password + "']";
+            TblUserInfo userinfo = (TblUserInfo) u.unmarshal(new InputSource(new StringReader(content)));
 
-                Node result = (Node) path.evaluate(expression, document, XPathConstants.NODE);
-                if (result != null) {
-                    String id = result.getChildNodes().item(0).getTextContent();
+            if (validator.getError()) {
+                String error = validator.errorMessage();
+                System.out.println(error);
+                response.getWriter().write("{ \"success\" : false , \"error\" : \"" + error + "\" }");
+            } else {
+                userinfo.setCreateDate(Calendar.getInstance().getTime());
+                TblUser user = userinfo.getTblUser();
+                user.setRole(em.find(TblRole.class, Resource.ROLE_NORMALUSER));
 
-                    HttpSession session = request.getSession();
-                    LoginService service = new LoginService();
-                    session.setAttribute("user", service.GetUserInfoById(Integer.parseInt(id)));
-                    session.setMaxInactiveInterval(5 * 60);
-
-                    response.getWriter().write("{ \"success\" : true }");
-                } else {
-                    response.getWriter().write("{ \"success\" : false , \"error\" : \"Username or passowrd wrong\" }");
-                }
+                em.getTransaction().begin();
+                em.persist(user);
+                em.flush();
+                userinfo.setTblUser(null);
+                userinfo.setUserId(user.getId());
+                em.persist(userinfo);
+                em.flush();
+                em.getTransaction().commit();
+                
+                request.getSession().setAttribute("user", userinfo);
+                request.getSession().setMaxInactiveInterval(5 * 60);
+                
+                response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
             e.printStackTrace();

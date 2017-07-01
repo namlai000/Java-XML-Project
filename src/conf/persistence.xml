@@ -13,10 +13,10 @@
     <class>Entities.TblNewsHeader</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://projectnews.database.windows.net:1433;database=News;user=namlai000@projectnews;password=Namlai1200;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
-      <property name="javax.persistence.jdbc.user" value="namlai000"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=News;loginTimeout=30; "/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
       <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-      <property name="javax.persistence.jdbc.password" value="Namlai1200"/>
+      <property name="javax.persistence.jdbc.password" value="namlai120"/>
     </properties>
   </persistence-unit>
 </persistence>
