@@ -21,7 +21,7 @@
                                         <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt=""/></span> ${sessionScope.user.lastname}
                                     </div>
                                     <div id="myDropdown" class="dropdown-content">
-                                        <a href="#">Write Article</a>
+                                        <a href="ProcessServlet?location=create">Write Article</a>
                                         <a href="#">Edit your Articles</a>
                                         <a href="ProcessServlet?location=profile">Your profile</a>
                                         <hr/>

@@ -81,6 +81,10 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.EditProfileServlet;
             } else if (requestLocation.equals("upload")) {
                 url = Resource.UploadImageServlet;
+            } else if (requestLocation.equals("create")) {
+                url = Resource.CreateArticleServlet_Page;
+            } else if (requestLocation.equals("createarticle")) {
+                url = Resource.CreateArticleServlet;
             }
 
         } catch (Exception e) {

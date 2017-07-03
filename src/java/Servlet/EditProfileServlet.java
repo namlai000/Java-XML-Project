@@ -10,7 +10,7 @@ import Entities.TblRole;
 import Entities.TblUser;
 import Entities.TblUserInfo;
 import Resources.Resource;
-import Services.UpdateProfileService;
+import Services.UploadImageService;
 import Ultilities.CustomValidator;
 import Ultilities.XMLUltilities;
 import java.io.File;

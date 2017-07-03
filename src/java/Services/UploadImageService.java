@@ -38,16 +38,16 @@ import org.xml.sax.SAXException;
  *
  * @author thegu
  */
-public class UpdateProfileService {
+public class UploadImageService {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em = emf.createEntityManager();
 
     public TblImage UploadImage(Part image) throws FileNotFoundException, IOException {
         InputStream is = image.getInputStream();
-        if (image.getContentType() != null || image.getSubmittedFileName() != null) {
+        if (image.getContentType() != null || image.getSubmittedFileName() != null) {            
             String fileName = "Images/" + XMLUltilities.Random128String() + "." + image.getContentType().replaceAll("image/", "");
-            File targetFile = new File(Resource.LOCATION_PATH + "/" + fileName);
+            File targetFile = new File(Resource.LOCATION_PATH + "/../../web/" + fileName);
             System.out.println(targetFile.getAbsolutePath());
             OutputStream out = new FileOutputStream(targetFile);
             byte[] buffer = new byte[is.available()];

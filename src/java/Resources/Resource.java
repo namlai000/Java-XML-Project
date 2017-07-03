@@ -38,6 +38,8 @@ public class Resource {
     public final static String EditProfileServlet = "EditProfileServlet";
     public final static String EditProfileServlet_Page = "Profile.jsp";
     public final static String UploadImageServlet = "UploadImageServlet";
+    public final static String CreateArticleServlet = "CreateArticleServlet";
+    public final static String CreateArticleServlet_Page = "CreateArtic;e.jsp";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 
@@ -48,4 +50,6 @@ public class Resource {
     public static int ROLE_NORMALUSER = 3;
 
     public static String DefaultUserAvatar = "Images/avatar.png";
+    
+    public static String IMAGES_SERVER_PATH = "E:/PROJECT_IMAGES";
 }

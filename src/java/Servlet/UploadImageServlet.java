@@ -7,7 +7,7 @@ package Servlet;
 
 import Entities.TblImage;
 import Resources.Resource;
-import Services.UpdateProfileService;
+import Services.UploadImageService;
 import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,7 +43,7 @@ public class UploadImageServlet extends HttpServlet {
 
         try {
             Part image = request.getPart("image");
-            UpdateProfileService service = new UpdateProfileService();
+            UploadImageService service = new UploadImageService();
             TblImage tbl = service.UploadImage(image);
             if (tbl != null) {
                 response.getWriter().write("{ \"success\" : true, \"location\" : \"" + tbl.getLink() + "\", \"id\" : \"" + tbl.getId() + "\" }");
