@@ -57,6 +57,9 @@ public class TblNewsHeader implements Serializable {
     @JoinColumn(name = "Id", referencedColumnName = "HeaderID", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private TblNews tblNews;
+    @Basic(optional = false)
+    @Column(name = "Type")
+    private Integer type;
 
     public TblNewsHeader() {
     }
@@ -110,6 +113,14 @@ public class TblNewsHeader implements Serializable {
 
     public void setTblNews(TblNews tblNews) {
         this.tblNews = tblNews;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override

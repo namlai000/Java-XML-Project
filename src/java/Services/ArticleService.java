@@ -29,7 +29,7 @@ public class ArticleService {
     public List<TblNewsHeader> Random3NewsByCategories(int sub) {
         int tmp = (int) GetNewsRow(sub);
         int random = new Random().nextInt(tmp);
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.tblUser.role.id = :role AND d.catID.id = :sub", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE c.type = :role AND d.catID.id = :sub", TblNewsHeader.class);
         query.setParameter("sub", sub);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
         query.setFirstResult(random);
@@ -43,7 +43,7 @@ public class ArticleService {
     }
 
     public long GetNewsRow(int sub) {
-        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.tblUser.role.id = :role AND d.catID.id = :sub", long.class);
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE c.type = :role AND d.catID.id = :sub", long.class);
         query.setParameter("sub", sub);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
         return (long) query.getSingleResult();

@@ -5,26 +5,30 @@
  */
 package Servlet;
 
+import Entities.TblImage;
 import Entities.TblRole;
 import Entities.TblUser;
 import Entities.TblUserInfo;
 import Resources.Resource;
+import Services.UpdateProfileService;
 import Ultilities.CustomValidator;
 import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -35,7 +39,7 @@ import org.xml.sax.InputSource;
  *
  * @author thegu
  */
-public class RegisterServlet extends HttpServlet {
+public class EditProfileServlet extends HttpServlet {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em = emf.createEntityManager();
@@ -54,15 +58,23 @@ public class RegisterServlet extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
 
         String content = request.getParameter("content").trim();
-        CustomValidator validator = null;
+//        CustomValidator validator = null;
         try {
-            String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
+            String schema = Resource.LOCATION_PATH + "WEB-INF/updateprofileSchema.xsd";
+
+            HttpSession session = request.getSession(false);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
+
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = sf.newSchema(new File(path));
+            Schema sch = sf.newSchema(new File(schema));
             JAXBContext context = JAXBContext.newInstance(TblUserInfo.class);
             Unmarshaller u = context.createUnmarshaller();
-            u.setSchema(schema);
-            validator = new CustomValidator();
+            u.setSchema(sch);
+            CustomValidator validator = new CustomValidator();
             u.setEventHandler(validator);
 
             TblUserInfo userinfo = (TblUserInfo) u.unmarshal(new InputSource(new StringReader(content)));
@@ -71,29 +83,20 @@ public class RegisterServlet extends HttpServlet {
                 String error = validator.errorMessage();
                 response.getWriter().write("{ \"success\" : false , \"error\" : \"" + error + "\" }");
             } else {
-                userinfo.setCreateDate(Calendar.getInstance().getTime());
-                TblUser user = userinfo.getTblUser();
-                user.setRole(em.find(TblRole.class, Resource.ROLE_NORMALUSER));
-
-                String list = (String) request.getAttribute("loginList");
-                Node node = XMLUltilities.CheckUsernameExists(user.getUsername(), list);
-                if (node == null) {
-                    em.getTransaction().begin();
-                    em.persist(user);
-                    em.flush();
-                    userinfo.setTblUser(null);
-                    userinfo.setUserId(user.getId());
-                    em.persist(userinfo);
-                    em.flush();
-                    em.getTransaction().commit();
-
-                    request.getSession().setAttribute("user", userinfo);
-                    request.getSession().setMaxInactiveInterval(5 * 60);
-
-                    response.getWriter().write("{ \"success\" : true }");
-                } else {
-                    response.getWriter().write("{ \"success\" : false , \"error\" : \"This username has already existed!\" }");
+                userinfo.setUserId(currentUser.getUserId());
+                userinfo.setIDNumber(currentUser.getIDNumber());
+                userinfo.setCreateDate(currentUser.getCreateDate());
+                em.getTransaction().begin();
+                if (userinfo.getImageID().getLink().isEmpty()) {
+                    userinfo.setImageID(em.find(TblUserInfo.class, currentUser.getUserId()).getImageID());
                 }
+                em.merge(userinfo);
+                em.getTransaction().commit();
+
+                request.getSession().setAttribute("user", userinfo);
+                request.getSession().setMaxInactiveInterval(5 * 60);
+
+                response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
             e.printStackTrace();

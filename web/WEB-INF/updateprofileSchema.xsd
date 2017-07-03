@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<xsd:schema version="1.0"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+    <xsd:simpleType name="Max20-NotEmpty">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20" />
+            <xsd:minLength value="1"/>
+            <xsd:whiteSpace value="collapse"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Max20-Min6">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20" />
+            <xsd:minLength value="6"/>
+            <xsd:whiteSpace value="collapse"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Max20-Nullable">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20" />
+            <xsd:whiteSpace value="collapse"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="Max100-Nullable">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="100" />
+            <xsd:whiteSpace value="collapse"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="PhoneValidate">
+        <xsd:union>
+            <xsd:simpleType>
+                <xsd:restriction base='xsd:string'>
+                    <xsd:length value='0'/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:positiveInteger">
+                    <xsd:minInclusive value="999999999"/>
+                    <xsd:maxInclusive value="99999999999"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+    <xsd:simpleType name="ImageId">
+        <xsd:union>
+            <xsd:simpleType>
+                <xsd:restriction base='xsd:string'>
+                    <xsd:length value='0'/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:positiveInteger">
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+    <xsd:simpleType name="dateOrEmpty">
+        <xsd:union>
+            <xsd:simpleType>
+                <xsd:restriction base='xsd:string'>
+                    <xsd:minLength value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:date">
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+    <xsd:element name="tblUserInfo">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="firstname" type="Max20-NotEmpty" />
+                <xsd:element name="middlename" type="Max20-Nullable" />
+                <xsd:element name="lastname" type="Max20-NotEmpty" />
+                <xsd:element name="address" type="Max100-Nullable" />
+                <xsd:element name="phone" type="PhoneValidate" />
+                <xsd:element ref="imageID" />
+                <xsd:element name="birthday" type="dateOrEmpty" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="imageID">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="ImageId" />
+                <xsd:element name="link" type="xsd:string" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

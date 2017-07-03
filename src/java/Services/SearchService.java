@@ -23,7 +23,7 @@ public class SearchService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> SearchByTittle(String tittle) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.tblUser.role.id = :role AND c.tittle LIKE :query ORDER BY c.date DESC", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE c.type = :role AND c.tittle LIKE :query ORDER BY c.date DESC", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_JOURNALIST);
         query.setParameter("query", "%" + tittle + "%");
         return query.getResultList();

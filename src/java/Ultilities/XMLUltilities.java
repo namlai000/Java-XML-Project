@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -120,5 +122,10 @@ public class XMLUltilities {
             pages[i] = j++;
         }
         return pages;
+    }
+
+    public static String Random128String() {
+        SecureRandom random = new SecureRandom();
+        return new BigInteger(130, random).toString(128);
     }
 }

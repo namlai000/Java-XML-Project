@@ -25,7 +25,7 @@ public class AuthorArticleService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
 
         if (page == 0) {
@@ -45,7 +45,7 @@ public class AuthorArticleService {
     }
 
     public long GetAuthorArticlesSize() {
-        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", long.class);
+        TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", long.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
         return (long) query.getSingleResult();
     }
@@ -53,7 +53,7 @@ public class AuthorArticleService {
     public List<TblNewsHeader> Random3Articles() {
         int size = (int)GetAuthorArticlesSize();
         int random = new Random().nextInt(size);
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE e.tblUser.role.id = :role", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
         query.setFirstResult(random);
         query.setMaxResults(3);

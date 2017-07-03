@@ -34,7 +34,7 @@
                             </div>
                             <div id="errorLogin">
                             </div>
-                            <button type="submit" class="button-green" onclick="Login()">Login</button>
+                            <button type="button" class="button-green" onclick="Login()">Login</button>
                         </div>
                     </div>
                     <div style="width: 50%; min-width: 400px; float: left;">
@@ -55,9 +55,16 @@
                             <div>
                                 <input id="iDNumber" type="number" name="iDNumber" placeholder="Identification Card Number" class="form-control"/>
                             </div>
+                            <div>
+                                <input id="check" type="checkbox" onchange="read();" /> Tôi đã đọc và đồng ý điểu khoản sử dụng ở <a target="_blank" href="eula.jsp">đây</a>
+                            </div>
+                        </div>
+                        <div style="margin: 0px auto 0px auto; width: 100%; text-align: left">
                             <div id="error" style="text-align: left">
                             </div>
-                            <button type="button" class="button-green" onclick="CreateXMLDom()">Đăng ký</button>
+                        </div>
+                        <div style="margin: 0px auto 0px auto; width: 60%; text-align: center">
+                            <button id="reg" type="button" class="button-green" onclick="CreateXMLDom()">Đăng ký</button>
                         </div>
                     </div>
                 </div>
@@ -70,6 +77,18 @@
 </html>
 
 <script>
+    var reg = document.getElementById("reg");
+    reg.disabled = true;
+    
+    function read() {
+        var check = document.getElementById("check");
+        if (check.checked) {
+            reg.disabled = false;
+        } else {
+            reg.disabled = true;
+        }
+    }
+    
     var root = 'tblUserInfo';
     var child = 'tblUser';
 
@@ -154,7 +173,7 @@
 
         return xmlHttp;
     }
-    
+
     function Login() {
         document.getElementById("errorLogin").innerHTML = "";
 

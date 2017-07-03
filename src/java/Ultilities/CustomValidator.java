@@ -13,25 +13,27 @@ import javax.xml.bind.ValidationEventLocator;
  *
  * @author thegu
  */
-public class RegisterValidator implements ValidationEventHandler {
+public class CustomValidator implements ValidationEventHandler {
 
     private boolean hasError = false;
-    private String error = "";
+    private String error = "ERROR:<br/>";
 
     @Override
     public boolean handleEvent(ValidationEvent event) {
         if (event.getSeverity() == event.FATAL_ERROR || event.getSeverity() == event.ERROR) {
-            error += event.getMessage() + "<br/>";
+            error += " - " + event.getMessage() + "<br/>";
             hasError = true;
         }
         return true;
     }
-    
-        
+
     public boolean getError() {
+        if (error.equals("ERROR:<br/> - <br/>")) {
+            return false;
+        }
         return hasError;
     }
-    
+
     public String errorMessage() {
         return error;
     }

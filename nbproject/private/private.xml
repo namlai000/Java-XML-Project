@@ -12,9 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/WEB-INF/registerSchema.xsd</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/RegisterServlet.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/Login.jsp</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/EditProfileServlet.java</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Ultilities/CustomValidator.java</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/WEB-INF/updateprofileSchema.xsd</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/LoginServlet.java</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/Profile.jsp</file>
         </group>
     </open-files>
 </project-private>
