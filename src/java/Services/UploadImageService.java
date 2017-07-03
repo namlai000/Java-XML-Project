@@ -19,7 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -45,7 +48,7 @@ public class UploadImageService {
 
     public TblImage UploadImage(Part image) throws FileNotFoundException, IOException {
         InputStream is = image.getInputStream();
-        if (image.getContentType() != null || image.getSubmittedFileName() != null) {            
+        if (image.getContentType() != null || image.getSubmittedFileName() != null) {
             String fileName = "Images/" + XMLUltilities.Random128String() + "." + image.getContentType().replaceAll("image/", "");
             File targetFile = new File(Resource.LOCATION_PATH + "/../../web/" + fileName);
             System.out.println(targetFile.getAbsolutePath());
@@ -67,5 +70,35 @@ public class UploadImageService {
         }
 
         return null;
+    }
+
+    public List<TblImage> UploadMultipleImages(Collection<Part> images) throws FileNotFoundException, IOException {
+        List<TblImage> result = new ArrayList<>();
+        em.getTransaction().begin();
+        for (Part p : images) {
+            InputStream is = p.getInputStream();
+            if (p.getContentType() != null || p.getSubmittedFileName() != null) {
+                String fileName = "Images/" + XMLUltilities.Random128String() + "." + p.getContentType().replaceAll("image/", "");
+                File targetFile = new File(Resource.LOCATION_PATH + "/../../web/" + fileName);
+                System.out.println(targetFile.getAbsolutePath());
+                OutputStream out = new FileOutputStream(targetFile);
+                byte[] buffer = new byte[is.available()];
+                is.read(buffer);
+                out.write(buffer);
+                is.close();
+                out.close();
+
+                TblImage tbl = new TblImage();
+                tbl.setLink(fileName);
+
+                em.persist(tbl);
+                em.flush();
+                
+                result.add(tbl);
+            }
+        }
+        em.getTransaction().commit();
+
+        return result;
     }
 }

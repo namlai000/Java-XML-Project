@@ -109,7 +109,7 @@
         var formData = new FormData();
         formData.append("image", document.getElementById("image").files[0]);
 
-        var url = "ProcessServlet?location=upload";
+        var url = "ProcessServlet?location=upload&multi=false";
         xmlHttp.open("POST", url, true);
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {

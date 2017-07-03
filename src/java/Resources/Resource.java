@@ -39,7 +39,7 @@ public class Resource {
     public final static String EditProfileServlet_Page = "Profile.jsp";
     public final static String UploadImageServlet = "UploadImageServlet";
     public final static String CreateArticleServlet = "CreateArticleServlet";
-    public final static String CreateArticleServlet_Page = "CreateArtic;e.jsp";
+    public final static String CreateArticleServlet_Page = "CreateArticle.jsp";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 

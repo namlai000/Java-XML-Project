@@ -118,7 +118,6 @@
     var xmlDOM;
 
     var table = 'dataTable';
-    window.onload = traversalDOMTree(table);
 
     function addRow(tableId, cells) {
         var tableElem = document.getElementById(tableId);
@@ -218,5 +217,18 @@
             }
         };
         xmlHttp.send();
+    }
+
+    window.onload = function () {
+        traversalDOMTree(table);
+        replaceImages();
+    }
+
+    function replaceImages() {
+        var ele = document.getElementsByName("image");
+        var ele2 = document.getElementsByName("tmp");
+        for (var i = 0; i < ele.length; i++) {
+            ele[i].src = ele2[i].src;
+        }
     }
 </script>

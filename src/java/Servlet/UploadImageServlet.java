@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,14 +43,27 @@ public class UploadImageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
 
+        boolean multi = request.getParameter("multi").equals("true");
         try {
-            Part image = request.getPart("image");
             UploadImageService service = new UploadImageService();
-            TblImage tbl = service.UploadImage(image);
-            if (tbl != null) {
-                response.getWriter().write("{ \"success\" : true, \"location\" : \"" + tbl.getLink() + "\", \"id\" : \"" + tbl.getId() + "\" }");
+
+            if (!multi) {
+                Part image = request.getPart("image");
+                TblImage tbl = service.UploadImage(image);
+                if (tbl != null) {
+                    response.getWriter().write("{ \"success\" : true, \"location\" : \"" + tbl.getLink() + "\", \"id\" : \"" + tbl.getId() + "\" }");
+                } else {
+                    response.getWriter().write("{ \"success\" : false, \"location\" : \"\", \"id\" : \"\"}");
+                }
             } else {
-                response.getWriter().write("{ \"success\" : false, \"location\" : \"\", \"id\" : \"\"}");
+                Collection<Part> images = request.getParts();
+                List<TblImage> result = service.UploadMultipleImages(images);
+                String tmp = "";
+                for (TblImage p : result) {
+                    tmp += " { \"id\" : \"" + p.getId() + "\", \"link\" : \"" + p.getLink() + "\" },";
+                }
+                tmp = tmp.substring(0, tmp.length() - 1);
+                response.getWriter().write("{ \"success\" : true, \"data\" : [ " + tmp + " ] }");
             }
         } catch (Exception e) {
             e.printStackTrace();

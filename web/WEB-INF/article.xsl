@@ -25,20 +25,12 @@
             </b>
         </div>
         <div class="row">
-            <div class="news-image">
-                <table>
-                    <tr>
-                        <xsl:for-each select="tblNews/tblImageList">
-                            <td>
-                                <img src="{link}" alt=""/>   
-                            </td>
-                        </xsl:for-each>
-                    </tr>
-                </table>
-            </div>
+            <xsl:for-each select="tblNews/tblImageList">
+                <img name="tmp" src="{link}" alt="" style="display: none"/>   
+            </xsl:for-each>
         </div>
         <div>
-            <xsl:value-of select="tblNews/content"/>
+            <xsl:value-of select="tblNews/content" disable-output-escaping="yes"/>
         </div>
         <div class="break-line">
             <hr/>
