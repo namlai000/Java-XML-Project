@@ -55,25 +55,6 @@
                         </div>
                     </div>
                 </div>
-                <!--                <div class="row">
-                                    <div style="min-width: 400px">
-                                        <div style="margin: 0px auto 0px auto; width: 40%; text-align: center">
-                                            <h3>Thay đổi mật khẩu</h3>
-                                            <div>
-                                                <input id="oldpass" type="password" placeholder="Old Password" class="form-control"/>
-                                            </div>
-                                            <div>
-                                                <input id="newpass" type="password" placeholder="New Password" class="form-control"/>
-                                            </div>
-                                            <div>
-                                                <input id="confirmpass" type="password" placeholder="Confirm new Password" class="form-control"/>
-                                            </div>
-                                            <div id="error2">
-                                            </div>
-                                            <button type="button" class="button-green">Thay đổi</button>
-                                        </div>
-                                    </div>
-                                </div>-->
             </div>
 
             <!-- Footer -->

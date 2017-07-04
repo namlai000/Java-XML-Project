@@ -12,12 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/CreateArticleServlet.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/CSS/CreateArticle.css</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Services/AuthorService.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/Article.jsp</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/CreateArticle.jsp</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/WEB-INF/createNews.xsd</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/MainServlet.java</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/Profile.jsp</file>
         </group>
     </open-files>
 </project-private>
