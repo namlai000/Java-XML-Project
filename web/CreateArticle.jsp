@@ -29,18 +29,47 @@
                     <p><input id="description" type="text" class="form-control" placeholder="Description"/></p>
                 </div>
                 <div class="break-line"><hr/></div>
-                <div class="row">
-                    <button type="button" class="button-green" onclick="AddBigWord()">Add Big Word</button>
-                    <button type="button" class="button-green" onclick="AddParagraph()">Add Paragraph</button>
-                    <button type="button" class="button-green" onclick="AddImage()">Add Image</button>
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'div1');changeType(1);">Viết báo</button>
+                    <button class="tablinks" onclick="openTab(event, 'div2');changeType(2);">Viết góc nhìn</button>
                 </div>
-                <div class="row">
-                    <div id="article">
+                <div id="div1" class="tabcontent">
+                    <div class="row">
+                        <button type="button" class="button-green" onclick="AddBigWord()">Thêm chữ to</button>
+                        <button type="button" class="button-green" onclick="AddParagraph()">Thêm đoạn văn</button>
+                        <button type="button" class="button-green" onclick="AddImage()">Thêm hình ảnh</button>
+                    </div>
+                    <div class="row">
+                        <div id="article1">
+                            <select id="select" class="form-control">
+                                <c:forEach var="select" items="${requestScope.cats}">
+                                    <option value="${select.id}">${select.subCategoryName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="error1">
+                    </div>
+                    <div class="break-line"><hr/></div>
+                    <div class="row">
+                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Submit</button>
                     </div>
                 </div>
-                <div class="break-line"><hr/></div>
-                <div class="row">
-                    <button type="button" class="button-green" onclick="UploadMultipleImages()">Submit</button>
+                <div id="div2" class="tabcontent">
+                    <div class="row">
+                        <button type="button" class="button-green" onclick="AddBigWord()">Thêm chữ to</button>
+                        <button type="button" class="button-green" onclick="AddParagraph()">Thêm đoạn văn</button>
+                    </div>
+                    <div class="row">
+                        <div id="article2">
+                        </div>
+                    </div>
+                    <div id="error2">
+                    </div>
+                    <div class="break-line"><hr/></div>
+                    <div class="row">
+                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Submit</button>
+                    </div>
                 </div>
             </div>
 
@@ -51,9 +80,29 @@
 </html>
 
 <script>
-    var article = document.getElementById("article");
+    var typeArticle = '1';
+
+    var ar = 'article1';
+    var error = 'error1';
+
+    function changeType(val) {
+        typeArticle = val;
+        if (val === 1) {
+            ar = 'article1';
+            error = 'error1';
+        } else {
+            ar = 'article2';
+            error = 'error2';
+        }
+        console.log(typeArticle + ar);
+        var x = document.querySelectorAll(".parent");
+        for (var i = 0; i < x.length; i++) {
+            x[i].querySelector(".delete").click()
+        }
+    }
 
     function AddBigWord() {
+        var article = document.getElementById(ar);
         var container = document.createElement("p");
         container.className = "parent";
         container.innerHTML = "<input name='head' type='text' class='form-control' placeholder='New big word'/> <button class='delete'>X</button>";
@@ -66,6 +115,7 @@
     }
 
     function AddParagraph() {
+        var article = document.getElementById(ar);
         var container = document.createElement("p");
         container.className = "parent";
         container.innerHTML = "<textarea name='paragraph' class='form-control' style='resize: none' rows='8' placeholder='New paragraph'></textarea> <button class='delete'>X</button>";
@@ -78,6 +128,7 @@
     }
 
     function AddImage() {
+        var article = document.getElementById(ar);
         var container = document.createElement("p");
         container.className = "parent";
         container.innerHTML = "<input name='image' type='file' accept='image/*' class='form-control'/> <button class='delete'>X</button>";
@@ -111,6 +162,7 @@
     var root = 'tblNewsHeader';
     var child = 'tblNews';
     var child2 = 'tblImageList';
+    var child3 = 'catID';
 
     var xmlDoc;
 
@@ -145,7 +197,7 @@
         xmlDoc = document.implementation.createDocument(null, root);
 
         var content = '';
-        var e = document.getElementById("article").querySelectorAll('*');
+        var e = document.getElementById(ar).querySelectorAll('*');
         for (var i = 0; i < e.length; i++) {
             if (e[i].getAttribute("name") == "head" && e[i].value != "") {
                 content += '<p><b>' + e[i].value + '</b></p>';
@@ -155,7 +207,7 @@
                 content += '<p><img name="image" src="none" class="ar-image"/></p>';
             }
         }
-        
+
         console.log(content);
 
         var node = xmlDoc.createElement("tittle");
@@ -171,13 +223,14 @@
 
         var node = xmlDoc.createElement(child);
         elements[0].appendChild(node);
+
         var node = xmlDoc.createElement("content");
         var newText = xmlDoc.createCDATASection(content);
         node.appendChild(newText);
         var elements = xmlDoc.getElementsByTagName(child);
         elements[0].appendChild(node);
 
-        var e = document.getElementById("article").querySelectorAll('*');
+        var e = document.getElementById(ar).querySelectorAll('*');
         var count = 0;
         for (var i = 0; i < e.length; i++) {
             if (e[i].getAttribute("name") == "image" && e[i].value != "") {
@@ -198,8 +251,28 @@
             }
         }
 
+        if (ar === 'article1') {
+            var elements = xmlDoc.getElementsByTagName(child);
+            var e = document.getElementById("select");
+            var selected = e.options[e.selectedIndex].value;
+            var node = xmlDoc.createElement(child3);
+            elements[0].appendChild(node);
+            var node = xmlDoc.createElement("id");
+            var newText = xmlDoc.createTextNode(selected);
+            node.appendChild(newText);
+            var elements = xmlDoc.getElementsByTagName(child3);
+            elements[0].appendChild(node);
+        }
+
+
+        var node = xmlDoc.createElement("type");
+        var newText = xmlDoc.createTextNode(typeArticle);
+        node.appendChild(newText);
+        var elements = xmlDoc.getElementsByTagName(root);
+        elements[0].appendChild(node);
+
         console.log(xmlDoc);
-        
+
         Submit();
     }
 
@@ -216,9 +289,35 @@
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {
                 var result = JSON.parse(xmlHttp.responseText);
-                console.log(result);
+                if (result.success) {
+                    alert("Update success!");
+                } else {
+                    var data = result.error;
+                    document.getElementById(error).innerHTML = "<font color='red'>" + data + "</font>";
+                }
             }
         };
         xmlHttp.send(url);
+    }
+
+    function openTab(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
     }
 </script>

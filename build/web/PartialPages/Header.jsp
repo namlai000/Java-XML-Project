@@ -18,7 +18,7 @@
                             <c:when test="${not empty sessionScope.user}">
                                 <div class="dropdown">
                                     <div onclick="myFunction()" class="dropbtn">
-                                        <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt=""/></span> ${sessionScope.user.lastname}
+                                        <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt="" onerror="this.src='Images/avatar.png'"/></span> ${sessionScope.user.lastname}
                                     </div>
                                     <div id="myDropdown" class="dropdown-content">
                                         <a href="ProcessServlet?location=create">Write Article</a>

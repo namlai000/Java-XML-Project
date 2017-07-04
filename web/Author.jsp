@@ -28,7 +28,7 @@
                     <c:forEach var="en" items="${au1}">
                         <div class="container-item">
                             <div>
-                                <img src="${en.imageID.link}"/>
+                                <img src="${en.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
                             </div>
                             <h4><a href="ProcessServlet?location=detail&id=${en.userId}">${en.firstname}<i> </i>${en.lastname}</a></h4>
                         </div>
@@ -46,7 +46,7 @@
                                 <li>
                                     <div class="container">
                                         <div class="small-avatar">
-                                            <img src="${en.imageID.link}"/>
+                                            <img src="${en.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
                                         </div>
                                         <div>
                                             <a href="ProcessServlet?location=detail&id=${en.userId}">${en.firstname}<i> </i>${en.lastname}</a> 
@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>
                                         <div class="article-image avatar">
-                                            <img src="Images/avatar.png"/>
+                                            <img src="Images/avatar.png" onerror="this.src='Images/placeholder-blue.png'"/>
                                         </div>
                                         <div class="article-text">
                                             <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.tittle}</a></h3>

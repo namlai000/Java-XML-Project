@@ -13,7 +13,7 @@
                 <xsl:if test="position() = 1">
                     <div class="row">
                         <div>
-                            <img src="{tblNews/tblImageList/link}" alt=""/>
+                            <img src="{tblNews/tblImageList/link}" alt="" onerror="this.src='Images/placeholder-blue.png'"/>
                         </div>
                         <div>
                             <h2>
@@ -36,7 +36,7 @@
                                 <td>
                                     <div class="row">
                                         <div>
-                                            <img src="{tblNews/tblImageList/link}" alt=""/>
+                                            <img src="{tblNews/tblImageList/link}" alt="" onerror="this.src='Images/placeholder-blue.png'"/>
                                         </div>
                                         <div>
                                             <h3>
@@ -62,7 +62,7 @@
                     <xsl:if test="position() = 5">
                         <div class="row">
                             <div>
-                                <img src="{tblNews/tblImageList/link}" alt=""/>
+                                <img src="{tblNews/tblImageList/link}" alt="" onerror="this.src='Images/placeholder-blue.png'"/>
                             </div>
                             <div>
                                 <h4>

@@ -26,7 +26,7 @@
             <div class="body-main">
                 <div class="row">
                     <div class="auArticle-image">
-                        <img src="${entity.tblNews.authorID.imageID.link}"/>
+                        <img src="${entity.tblNews.authorID.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
                     </div>
                     <div class="auArticle-text">
                         <h2>${entity.tittle}</h2>
@@ -172,7 +172,7 @@
 
         if (node.tagName == "imageLink") {
             var sibling;
-            var image = "<img src='" + node.firstChild.nodeValue + "' alt='' class='ar-image'/>";
+            var image = "<img src='" + node.firstChild.nodeValue + "' alt='' class='ar-image' onerror='this.src=Images/placeholder-blue.png/>";
             sibling = node.nextElementSibling;
             var fullname = sibling.firstChild.nodeValue;
             sibling = sibling.nextElementSibling;

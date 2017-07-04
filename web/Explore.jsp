@@ -51,7 +51,7 @@
                                             <c:choose>
                                                 <c:when test="${status.first and ((empty param.page) or (param.page eq 1))}">
                                                     <div class="first-image">
-                                                        <img src="${entity.tblNews.tblImageList[0].link}" />
+                                                        <img src="${entity.tblNews.tblImageList[0].link}" onerror="this.src='Images/placeholder-blue.png'"/>
                                                     </div>
                                                     <div>
                                                         <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h2>
@@ -64,7 +64,7 @@
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="article-image">
-                                                        <img src="${entity.tblNews.tblImageList[0].link}" />
+                                                        <img src="${entity.tblNews.tblImageList[0].link}" onerror="this.src='Images/placeholder-blue.png'"/>
                                                     </div>
                                                     <div class="article-text">
                                                         <h4><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h4>

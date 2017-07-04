@@ -162,7 +162,7 @@
 
         if (node.tagName == "imageLink") {
             var sibling;
-            var image = "<img src='" + node.firstChild.nodeValue + "' alt='' class='ar-image'/>";
+            var image = "<img src='" + node.firstChild.nodeValue + "' alt='' class='ar-image' onerror='this.src=Images/avatar.png'/>";
             sibling = node.nextElementSibling;
             var fullname = sibling.firstChild.nodeValue;
             sibling = sibling.nextElementSibling;

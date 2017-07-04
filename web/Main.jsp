@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>
                                             <div class="article-image">
-                                                <img src="${entity.tblNews.tblImageList[0].link}" alt=""/>
+                                                <img src="${entity.tblNews.tblImageList[0].link}" alt="" onerror="this.src='Images/placeholder-blue.png'"/>
                                             </div>
                                             <div class="article-text">
                                                 <h2><a href="ProcessServlet?location=article&id=${entity.id}">${entity.tittle}</a></h2>

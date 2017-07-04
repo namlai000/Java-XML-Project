@@ -5,30 +5,21 @@
  */
 package Servlet;
 
-import Entities.TblImage;
 import Resources.Resource;
-import Services.UploadImageService;
-import Ultilities.XMLUltilities;
-import java.io.File;
-import java.io.FileOutputStream;
+import Services.ExploreService;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author thegu
  */
-public class UploadImageServlet extends HttpServlet {
+public class CreateServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,34 +32,16 @@ public class UploadImageServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
-
-        boolean multi = request.getParameter("multi").equals("true");
+        response.setContentType("text/html;charset=UTF-8");
         try {
-            UploadImageService service = new UploadImageService();
-
-            if (!multi) {
-                Part image = request.getPart("image");
-                TblImage tbl = service.UploadImage(image);
-                if (tbl != null) {
-                    response.getWriter().write("{ \"success\" : true, \"location\" : \"" + tbl.getLink() + "\", \"id\" : \"" + tbl.getId() + "\" }");
-                } else {
-                    response.getWriter().write("{ \"success\" : false, \"location\" : \"\", \"id\" : \"\"}");
-                }
-            } else {
-                Collection<Part> images = request.getParts();
-                List<TblImage> result = service.UploadMultipleImages(images);
-                String tmp = "";
-                for (TblImage p : result) {
-                    tmp += " { \"id\" : \"" + p.getId() + "\", \"link\" : \"" + p.getLink() + "\" },";
-                }
-                if (!tmp.isEmpty()) tmp = tmp.substring(0, tmp.length() - 1);
-                response.getWriter().write("{ \"success\" : true, \"data\" : [ " + tmp + " ] }");
-            }
+            ExploreService service = new ExploreService();
+            request.setAttribute("cats", service.getAllSubCategories());
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().write("{ \"success\" : false }");
         }
+        
+        RequestDispatcher rd = request.getRequestDispatcher(Resource.CreateArticleServlet_Page);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

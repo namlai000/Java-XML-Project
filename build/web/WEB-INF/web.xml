@@ -68,6 +68,10 @@
         <servlet-name>CreateArticleServlet</servlet-name>
         <servlet-class>Servlet.CreateArticleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateServlet</servlet-name>
+        <servlet-class>Servlet.CreateServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>CreateArticleServlet</servlet-name>
         <url-pattern>/CreateArticleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateServlet</servlet-name>
+        <url-pattern>/CreateServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

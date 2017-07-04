@@ -8,10 +8,11 @@ package Servlet;
 import Entities.TblImage;
 import Entities.TblNews;
 import Entities.TblNewsHeader;
+import Entities.TblSubCategory;
 import Entities.TblUserInfo;
 import Resources.Resource;
-import Services.CommentService;
-import Ultilities.XMLUltilities;
+import Ultilities.CustomValidator;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -25,8 +26,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import org.xml.sax.InputSource;
 
 /**
@@ -56,49 +60,64 @@ public class CreateArticleServlet extends HttpServlet {
             HttpSession session = request.getSession(false);
             TblUserInfo user = (TblUserInfo) session.getAttribute("user");
             if (user != null) {
-                //            String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
-//            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-//            Schema schema = sf.newSchema(new File(path));
+                String path = Resource.LOCATION_PATH + "WEB-INF/createNews.xsd";
+                SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                Schema schema = sf.newSchema(new File(path));
                 JAXBContext context = JAXBContext.newInstance(TblNewsHeader.class);
                 Unmarshaller u = context.createUnmarshaller();
-//            u.setSchema(schema);
-//            validator = new CustomValidator();
-//            u.setEventHandler(validator);
+                u.setSchema(schema);
+                CustomValidator validator = new CustomValidator();
+                u.setEventHandler(validator);
                 System.out.println(data);
+
                 TblNewsHeader newsheader = (TblNewsHeader) u.unmarshal(new InputSource(new StringReader(data)));
-                String a = newsheader.getTblNews().getContent();
 //
-                newsheader.setDate(Calendar.getInstance().getTime());
+                if (validator.getError()) {
+                    response.getWriter().write("{ \"success\" : false , \"error\" : \"" + validator.errorMessage() + "\" }");
+                } else {
+                    newsheader.setDate(Calendar.getInstance().getTime());
 
-                TblNews news2 = newsheader.getTblNews();
-                List<TblImage> images = news2.getTblImageList();
-                news2.setAuthorID(user);
-                for (TblImage i : images) {
-                    List<TblNews> tmp = new ArrayList<TblNews>();
-                    tmp.add(news2);
-                    i.setTblNewsList(tmp);
-                }
+                    TblNews news2 = newsheader.getTblNews();
 
-                em.getTransaction().begin();
+                    TblSubCategory sub = news2.getCatID();
+                    if (sub != null) {
+                        news2.setCatID(em.find(TblSubCategory.class, sub.getId()));
+                    }
+                    
+                    List<TblImage> images = news2.getTblImageList();
+                    news2.setAuthorID(user);
+                    if (images != null) {
+                        for (TblImage i : images) {
+                            List<TblNews> tmp = new ArrayList<TblNews>();
+                            tmp.add(news2);
+                            i.setTblNewsList(tmp);
+                        }
+                    }
 
-                em.persist(news2);
-                em.flush();
-                newsheader.setId(news2.getHeaderID());
-                em.persist(newsheader);
-                em.flush();
-                for (TblImage i : images) {
-                    em.persist(i);
+                    em.getTransaction().begin();
+
+                    em.persist(news2);
                     em.flush();
+                    newsheader.setId(news2.getHeaderID());
+                    em.persist(newsheader);
+                    em.flush();
+
+                    if (images != null) {
+                        for (TblImage i : images) {
+                            em.persist(i);
+                            em.flush();
+                        }
+                    }
+
+                    em.getTransaction().commit();
+
+                    response.getWriter().write("{ \"success\" : true }");
                 }
-                
-                em.getTransaction().commit();
             }
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
-
-        response.getWriter().write("{ \"success\" : true , \"error\" : \"none\" }");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

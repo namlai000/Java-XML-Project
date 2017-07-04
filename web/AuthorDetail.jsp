@@ -24,7 +24,7 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="auArticle-image">
-                    <img src="${author.imageID.link}"/>
+                    <img src="${author.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
                 </div>
                 <div class="auArticle-text">
                     <div class="row">

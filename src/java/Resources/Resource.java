@@ -40,6 +40,7 @@ public class Resource {
     public final static String UploadImageServlet = "UploadImageServlet";
     public final static String CreateArticleServlet = "CreateArticleServlet";
     public final static String CreateArticleServlet_Page = "CreateArticle.jsp";
+    public final static String CreateServlet = "CreateServlet";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 

@@ -25,20 +25,17 @@ public class AuthorService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblUserInfo> getTop5Authors() {
-        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.tblUser.role.id = :id ORDER BY c.createDate ASC", TblUserInfo.class);
-        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c ORDER BY c.createDate ASC", TblUserInfo.class);
         return query.getResultList();
     }
 
     public List<TblUserInfo> getNewest10Authors() {
-        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.tblUser.role.id = :id ORDER BY c.createDate DESC", TblUserInfo.class);
-        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c ORDER BY c.createDate DESC", TblUserInfo.class);
         return query.getResultList();
     }
 
     public List<TblUserInfo> getAllAuthor() {
-        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.tblUser.role.id = :id", TblUserInfo.class);
-        query.setParameter("id", Resource.ROLE_AUTHORIZEDUSER);
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c", TblUserInfo.class);
         return query.getResultList();
     }
 
@@ -49,7 +46,6 @@ public class AuthorService {
     public List<TblNewsHeader> GetAuthorArticleListByAuthorId(int authorId) {
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.userId = :id AND c.type = :role", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
-        query.setParameter("id", authorId);
         return query.getResultList();
     }
 }

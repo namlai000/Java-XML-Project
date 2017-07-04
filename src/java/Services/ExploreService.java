@@ -7,6 +7,7 @@ package Services;
 
 import Entities.TblCategory;
 import Entities.TblNewsHeader;
+import Entities.TblSubCategory;
 import Resources.Resource;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -26,6 +27,11 @@ public class ExploreService {
 
     public List<TblCategory> getAllCategories() {
         TypedQuery<TblCategory> query = em.createQuery("SELECT c FROM TblCategory c", TblCategory.class);
+        return query.getResultList();
+    }
+    
+    public List<TblSubCategory> getAllSubCategories() {
+        TypedQuery<TblSubCategory> query = em.createQuery("SELECT c FROM TblSubCategory c", TblSubCategory.class);
         return query.getResultList();
     }
 

@@ -28,7 +28,6 @@
                     <div style="min-width: 400px">
                         <div style="margin: 0px auto 0px auto; width: 60%; text-align: center">
                             <h3>Thông tin cá nhân</h3>
-                            <div>
                                 <input id="firstname" type="text" placeholder="First name" value="${user.firstname}" class="form-control"/>
                             </div>
                             <div>

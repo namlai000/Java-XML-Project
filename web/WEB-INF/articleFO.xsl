@@ -35,8 +35,8 @@
                             </fo:table-row>
                         </fo:table-body>
                     </fo:table>
-                    <fo:block font-family="Segoe UI" margin-top="16px">               
-                        <xsl:value-of select="tblNews/content"/>
+                    <fo:block font-family="Segoe UI" margin-top="16px"> 
+                        <xsl:value-of select="tblNews/content"/>         
                     </fo:block>
                 </fo:flow>
             </fo:page-sequence>
