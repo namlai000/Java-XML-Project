@@ -37,8 +37,8 @@
         <servlet-class>Servlet.SearchServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CommentServlet</servlet-name>
-        <servlet-class>Servlet.CommentServlet</servlet-class>
+        <servlet-name>DisplayCommentServlet</servlet-name>
+        <servlet-class>Servlet.DisplayCommentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostCommentServlet</servlet-name>
@@ -109,8 +109,8 @@
         <url-pattern>/SearchServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CommentServlet</servlet-name>
-        <url-pattern>/CommentServlet</url-pattern>
+        <servlet-name>DisplayCommentServlet</servlet-name>
+        <url-pattern>/DisplayCommentServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostCommentServlet</servlet-name>

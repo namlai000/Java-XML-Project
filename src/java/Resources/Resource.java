@@ -5,7 +5,7 @@
  */
 package Resources;
 
-import Servlet.CommentServlet;
+import Servlet.DisplayCommentServlet;
 
 /**
  *
@@ -30,7 +30,7 @@ public class Resource {
     public final static String LoginServlet_Page = "Login.jsp";
     public final static String SearchServlet = "SearchServlet";
     public final static String SearchServlet_Page = "Search.jsp";
-    public final static String CommentServlet = "CommentServlet";
+    public final static String DisplayCommentServlet = "DisplayCommentServlet";
     public final static String PostCommentServlet = "PostCommentServlet";
     public final static String LogoutServlet = "LogoutServlet";
     public final static String PrintServlet = "PrintServet";

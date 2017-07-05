@@ -66,7 +66,7 @@ public class ProcessServlet extends HttpServlet {
             } else if (requestLocation.equals("search")) {
                 url = Resource.SearchServlet;
             } else if (requestLocation.equals("comment")) {
-                url = Resource.CommentServlet;
+                url = Resource.DisplayCommentServlet;
             } else if (requestLocation.equals("post")) {
                 url = Resource.PostCommentServlet;
             } else if (requestLocation.equals("logout")) {

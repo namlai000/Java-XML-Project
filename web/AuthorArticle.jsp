@@ -7,15 +7,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 
 <!DOCTYPE html>
 
 <html>
-    <c:set var="entity" value="${requestScope.auArticle}"/>
-    <c:set var="blank" value="${empty entity.tittle}"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${blank ? 'Not Found' : entity.tittle} - Website Name</title>
+        <title>Author Article - Website Name</title>
     </head>
     <body>
         <div style="margin: 0px auto 0px auto; width: 60%;">
@@ -25,16 +24,13 @@
             <!-- BODY -->
             <div class="body-main">
                 <div class="row">
+                    <c:import url="WEB-INF/authorarticle.xml" var="xmlDoc" charEncoding="UTF-8"/>
+                    <c:import url="WEB-INF/authorarticle.xsl" var="xslDoc" charEncoding="UTF-8"/>
+                    <x:transform xml="${xmlDoc}" xslt="${xslDoc}"/>
                     <div class="auArticle-image">
-                        <img src="${entity.tblNews.authorID.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
+                        <img src="#" style="visibility: hidden"/>
                     </div>
                     <div class="auArticle-text">
-                        <h2>${entity.tittle}</h2>
-                        <h3><a href="ProcessServlet?location=detail&id=${entity.tblNews.authorID.userId}">${entity.tblNews.authorID.lastname}</a></h3>
-                        <hr/>
-                        ${entity.description}
-                        <br/>
-                        ${entity.tblNews.content}
                         <div class="row" style="padding-top: 60px">
                             <h4>Các bài viết tương tự</h4>
                             <c:forEach var="ran" items="${requestScope.ran3}">
@@ -43,11 +39,16 @@
                                 </div>
                             </c:forEach>
                         </div>
+                    </div>
+                    <div class="auArticle-image">
+                        <img src="#" style="visibility: hidden"/>
+                    </div>
+                    <div class="auArticle-text">
                         <div class="row" style="padding-top: 48px">
                             <h5>Comments</h5>
                             <c:if test="${empty sessionScope.user}">
                                 <div class="row">
-                                    <div style="margin: 0px auto 0px auto; width: 60%;">
+                                    <div style="margin: 0px auto 0px auto; width: 60%; padding: 8px 8px 8px 8px; background-color: #ccccff; text-align: center;">
                                         Hãy <a href="ProcessServlet?location=loginPage">đăng nhập</a> trước khi comment
                                     </div>
                                 </div>
@@ -64,11 +65,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
-    </body>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
+    </div>
+</body>
 </html>
 
 <script>

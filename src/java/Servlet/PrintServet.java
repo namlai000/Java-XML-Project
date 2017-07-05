@@ -45,11 +45,13 @@ public class PrintServet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/pdf;charset=UTF-8");
+        
+        String currentFile = request.getParameter("name");
         try {
             String path = Resource.LOCATION_PATH;
-            String xslPath = path + "WEB-INF/articleFO.xsl";
-            String xmlPath = path + "WEB-INF/article.xml";
-            String foPath = path + "WEB-INF/article.fo";
+            String xslPath = path + "WEB-INF/printFO.xsl";
+            String xmlPath = path + "WEB-INF/" + currentFile + ".xml";
+            String foPath = path + "WEB-INF/" + currentFile + ".fo";
             String foConfig = path + "WEB-INF/fop.xconf";
             
             // TO PDF

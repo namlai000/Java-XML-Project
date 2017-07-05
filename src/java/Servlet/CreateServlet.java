@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.ExploreService;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,6 +36,13 @@ public class CreateServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+            HttpSession session = request.getSession(false);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
+            
             ExploreService service = new ExploreService();
             request.setAttribute("cats", service.getAllSubCategories());
         } catch (Exception e) {

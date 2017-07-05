@@ -75,11 +75,7 @@ public class XMLUltilities {
         TransformerFactory tf = TransformerFactory.newInstance();
         StreamSource xslFile = new StreamSource(xslPath);
         Transformer trans = tf.newTransformer(xslFile);
-
-        if (path != null) {
-            trans.setParameter("url", path);
-        }
-
+        trans.setParameter("url", path);
         StreamSource xmlFile = new StreamSource(xmlPath);
         StreamResult htmlFile = new StreamResult(new FileOutputStream(output));
         trans.transform(xmlFile, htmlFile);

@@ -8,6 +8,7 @@ package Servlet;
 import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.AuthorArticleService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -41,9 +42,9 @@ public class AuthorArticleServlet extends HttpServlet {
             if (id != null) {
                 int i = Integer.parseInt(id);
                 AuthorArticleService service = new AuthorArticleService();
-                
+
                 TblNewsHeader article = service.GetAuthorArticleById(i);
-                request.setAttribute("auArticle", article);
+                XMLUltilities.JAXBMarshallerWithPath(article, Resource.LOCATION_PATH + "WEB-INF/authorarticle.xml", true);
 
                 List<TblNewsHeader> list = service.Random3Articles();
                 request.setAttribute("ran3", list);

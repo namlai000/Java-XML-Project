@@ -5,6 +5,7 @@
  */
 package Servlet;
 
+import Entities.TblUserInfo;
 import Services.CommentService;
 import Ultilities.XMLUltilities;
 import java.io.BufferedReader;
@@ -42,11 +43,15 @@ public class PostCommentServlet extends HttpServlet {
         boolean result = false;
         try {
             HttpSession session = request.getSession(false);
-            if (session.getAttribute("user") != null) {
-                CommentService ser = new CommentService();
-                if (XMLUltilities.isInteger(newsId) && XMLUltilities.isInteger(userId)) {
-                    result = ser.postComment(content, Integer.parseInt(userId), Integer.parseInt(newsId));
-                }
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
+
+            CommentService ser = new CommentService();
+            if (XMLUltilities.isInteger(newsId) && XMLUltilities.isInteger(userId)) {
+                result = ser.postComment(content, Integer.parseInt(userId), Integer.parseInt(newsId));
             }
         } catch (Exception e) {
             e.printStackTrace();

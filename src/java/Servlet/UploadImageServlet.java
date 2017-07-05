@@ -6,6 +6,7 @@
 package Servlet;
 
 import Entities.TblImage;
+import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.UploadImageService;
 import Ultilities.XMLUltilities;
@@ -22,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -45,6 +47,13 @@ public class UploadImageServlet extends HttpServlet {
 
         boolean multi = request.getParameter("multi").equals("true");
         try {
+            HttpSession session = request.getSession(false);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
+            
             UploadImageService service = new UploadImageService();
 
             if (!multi) {

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thegu
  */
-public class CommentServlet extends HttpServlet {
+public class DisplayCommentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

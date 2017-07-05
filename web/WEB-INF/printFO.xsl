@@ -25,19 +25,6 @@
                     <fo:block font-family="Segoe UI" font-weight="bold" margin-top="16px">               
                         <xsl:value-of select="description"/>
                     </fo:block>
-                    <!--                    <fo:table inline-progression-dimension="auto" table-layout="auto">
-                        <fo:table-body>
-                            <fo:table-row>
-                                <xsl:for-each select="tblNews/tblImageList">
-                                    <fo:table-cell padding-left="8px" padding-right="8px">
-                                        <fo:block margin-top="16px">         
-                                            <fo:external-graphic src="url({link})" width="100%" content-height="100%" content-width="scale-to-fit" scaling="uniform"/>
-                                        </fo:block>
-                                    </fo:table-cell>
-                                </xsl:for-each>
-                            </fo:table-row>
-                        </fo:table-body>
-                    </fo:table>-->
                     <fo:block font-family="Segoe UI" margin-top="16px"> 
                         <xsl:apply-templates select="tblNews"/>
                     </fo:block>

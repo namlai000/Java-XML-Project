@@ -58,61 +58,64 @@ public class CreateArticleServlet extends HttpServlet {
         String data = request.getParameter("content");
         try {
             HttpSession session = request.getSession(false);
-            TblUserInfo user = (TblUserInfo) session.getAttribute("user");
-            if (user != null) {
-                String path = Resource.LOCATION_PATH + "WEB-INF/createNews.xsd";
-                SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-                Schema schema = sf.newSchema(new File(path));
-                JAXBContext context = JAXBContext.newInstance(TblNewsHeader.class);
-                Unmarshaller u = context.createUnmarshaller();
-                u.setSchema(schema);
-                CustomValidator validator = new CustomValidator();
-                u.setEventHandler(validator);
-                System.out.println(data);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
 
-                TblNewsHeader newsheader = (TblNewsHeader) u.unmarshal(new InputSource(new StringReader(data)));
+            String path = Resource.LOCATION_PATH + "WEB-INF/createNews.xsd";
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = sf.newSchema(new File(path));
+            JAXBContext context = JAXBContext.newInstance(TblNewsHeader.class);
+            Unmarshaller u = context.createUnmarshaller();
+            u.setSchema(schema);
+            CustomValidator validator = new CustomValidator();
+            u.setEventHandler(validator);
+            System.out.println(data);
+
+            TblNewsHeader newsheader = (TblNewsHeader) u.unmarshal(new InputSource(new StringReader(data)));
 //
-                if (validator.getError()) {
-                    response.getWriter().write("{ \"success\" : false , \"error\" : \"" + validator.errorMessage() + "\" }");
-                } else {
-                    newsheader.setDate(Calendar.getInstance().getTime());
+            if (validator.getError()) {
+                response.getWriter().write("{ \"success\" : false , \"error\" : \"" + validator.errorMessage() + "\" }");
+            } else {
+                newsheader.setDate(Calendar.getInstance().getTime());
 
-                    TblNews news2 = newsheader.getTblNews();
+                TblNews news2 = newsheader.getTblNews();
 
-                    TblSubCategory sub = news2.getCatID();
-                    if (sub != null) {
-                        news2.setCatID(em.find(TblSubCategory.class, sub.getId()));
-                    }
-                    
-                    List<TblImage> images = news2.getTblImageList();
-                    news2.setAuthorID(user);
-                    if (images != null) {
-                        for (TblImage i : images) {
-                            List<TblNews> tmp = new ArrayList<TblNews>();
-                            tmp.add(news2);
-                            i.setTblNewsList(tmp);
-                        }
-                    }
-
-                    em.getTransaction().begin();
-
-                    em.persist(news2);
-                    em.flush();
-                    newsheader.setId(news2.getHeaderID());
-                    em.persist(newsheader);
-                    em.flush();
-
-                    if (images != null) {
-                        for (TblImage i : images) {
-                            em.persist(i);
-                            em.flush();
-                        }
-                    }
-
-                    em.getTransaction().commit();
-
-                    response.getWriter().write("{ \"success\" : true }");
+                TblSubCategory sub = news2.getCatID();
+                if (sub != null) {
+                    news2.setCatID(em.find(TblSubCategory.class, sub.getId()));
                 }
+
+                List<TblImage> images = news2.getTblImageList();
+                news2.setAuthorID(currentUser);
+                if (images != null) {
+                    for (TblImage i : images) {
+                        List<TblNews> tmp = new ArrayList<TblNews>();
+                        tmp.add(news2);
+                        i.setTblNewsList(tmp);
+                    }
+                }
+
+                em.getTransaction().begin();
+
+                em.persist(news2);
+                em.flush();
+                newsheader.setId(news2.getHeaderID());
+                em.persist(newsheader);
+                em.flush();
+
+                if (images != null) {
+                    for (TblImage i : images) {
+                        em.persist(i);
+                        em.flush();
+                    }
+                }
+
+                em.getTransaction().commit();
+
+                response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,11 +1,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
     <xsl:output method="html" indent="yes" encoding="UTF-8"/>
     <xsl:template match="/">
-        <html>
-            <body>
-                <xsl:apply-templates/>
-            </body>
-        </html>
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="tblNewsHeader">
         <div>
@@ -14,10 +10,12 @@
             </h1>
             <h4>
                 <font color="gray">
-                    <img src="Images/author.png" width="20px" height="20px"/> <xsl:value-of select="tblNews/authorID/lastname"/> | <img src="Images/date.png" width="20px" height="20px"/> <xsl:value-of select="concat(substring(date, 9, 2), '-', substring(date, 6, 2), '-', substring(date, 1, 4))" />
+                    <img src="Images/author.png" width="20px" height="20px"/> 
+                    <xsl:value-of select="tblNews/authorID/lastname"/> | <img src="Images/date.png" width="20px" height="20px"/> 
+                    <xsl:value-of select="concat(substring(date, 9, 2), '-', substring(date, 6, 2), '-', substring(date, 1, 4))" />
                 </font>
                 <span style="float: right;" class="print">
-                    <a href="ProcessServlet?location=print">Print</a>
+                    <a href="ProcessServlet?location=print&amp;name=article">Print</a>
                 </span>
             </h4>
         </div>

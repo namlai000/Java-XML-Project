@@ -40,7 +40,7 @@
                     <h5>Comments</h5>
                     <c:if test="${empty sessionScope.user}">
                         <div class="row">
-                            <div style="margin: 0px auto 0px auto; width: 60%;">
+                            <div style="margin: 0px auto 0px auto; width: 60;padding: 8px 8px 8px 8px; background-color: #ccccff; text-align: center;">
                                 Hãy <a href="ProcessServlet?location=loginPage">đăng nhập</a> trước khi comment
                             </div>
                         </div>
