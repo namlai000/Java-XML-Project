@@ -10,8 +10,10 @@
             </h1>
             <h4>
                 <font color="gray">
-                    <img src="Images/author.png" width="20px" height="20px"/> 
-                    <xsl:value-of select="tblNews/authorID/lastname"/> | <img src="Images/date.png" width="20px" height="20px"/> 
+                    <img src="Images/author.png" width="20px" height="20px"/>
+                    <xsl:text> </xsl:text>
+                    <xsl:value-of select="tblNews/authorID/lastname"/><xsl:text> | </xsl:text><img src="Images/date.png" width="20px" height="20px"/>
+                    <xsl:text> </xsl:text>
                     <xsl:value-of select="concat(substring(date, 9, 2), '-', substring(date, 6, 2), '-', substring(date, 1, 4))" />
                 </font>
                 <span style="float: right;" class="print">

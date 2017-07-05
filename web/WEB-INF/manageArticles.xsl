@@ -24,6 +24,10 @@
                                         <xsl:value-of select="tblNews/authorID/lastname" />
                                     </h5>
                                     <xsl:value-of select="description" />
+                                    <div class="row">
+                                        <button type="button" class="button-green" style="float:right;" onclick="deleteArticle({id})">Delete</button>
+                                        <button type="button" class="button-green" style="float:right;" onclick="editArticle({id})">Edit</button>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -44,6 +48,10 @@
                                         <xsl:value-of select="tblNews/authorID/lastname" />
                                     </h5>
                                     <xsl:value-of select="description" />
+                                    <div class="row">
+                                        <button type="button" class="button-green" style="float:right;" onclick="deleteArticle({id})">Delete</button>
+                                        <button type="button" class="button-green" style="float:right;" onclick="editArticle({id})">Edit</button>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

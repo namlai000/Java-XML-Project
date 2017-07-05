@@ -24,7 +24,7 @@
                                     <div id="myDropdown" class="dropdown-content">
                                         <c:if test="${user.tblUser.role.id ne 3}">
                                             <a href="ProcessServlet?location=create">Write Article</a>
-                                            <a href="#">Edit your Articles</a>
+                                            <a href="ProcessServlet?location=manage">Manage your Articles</a>
                                         </c:if>
                                         <a href="ProcessServlet?location=profile">Your profile</a>
                                         <hr/>

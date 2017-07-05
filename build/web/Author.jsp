@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>
                                         <div class="article-image avatar">
-                                            <img src="Images/avatar.png" onerror="this.src='Images/placeholder-blue.png'"/>
+                                            <img src="${en.tblNews.authorID.imageID.link}" onerror="this.src='Images/placeholder-blue.png'"/>
                                         </div>
                                         <div class="article-text">
                                             <h3><a href="ProcessServlet?location=read&id=${en.id}">${en.tittle}</a></h3>

@@ -5,16 +5,21 @@
  */
 package Servlet;
 
-import Entities.TblRole;
-import Entities.TblUser;
+import Entities.TblImage;
+import Entities.TblNews;
+import Entities.TblNewsHeader;
+import Entities.TblSubCategory;
 import Entities.TblUserInfo;
 import Resources.Resource;
+import Services.ManageService;
 import Ultilities.CustomValidator;
-import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,21 +27,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 /**
  *
  * @author thegu
  */
-public class RegisterServlet extends HttpServlet {
-
+public class EditArticleServlet extends HttpServlet {
+    
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em = emf.createEntityManager();
 
@@ -53,46 +57,70 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json;charset=UTF-8");
 
-        String content = request.getParameter("content").trim();
-        CustomValidator validator = null;
+        String data = request.getParameter("content");
         try {
-            String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
+            HttpSession session = request.getSession(false);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            if (currentUser == null) {
+                response.sendError(403);
+                return;
+            }
+
+            String path = Resource.LOCATION_PATH + "WEB-INF/updateNews.xsd";
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new File(path));
-            JAXBContext context = JAXBContext.newInstance(TblUserInfo.class);
+            JAXBContext context = JAXBContext.newInstance(TblNewsHeader.class);
             Unmarshaller u = context.createUnmarshaller();
             u.setSchema(schema);
-            validator = new CustomValidator();
+            CustomValidator validator = new CustomValidator();
             u.setEventHandler(validator);
+            System.out.println(data);
 
-            TblUserInfo userinfo = (TblUserInfo) u.unmarshal(new InputSource(new StringReader(content)));
-
+            TblNewsHeader newsheader = (TblNewsHeader) u.unmarshal(new InputSource(new StringReader(data)));
+//
             if (validator.getError()) {
-                String error = validator.errorMessage();
-                response.getWriter().write("{ \"success\" : false , \"error\" : \"" + error + "\" }");
+                response.getWriter().write("{ \"success\" : false , \"error\" : \"" + validator.errorMessage() + "\" }");
             } else {
-                userinfo.setCreateDate(Calendar.getInstance().getTime());
-                TblUser user = userinfo.getTblUser();
-                user.setRole(em.find(TblRole.class, Resource.ROLE_NORMALUSER));
+                newsheader.setDate(Calendar.getInstance().getTime());
 
-                String list = (String) request.getAttribute("loginList");
-                Node node = XMLUltilities.CheckUsernameExists(user.getUsername(), list);
-                if (node == null) {
-                    em.getTransaction().begin();
-                    em.persist(user);
-                    em.flush();
-                    userinfo.setUserId(user.getId());
-                    em.persist(userinfo);
-                    em.flush();
-                    em.getTransaction().commit();
-
-                    request.getSession().setAttribute("user", userinfo);
-                    request.getSession().setMaxInactiveInterval(60 * 60);
-
-                    response.getWriter().write("{ \"success\" : true }");
-                } else {
-                    response.getWriter().write("{ \"success\" : false , \"error\" : \"This username has already existed!\" }");
+                TblNews news2 = newsheader.getTblNews();
+                news2.setHeaderID(newsheader.getId());
+                ManageService service = new ManageService();
+                service.DeleteOldImages(newsheader.getId());
+                
+                TblSubCategory sub = news2.getCatID();
+                if (sub != null) {
+                    news2.setCatID(em.find(TblSubCategory.class, sub.getId()));
                 }
+
+                List<TblImage> images = news2.getTblImageList();
+                news2.setAuthorID(currentUser);
+                if (images != null) {
+                    for (TblImage i : images) {
+                        List<TblNews> tmp = new ArrayList<TblNews>();
+                        tmp.add(news2);
+                        i.setTblNewsList(tmp);
+                    }
+                }
+
+                em.getTransaction().begin();
+
+                em.merge(news2);
+                em.flush();
+                newsheader.setId(news2.getHeaderID());
+                em.merge(newsheader);
+                em.flush();
+
+                if (images != null) {
+                    for (TblImage i : images) {
+                        em.persist(i);
+                        em.flush();
+                    }
+                }
+
+                em.getTransaction().commit();
+
+                response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
             e.printStackTrace();

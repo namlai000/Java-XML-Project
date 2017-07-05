@@ -23,7 +23,16 @@
             <!-- BODY -->
             <div class="body-main">
                 <c:import url="WEB-INF/searchResult.xsl" var="xslDoc" charEncoding="UTF-8"/>
-                <x:transform xml="${xml}" xslt="${xslDoc}"/>
+                <h2>Tin tức</h2>
+                <x:transform xml="${xml}" xslt="${xslDoc}">
+                    <x:param name="pattern" value="1"/>
+                </x:transform>
+                <h2 style="margin-top: 128px;">Góc nhìn</h2>
+                <x:transform xml="${xml}" xslt="${xslDoc}">
+                    <x:param name="pattern" value="2"/>
+                </x:transform>
+                <div id="error1">                  
+                </div>
             </div>
 
             <!-- Footer -->

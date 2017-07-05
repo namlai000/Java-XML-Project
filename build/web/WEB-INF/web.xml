@@ -72,6 +72,22 @@
         <servlet-name>CreateServlet</servlet-name>
         <servlet-class>Servlet.CreateServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageServlet</servlet-name>
+        <servlet-class>Servlet.ManageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteArticleServlet</servlet-name>
+        <servlet-class>Servlet.DeleteArticleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditArticleServlet</servlet-name>
+        <servlet-class>Servlet.EditArticleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>Servlet.EditServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -143,6 +159,22 @@
     <servlet-mapping>
         <servlet-name>CreateServlet</servlet-name>
         <url-pattern>/CreateServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageServlet</servlet-name>
+        <url-pattern>/ManageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteArticleServlet</servlet-name>
+        <url-pattern>/DeleteArticleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditArticleServlet</servlet-name>
+        <url-pattern>/EditArticleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/EditServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

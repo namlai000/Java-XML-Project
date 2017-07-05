@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     LoginService service = new LoginService();
                     session.setAttribute("user", service.GetUserInfoById(Integer.parseInt(id)));
-                    session.setMaxInactiveInterval(5 * 60);
+                    session.setMaxInactiveInterval(60 * 60);
 
                     response.getWriter().write("{ \"success\" : true }");
                 } else {

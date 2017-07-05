@@ -41,6 +41,12 @@ public class Resource {
     public final static String CreateArticleServlet = "CreateArticleServlet";
     public final static String CreateArticleServlet_Page = "CreateArticle.jsp";
     public final static String CreateServlet = "CreateServlet";
+    public final static String ManageServlet = "ManageServlet";
+    public final static String ManageServlet_Page = "Manage.jsp";
+    public final static String DeleteArticleServlet = "DeleteArticleServlet";
+    public final static String EditArticleServlet = "EditArticleServlet";
+    public final static String EditArticleServlet_Page = "Edit.jsp";
+    public final static String EditServlet = "EditServlet";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 
@@ -51,6 +57,6 @@ public class Resource {
     public static int ROLE_NORMALUSER = 3;
 
     public static String DefaultUserAvatar = "Images/avatar.png";
-    
+
     public static String IMAGES_SERVER_PATH = "E:/PROJECT_IMAGES";
 }
