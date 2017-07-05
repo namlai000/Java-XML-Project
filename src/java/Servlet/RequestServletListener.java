@@ -21,7 +21,7 @@ public class RequestServletListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        
+        System.out.println("Request destroyed");
     }
 
     @Override
@@ -31,6 +31,7 @@ public class RequestServletListener implements ServletRequestListener {
             List<TblUser> users = service.GetAllLogins();
             String result = XMLUltilities.JAXBMarshallerToString(new TblUserWrapper(users));
             sre.getServletRequest().setAttribute("loginList", result);
+            System.out.println("Request initialized");
         } catch (Exception e) {
             e.printStackTrace();
         }

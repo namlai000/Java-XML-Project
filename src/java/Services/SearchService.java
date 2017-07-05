@@ -24,7 +24,7 @@ public class SearchService {
 
     public List<TblNewsHeader> SearchByTittle(String tittle) {
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE c.type = :role AND c.tittle LIKE :query ORDER BY c.date DESC", TblNewsHeader.class);
-        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        query.setParameter("role", Resource.ROLE_JOURNALIST_TYPENEWS);
         query.setParameter("query", "%" + tittle + "%");
         return query.getResultList();
     }

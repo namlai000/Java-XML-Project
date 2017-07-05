@@ -38,7 +38,7 @@ public class ExploreService {
     public List<TblNewsHeader> GetNewsByPage(int page, int menu) {
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d WHERE d.catID.id = :menu AND c.type = :role", TblNewsHeader.class);
         query.setParameter("menu", menu);
-        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        query.setParameter("role", Resource.ROLE_JOURNALIST_TYPENEWS);
 
         if (page == 0) {
             query.setFirstResult(0);
@@ -54,7 +54,7 @@ public class ExploreService {
     public long GetNewsLength(int menu) {
         TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d WHERE d.catID.id = :menu AND c.type = :role", long.class);
         query.setParameter("menu", menu);
-        query.setParameter("role", Resource.ROLE_JOURNALIST);
+        query.setParameter("role", Resource.ROLE_JOURNALIST_TYPENEWS);
         return (long)query.getSingleResult();
     }
 }

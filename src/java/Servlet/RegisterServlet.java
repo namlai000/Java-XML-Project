@@ -81,7 +81,6 @@ public class RegisterServlet extends HttpServlet {
                     em.getTransaction().begin();
                     em.persist(user);
                     em.flush();
-                    userinfo.setTblUser(null);
                     userinfo.setUserId(user.getId());
                     em.persist(userinfo);
                     em.flush();

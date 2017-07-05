@@ -46,8 +46,8 @@ public class Resource {
 
     public static String LOCATION_PATH = "none";
 
-    public static int ROLE_JOURNALIST = 1;
-    public static int ROLE_AUTHORIZEDUSER = 2;
+    public static int ROLE_JOURNALIST_TYPENEWS = 1;
+    public static int ROLE_AUTHORIZEDUSER_TYPEARTICLE = 2;
     public static int ROLE_NORMALUSER = 3;
 
     public static String DefaultUserAvatar = "Images/avatar.png";

@@ -26,7 +26,7 @@ public class AuthorArticleService {
 
     public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", TblNewsHeader.class);
-        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
 
         if (page == 0) {
             query.setFirstResult(0);
@@ -46,7 +46,7 @@ public class AuthorArticleService {
 
     public long GetAuthorArticlesSize() {
         TypedQuery query = em.createQuery("SELECT COUNT(c) FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", long.class);
-        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
         return (long) query.getSingleResult();
     }
 
@@ -54,7 +54,7 @@ public class AuthorArticleService {
         int size = (int)GetAuthorArticlesSize();
         int random = new Random().nextInt(size);
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", TblNewsHeader.class);
-        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER);
+        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
         query.setFirstResult(random);
         query.setMaxResults(3);
         return query.getResultList();

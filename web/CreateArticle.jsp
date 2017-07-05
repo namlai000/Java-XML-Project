@@ -52,7 +52,7 @@
                     </div>
                     <div class="break-line"><hr/></div>
                     <div class="row">
-                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Submit</button>
+                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Đăng bài</button>
                     </div>
                 </div>
                 <div id="div2" class="tabcontent">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="break-line"><hr/></div>
                     <div class="row">
-                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Submit</button>
+                        <button type="button" class="button-green" onclick="UploadMultipleImages()">Đăng bài</button>
                     </div>
                 </div>
             </div>
@@ -202,7 +202,7 @@
             if (e[i].getAttribute("name") == "head" && e[i].value != "") {
                 content += '<p><b>' + e[i].value + '</b></p>';
             } else if (e[i].getAttribute("name") == "paragraph" && e[i].value != "") {
-                content += '<p>' + e[i].value + '</p>';
+                content += '<p>' + e[i].value.replace(/(?:\r\n|\r|\n)/g, '<br/>') + '</p>';
             } else if (e[i].getAttribute("name") == "image" && e[i].value != "") {
                 content += '<p><img name="image" src="none" class="ar-image"/></p>';
             }

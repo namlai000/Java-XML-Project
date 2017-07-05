@@ -46,7 +46,6 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("result", list);
 
             List<TblNewsHeader> list2 = service.GetTopHotNews();
-            int ran = new Random().nextInt(list2.size());
 
             String path = Resource.LOCATION_PATH + "WEB-INF/cover.xml";
             String xml = XMLUltilities.JAXBMarshallerToString(new TblNewsHeaderWrapper(list2));

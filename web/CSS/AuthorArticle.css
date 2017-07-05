@@ -15,6 +15,23 @@
     border-radius: 50%;
 }
 
+.auArticle-image-smaller {
+    display: inline-table;
+    width: 30%;
+    min-width: 150px;
+    float: left; 
+    margin-right: 16px;
+}
+
+.auArticle-image-smaller img {
+    display: inline-table;
+    float: right;
+    width: 30%;
+    height: 30%;
+    min-width: 100px;
+    border-radius: 50%;
+}
+
 .auArticle-text { 
     display: inline-table;
     width: 65%;

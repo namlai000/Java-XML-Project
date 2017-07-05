@@ -170,7 +170,7 @@
 
             var text =
                     "<div class='row'>" +
-                    "<div class='auArticle-image'>" +
+                    "<div class='auArticle-image-smaller'>" +
                     image +
                     "</div>" +
                     "<div class='auArticle-text'>" +

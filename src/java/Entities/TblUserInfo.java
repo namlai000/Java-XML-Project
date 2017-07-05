@@ -89,11 +89,11 @@ public class TblUserInfo implements Serializable {
     @Column(name = "CreateDate")
     @Temporal(TemporalType.DATE)
     private Date createDate;
+    @XmlTransient
     @OneToMany(mappedBy = "authorID", fetch = FetchType.LAZY)
-    @XmlTransient
     private List<TblNews> tblNewsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.LAZY)
     @XmlTransient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID", fetch = FetchType.LAZY)
     private List<TblComment> tblCommentList;
     @JoinColumn(name = "ImageID", referencedColumnName = "Id")
     @ManyToOne(fetch = FetchType.LAZY)

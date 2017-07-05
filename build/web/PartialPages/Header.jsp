@@ -14,15 +14,18 @@
                         </form>
                     </span>
                     <span style="display: inline-table; float: right; margin-top: 30px">
+                        <c:set var="user" value="${sessionScope.user}"/>
                         <c:choose>
-                            <c:when test="${not empty sessionScope.user}">
+                            <c:when test="${not empty user}">
                                 <div class="dropdown">
                                     <div onclick="myFunction()" class="dropbtn">
-                                        <span class="small-avatar"><img src="${sessionScope.user.imageID.link}" alt="" onerror="this.src='Images/avatar.png'"/></span> ${sessionScope.user.lastname}
+                                        <span class="small-avatar"><img src="${user.imageID.link}" alt="" onerror="this.src='Images/avatar.png'"/></span> ${user.lastname}
                                     </div>
                                     <div id="myDropdown" class="dropdown-content">
-                                        <a href="ProcessServlet?location=create">Write Article</a>
-                                        <a href="#">Edit your Articles</a>
+                                        <c:if test="${user.tblUser.role.id ne 3}">
+                                            <a href="ProcessServlet?location=create">Write Article</a>
+                                            <a href="#">Edit your Articles</a>
+                                        </c:if>
                                         <a href="ProcessServlet?location=profile">Your profile</a>
                                         <hr/>
                                         <a href="ProcessServlet?location=logout">Logout</a>
