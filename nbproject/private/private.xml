@@ -12,12 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/PartialPages/Header.jsp</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/WEB-INF/manageArticles.xsl</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/ManageServlet.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Resources/Resource.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/ProcessServlet.java</file>
-            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/web/Manage.jsp</file>
+            <file>file:/D:/OneDrive/Projects/NetBeans%20Projects/JAVAXMLPROJECT/src/java/Servlet/EditProfileServlet.java</file>
         </group>
     </open-files>
 </project-private>

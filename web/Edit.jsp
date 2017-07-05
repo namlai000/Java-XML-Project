@@ -305,6 +305,7 @@
                 var result = JSON.parse(xmlHttp.responseText);
                 if (result.success) {
                     alert("Update success!");
+                    window.location.href = 'ProcessServlet?location=main';
                 } else {
                     var data = result.error;
                     document.getElementById("error").innerHTML = "<font color='red'>" + data + "</font>";

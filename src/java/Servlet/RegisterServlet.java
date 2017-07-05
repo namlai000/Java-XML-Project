@@ -38,7 +38,7 @@ import org.xml.sax.InputSource;
 public class RegisterServlet extends HttpServlet {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
-    private EntityManager em = emf.createEntityManager();
+    private EntityManager em;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,6 +56,8 @@ public class RegisterServlet extends HttpServlet {
         String content = request.getParameter("content").trim();
         CustomValidator validator = null;
         try {
+            em = emf.createEntityManager();
+            
             String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new File(path));

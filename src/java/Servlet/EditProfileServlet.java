@@ -42,7 +42,7 @@ import org.xml.sax.InputSource;
 public class EditProfileServlet extends HttpServlet {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
-    private EntityManager em = emf.createEntityManager();
+    private EntityManager em;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,6 +60,8 @@ public class EditProfileServlet extends HttpServlet {
         String content = request.getParameter("content").trim();
 //        CustomValidator validator = null;
         try {
+            em = emf.createEntityManager();
+            
             String schema = Resource.LOCATION_PATH + "WEB-INF/updateprofileSchema.xsd";
 
             HttpSession session = request.getSession(false);
@@ -86,6 +88,7 @@ public class EditProfileServlet extends HttpServlet {
                 userinfo.setUserId(currentUser.getUserId());
                 userinfo.setIDNumber(currentUser.getIDNumber());
                 userinfo.setCreateDate(currentUser.getCreateDate());
+                
                 em.getTransaction().begin();
                 if (userinfo.getImageID().getLink().isEmpty()) {
                     userinfo.setImageID(em.find(TblUserInfo.class, currentUser.getUserId()).getImageID());

@@ -28,38 +28,38 @@
                     <div style="min-width: 400px">
                         <div style="margin: 0px auto 0px auto; width: 60%; text-align: center">
                             <h3>Thông tin cá nhân</h3>
+                            <div>
                                 <input id="firstname" type="text" placeholder="First name" value="${user.firstname}" class="form-control"/>
+                                <div>
+                                    <input id="middlename" type="text" placeholder="Middle name" value="${user.middlename}" class="form-control"/>
+                                </div>
+                                <div>
+                                    <input id="lastname" type="text" placeholder="Last name" value="${user.lastname}" class="form-control"/>
+                                </div>
+                                <div>
+                                    <input id="address" type="text" placeholder="Address" value="${user.address}" class="form-control"/>
+                                </div>
+                                <div>
+                                    <input id="phone" type="number" placeholder="Phone" value="${user.phone}" class="form-control"/>
+                                </div>
+                                <div>
+                                    <img id="viewer" src="${user.imageID.link}" width="200px" height="200px" /> <input id="image" type="file" accept="image/*" class="form-control" onchange="readURL(this)"/>
+                                </div>
+                                <div>
+                                    <fm:formatDate value="${user.birthday}" var="fmDate" type="date" pattern="yyyy-MM-dd" />
+                                    <input id="birthday" type="date" placeholder="Birthday" value="${fmDate}" class="form-control"/>
+                                </div>
+                                <div id="error1">
+                                </div>
+                                <button type="type" class="button-green" onclick="UploadImage()">Cập nhật</button>
                             </div>
-                            <div>
-                                <input id="middlename" type="text" placeholder="Middle name" value="${user.middlename}" class="form-control"/>
-                            </div>
-                            <div>
-                                <input id="lastname" type="text" placeholder="Last name" value="${user.lastname}" class="form-control"/>
-                            </div>
-                            <div>
-                                <input id="address" type="text" placeholder="Address" value="${user.address}" class="form-control"/>
-                            </div>
-                            <div>
-                                <input id="phone" type="number" placeholder="Phone" value="${user.phone}" class="form-control"/>
-                            </div>
-                            <div>
-                                <img id="viewer" src="${user.imageID.link}" width="200px" height="200px" /> <input id="image" type="file" accept="image/*" class="form-control" onchange="readURL(this)"/>
-                            </div>
-                            <div>
-                                <fm:formatDate value="${user.birthday}" var="fmDate" type="date" pattern="yyyy-MM-dd" />
-                                <input id="birthday" type="date" placeholder="Birthday" value="${fmDate}" class="form-control"/>
-                            </div>
-                            <div id="error1">
-                            </div>
-                            <button type="type" class="button-green" onclick="UploadImage()">Cập nhật</button>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
-        </div>
+                <!-- Footer -->
+                <c:import url="PartialPages/Footer.jsp"/>
+            </div>
     </body>
 </html>
 
@@ -78,7 +78,7 @@
     var child = 'imageID';
 
     var xmlDoc;
-    
+
     function UploadImage() {
         var xmlHttp = GetXMLHttpObject();
         if (xmlHttp == null) {
@@ -132,7 +132,7 @@
 
         var node = xmlDoc.createElement(child);
         elements[0].appendChild(node);
-        
+
         var node = xmlDoc.createElement("id");
         var newText = xmlDoc.createTextNode(id);
         node.appendChild(newText);

@@ -42,7 +42,7 @@ import org.xml.sax.InputSource;
 public class EditArticleServlet extends HttpServlet {
     
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
-    private EntityManager em = emf.createEntityManager();
+    private EntityManager em;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -59,6 +59,8 @@ public class EditArticleServlet extends HttpServlet {
 
         String data = request.getParameter("content");
         try {
+            em = emf.createEntityManager();
+            
             HttpSession session = request.getSession(false);
             TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
             if (currentUser == null) {

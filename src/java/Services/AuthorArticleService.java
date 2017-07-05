@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 public class AuthorArticleService {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
-    private EntityManager em = emf.createEntityManager();
+    private EntityManager em = emf.createEntityManager();;
 
     public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
         TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role", TblNewsHeader.class);

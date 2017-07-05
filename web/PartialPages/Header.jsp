@@ -22,7 +22,7 @@
                                         <span class="small-avatar"><img src="${user.imageID.link}" alt="" onerror="this.src='Images/avatar.png'"/></span> ${user.lastname}
                                     </div>
                                     <div id="myDropdown" class="dropdown-content">
-                                        <c:if test="${user.tblUser.role.id ne 3}">
+                                        <c:if test="${user.tblUser.role.id lt 3}">
                                             <a href="ProcessServlet?location=create">Write Article</a>
                                             <a href="ProcessServlet?location=manage">Manage your Articles</a>
                                         </c:if>
@@ -57,7 +57,7 @@
     </table>
 </div>
 
-<script>
+<script>    
     document.getElementById("txtSearch")
             .addEventListener("keydown", function (event) {
                 if (event.keyCode == 13) {

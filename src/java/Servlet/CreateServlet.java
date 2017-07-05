@@ -45,6 +45,7 @@ public class CreateServlet extends HttpServlet {
             
             ExploreService service = new ExploreService();
             request.setAttribute("cats", service.getAllSubCategories());
+            request.setAttribute("cur", currentUser);
         } catch (Exception e) {
             e.printStackTrace();
         }

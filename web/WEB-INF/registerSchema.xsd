@@ -23,9 +23,9 @@ and open the template in the editor.
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:simpleType name="IdentifyCardNumber">
-        <xsd:restriction base="xsd:positiveInteger">
-            <xsd:minInclusive value="99999999999"/>
-            <xsd:maxInclusive value="999999999999"/>
+        <xsd:restriction base='xsd:string'>
+            <xsd:maxLength value="12" />
+            <xsd:minLength value="9"/>
         </xsd:restriction>
     </xsd:simpleType>
     <xsd:element name="tblUserInfo">

@@ -30,8 +30,12 @@
                 </div>
                 <div class="break-line"><hr/></div>
                 <div class="tab">
-                    <button class="tablinks" onclick="openTab(event, 'div1');changeType(1);">Viết báo</button>
-                    <button class="tablinks" onclick="openTab(event, 'div2');changeType(2);">Viết góc nhìn</button>
+                    <c:if test="${requestScope.cur.tblUser.role.id lt 2}">
+                        <button class="tablinks" onclick="openTab(event, 'div1');changeType(1);">Viết báo</button>
+                    </c:if>
+                    <c:if test="${requestScope.cur.tblUser.role.id lt 3}">
+                        <button class="tablinks" onclick="openTab(event, 'div2');changeType(2);">Viết góc nhìn</button>
+                    </c:if>
                 </div>
                 <div id="div1" class="tabcontent">
                     <div class="row">
@@ -80,6 +84,8 @@
 </html>
 
 <script>
+    console.log(${requestScope.cur.tblUser.role.id});
+    
     var typeArticle = '1';
 
     var ar = 'article1';
@@ -302,6 +308,7 @@
                 var result = JSON.parse(xmlHttp.responseText);
                 if (result.success) {
                     alert("Update success!");
+                    window.location.href = 'ProcessServlet?location=main';
                 } else {
                     var data = result.error;
                     document.getElementById(error).innerHTML = "<font color='red'>" + data + "</font>";

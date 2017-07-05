@@ -79,7 +79,14 @@
 <script>
     var reg = document.getElementById("reg");
     reg.disabled = true;
-    
+
+    document.getElementById("iDNumber").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57)
+        {
+            evt.preventDefault();
+        }
+    });
+
     function read() {
         var check = document.getElementById("check");
         if (check.checked) {
@@ -88,7 +95,7 @@
             reg.disabled = true;
         }
     }
-    
+
     var root = 'tblUserInfo';
     var child = 'tblUser';
 
@@ -200,4 +207,9 @@
         };
         xmlHttp.send("username=" + document.getElementById("usernameLogin").value + "&password=" + document.getElementById("passwordLogin").value);
     }
+
+    String.prototype.replaceAll = function (search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
 </script>
