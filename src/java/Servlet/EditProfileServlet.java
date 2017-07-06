@@ -88,6 +88,7 @@ public class EditProfileServlet extends HttpServlet {
                 userinfo.setUserId(currentUser.getUserId());
                 userinfo.setIDNumber(currentUser.getIDNumber());
                 userinfo.setCreateDate(currentUser.getCreateDate());
+                userinfo.setTblUser(currentUser.getTblUser());
                 
                 em.getTransaction().begin();
                 if (userinfo.getImageID().getLink().isEmpty()) {

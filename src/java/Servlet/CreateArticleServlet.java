@@ -58,7 +58,7 @@ public class CreateArticleServlet extends HttpServlet {
         String data = request.getParameter("content");
         try {
             em = emf.createEntityManager();
-            
+
             HttpSession session = request.getSession(false);
             TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
             if (currentUser == null) {
@@ -84,6 +84,7 @@ public class CreateArticleServlet extends HttpServlet {
                 newsheader.setDate(Calendar.getInstance().getTime());
 
                 TblNews news2 = newsheader.getTblNews();
+                news2.setAuthorID(currentUser);
 
                 TblSubCategory sub = news2.getCatID();
                 if (sub != null) {
@@ -91,14 +92,6 @@ public class CreateArticleServlet extends HttpServlet {
                 }
 
                 List<TblImage> images = news2.getTblImageList();
-                news2.setAuthorID(currentUser);
-                if (images != null) {
-                    for (TblImage i : images) {
-                        List<TblNews> tmp = new ArrayList<TblNews>();
-                        tmp.add(news2);
-                        i.setTblNewsList(tmp);
-                    }
-                }
 
                 em.getTransaction().begin();
 
@@ -110,11 +103,14 @@ public class CreateArticleServlet extends HttpServlet {
 
                 if (images != null) {
                     for (TblImage i : images) {
-                        em.persist(i);
-                        em.flush();
+                        List<TblNews> tmp = new ArrayList<TblNews>();
+                        tmp.add(news2);
+                        i.setTblNewsList(tmp);
+                        em.merge(i);
                     }
                 }
-
+                em.flush();
+                
                 em.getTransaction().commit();
 
                 response.getWriter().write("{ \"success\" : true }");

@@ -25,6 +25,15 @@
             <div class="body-main">
                 <c:set var="user" value="${sessionScope.user}"/>
                 <div class="row">
+                    <div class="row">
+                        <h4>Thông tin cơ bản</h4>
+                        <ul>
+                            <li>Loại tài khoản: ${user.tblUser.role.id}</li>
+                            <li>Số CMND: ${user.IDNumber}</li>
+                                <fm:formatDate value="${user.createDate}" var="fmCreate" type="date" pattern="yyyy-MM-dd" />
+                            <li>Ngày thành lập: ${fmCreate}</li>
+                        </ul>
+                    </div>
                     <div style="min-width: 400px">
                         <div style="margin: 0px auto 0px auto; width: 60%; text-align: center">
                             <h3>Thông tin cá nhân</h3>
@@ -64,6 +73,8 @@
 </html>
 
 <script>
+    console.log('Type: ' + ${user.tblUser.role.id})
+    
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

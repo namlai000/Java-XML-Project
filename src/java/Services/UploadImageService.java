@@ -26,6 +26,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.Part;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -93,12 +94,18 @@ public class UploadImageService {
 
                 em.persist(tbl);
                 em.flush();
-                
+
                 result.add(tbl);
             }
         }
         em.getTransaction().commit();
 
         return result;
+    }
+
+    public TblImage GetImageByLink(String link) {
+        TypedQuery<TblImage> query = em.createQuery("SELECT c FROM TblImage c WHERE c.link = :link", TblImage.class);
+        query.setParameter("link", "Images/" + link.substring(link.lastIndexOf("/") + 1));
+        return query.getResultList().get(0);
     }
 }

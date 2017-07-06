@@ -47,6 +47,7 @@ public class Resource {
     public final static String EditArticleServlet = "EditArticleServlet";
     public final static String EditArticleServlet_Page = "Edit.jsp";
     public final static String EditServlet = "EditServlet";
+    public final static String UploadImage2 = "UploadImageWithCheckingServlet";
 
     public final static String Persistence = "JAVAXMLPROJECTPU";
 

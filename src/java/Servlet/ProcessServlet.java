@@ -42,7 +42,7 @@ public class ProcessServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String url = Resource.MainServlet;
-        
+
         try {
             Resource.LOCATION_PATH = getServletContext().getRealPath("/");
 
@@ -81,6 +81,8 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.EditProfileServlet;
             } else if (requestLocation.equals("upload")) {
                 url = Resource.UploadImageServlet;
+            } else if (requestLocation.equals("uploadandcheck")) {
+                url = Resource.UploadImage2;
             } else if (requestLocation.equals("create")) {
                 url = Resource.CreateServlet;
             } else if (requestLocation.equals("createarticle")) {

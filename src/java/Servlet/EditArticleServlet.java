@@ -40,7 +40,7 @@ import org.xml.sax.InputSource;
  * @author thegu
  */
 public class EditArticleServlet extends HttpServlet {
-    
+
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
     private EntityManager em;
 
@@ -60,7 +60,7 @@ public class EditArticleServlet extends HttpServlet {
         String data = request.getParameter("content");
         try {
             em = emf.createEntityManager();
-            
+
             HttpSession session = request.getSession(false);
             TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
             if (currentUser == null) {
@@ -89,7 +89,7 @@ public class EditArticleServlet extends HttpServlet {
                 news2.setHeaderID(newsheader.getId());
                 ManageService service = new ManageService();
                 service.DeleteOldImages(newsheader.getId());
-                
+
                 TblSubCategory sub = news2.getCatID();
                 if (sub != null) {
                     news2.setCatID(em.find(TblSubCategory.class, sub.getId()));
@@ -97,28 +97,22 @@ public class EditArticleServlet extends HttpServlet {
 
                 List<TblImage> images = news2.getTblImageList();
                 news2.setAuthorID(currentUser);
+
+                em.getTransaction().begin();
+
+                em.merge(news2);
                 if (images != null) {
                     for (TblImage i : images) {
                         List<TblNews> tmp = new ArrayList<TblNews>();
                         tmp.add(news2);
                         i.setTblNewsList(tmp);
+                        em.merge(i);
                     }
                 }
-
-                em.getTransaction().begin();
-
-                em.merge(news2);
                 em.flush();
                 newsheader.setId(news2.getHeaderID());
                 em.merge(newsheader);
                 em.flush();
-
-                if (images != null) {
-                    for (TblImage i : images) {
-                        em.persist(i);
-                        em.flush();
-                    }
-                }
 
                 em.getTransaction().commit();
 

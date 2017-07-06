@@ -41,14 +41,16 @@ public class ManageService {
         em.flush();
         em.getTransaction().commit();
     }
-    
+
     public void DeleteOldImages(int id) {
         TblNews n = em.find(TblNews.class, id);
-        List<TblImage> images = n.getTblImageList();
         em.getTransaction().begin();
-        for (TblImage i : images) {
-            em.remove(i);
+        List<TblImage> images = n.getTblImageList();
+        for (TblImage i: images) {
+            i.setTblNewsList(null);
+            em.merge(i);
         }
+        em.merge(n);
         em.flush();
         em.getTransaction().commit();
     }

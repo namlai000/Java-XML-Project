@@ -55,12 +55,12 @@
     var contentTmp = '${requestScope.article.tblNews.content}';
 
     var type = '${requestScope.article.type}';
-    
+
     if (type != '1') {
         var remove = document.getElementById("addimage");
         remove.outerHTML = "";
     }
-    
+
     var category = '${requestScope.article.tblNews.catID.id}';
     var id = '${requestScope.article.id}';
     console.log(type + ' - ' + category + ' - ' + id);
@@ -189,11 +189,20 @@
 
         var formData = new FormData();
         var e = document.getElementsByName("image");
+        var f = document.getElementsByClassName("viewer");
         for (var i = 0; i < e.length; i++) {
-            formData.append("image", e[i].files[0]);
+            if (e[i].files[0] == null || e[i].files[0] == '') {
+                formData.append("image", f[i].src);
+            } else {
+                formData.append("image", e[i].files[0]);
+            }
         }
 
-        var url = "ProcessServlet?location=upload&multi=true";
+//        for (var pair of formData.entries()) {
+//            console.log(pair[0] + ', ' + pair[1]);
+//        }
+
+        var url = "ProcessServlet?location=uploadandcheck";
         xmlHttp.open("POST", url, true);
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {
@@ -211,13 +220,15 @@
         xmlDoc = document.implementation.createDocument(null, root);
 
         var content = '';
+        var count = 0;
         var e = document.getElementById(ar).querySelectorAll('*');
+        var f = document.getElementsByClassName("viewer");
         for (var i = 0; i < e.length; i++) {
             if (e[i].getAttribute("name") == "head" && e[i].value != "") {
                 content += '<p><b>' + e[i].value + '</b></p>';
             } else if (e[i].getAttribute("name") == "paragraph" && e[i].value != "") {
                 content += '<p>' + e[i].value.replace(/(?:\r\n|\r|\n)/g, '<br/>') + '</p>';
-            } else if (e[i].getAttribute("name") == "image" && e[i].value != "") {
+            } else if ((e[i].getAttribute("name") == "image" && e[i].value != '') || (e[i].getAttribute("name") == "image" && f[count++].src != '')) {
                 content += '<p><img name="image" src="none" class="ar-image"/></p>';
             }
         }
@@ -249,8 +260,9 @@
 
         var e = document.getElementById("article").querySelectorAll('*');
         var count = 0;
+        var count2 = 0;
         for (var i = 0; i < e.length; i++) {
-            if (e[i].getAttribute("name") == "image" && e[i].value != "") {
+            if ((e[i].getAttribute("name") == "image" && e[i].value != '') || (e[i].getAttribute("name") == "image" && f[count2++].src != '')) {
                 var tmp = count++;
 
                 var elements = xmlDoc.getElementsByTagName(child);

@@ -88,6 +88,10 @@
         <servlet-name>EditServlet</servlet-name>
         <servlet-class>Servlet.EditServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadImageWithCheckingServlet</servlet-name>
+        <servlet-class>Servlet.UploadImageWithCheckingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>EditServlet</servlet-name>
         <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadImageWithCheckingServlet</servlet-name>
+        <url-pattern>/UploadImageWithCheckingServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

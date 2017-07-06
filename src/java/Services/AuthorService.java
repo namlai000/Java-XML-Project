@@ -45,10 +45,4 @@ public class AuthorService {
     public TblUserInfo getAuthorById(int id) {
         return em.find(TblUserInfo.class, id);
     }
-
-    public List<TblNewsHeader> GetAuthorArticleListByAuthorId(int authorId) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.userId = :id AND c.type = :role", TblNewsHeader.class);
-        query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
-        return query.getResultList();
-    }
 }
