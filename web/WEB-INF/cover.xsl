@@ -17,7 +17,7 @@
                         </div>
                         <div>
                             <h2>
-                                <a href="http://localhost:8084/JAVAXMLPROJECT/ProcessServlet?location=article&amp;id={id}">
+                                <a href="ProcessServlet?location=article&amp;id={id}">
                                     <xsl:value-of select="tittle"/>
                                 </a>
                             </h2>
@@ -40,7 +40,7 @@
                                         </div>
                                         <div>
                                             <h3>
-                                                <a href="http://localhost:8084/JAVAXMLPROJECT/ProcessServlet?location=article&amp;id={id}">
+                                                <a href="ProcessServlet?location=article&amp;id={id}">
                                                     <xsl:value-of select="tittle"/>
                                                 </a>
                                             </h3>
@@ -66,7 +66,7 @@
                             </div>
                             <div>
                                 <h4>
-                                    <a href="http://localhost:8084/JAVAXMLPROJECT/ProcessServlet?location=article&amp;id={id}">
+                                    <a href="ProcessServlet?location=article&amp;id={id}">
                                         <xsl:value-of select="tittle"/>
                                     </a>
                                 </h4>
@@ -79,7 +79,7 @@
                         <xsl:if test="position() > 5">
                             <div>
                                 <h5>
-                                    <a href="http://localhost:8084/JAVAXMLPROJECT/ProcessServlet?location=article&amp;id={id}">
+                                    <a href="ProcessServlet?location=article&amp;id={id}">
                                         <xsl:value-of select="tittle"/>
                                     </a>
                                 </h5>

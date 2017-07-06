@@ -190,9 +190,12 @@
             return;
         }
 
+        var formData = new FormData();
+        formData.append("username", document.getElementById("usernameLogin").value);
+        formData.append("password", document.getElementById("passwordLogin").value);
+
         var url = "ProcessServlet?location=login";
         xmlHttp.open("POST", url, true);
-        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {
                 var result = JSON.parse(xmlHttp.responseText);
@@ -205,7 +208,7 @@
                 }
             }
         };
-        xmlHttp.send("username=" + document.getElementById("usernameLogin").value + "&password=" + document.getElementById("passwordLogin").value);
+        xmlHttp.send(formData);
     }
 
     String.prototype.replaceAll = function (search, replacement) {

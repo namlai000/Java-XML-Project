@@ -10,6 +10,7 @@ import Services.LoginService;
 import java.io.IOException;
 import java.io.StringReader;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 
                     response.getWriter().write("{ \"success\" : true }");
                 } else {
-                    response.getWriter().write("{ \"success\" : false , \"error\" : \"Username or passowrd wrong\" }");
+                    response.getWriter().write("{ \"success\" : false , \"error\" : \"Username or password wrong\" }");
                 }
             }
         } catch (Exception e) {
