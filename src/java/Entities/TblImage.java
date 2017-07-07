@@ -60,10 +60,10 @@ public class TblImage implements Serializable {
     @JoinTable(name = "tblNewsImage", joinColumns = {
         @JoinColumn(name = "ImageID", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "NewsID", referencedColumnName = "HeaderID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @XmlTransient
     private List<TblNews> tblNewsList;
-    @OneToMany(mappedBy = "imageID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "imageID", fetch = FetchType.EAGER)
     @XmlTransient
     private List<TblUserInfo> tblUserInfoList;
 

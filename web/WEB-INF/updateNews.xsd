@@ -21,14 +21,21 @@ and open the template in the editor.
             <xsd:whiteSpace value="collapse"/>
         </xsd:restriction>
     </xsd:simpleType>
+    <xsd:simpleType name="ValidateDateTime">
+        <xsd:restriction base="xsd:dateTime">
+            <xsd:pattern value='.+T.'/>
+        </xsd:restriction>
+    </xsd:simpleType>
     <xsd:element name="tblNewsHeader">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="id" type="xsd:positiveInteger" />
                 <xsd:element name="tittle" type="Max300-NotEmpty" />
                 <xsd:element name="description" type="Max300-NotEmpty" />
+                <xsd:element name="date" type="xsd:dateTime" />
                 <xsd:element ref="tblNews" />
                 <xsd:element name="type" type="xsd:positiveInteger" />
+                <xsd:element name="views" type="xsd:positiveInteger" />
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

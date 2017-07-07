@@ -83,8 +83,6 @@ public class EditArticleServlet extends HttpServlet {
             if (validator.getError()) {
                 response.getWriter().write("{ \"success\" : false , \"error\" : \"" + validator.errorMessage() + "\" }");
             } else {
-                newsheader.setDate(Calendar.getInstance().getTime());
-
                 TblNews news2 = newsheader.getTblNews();
                 news2.setHeaderID(newsheader.getId());
                 ManageService service = new ManageService();

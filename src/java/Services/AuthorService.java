@@ -25,7 +25,7 @@ public class AuthorService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblUserInfo> getTop5Authors() {
-        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c WHERE c.tblUser.role.id <= :role ORDER BY c.createDate ASC", TblUserInfo.class);
+        TypedQuery<TblUserInfo> query = em.createQuery("SELECT c FROM TblUserInfo c JOIN c.tblNewsList d WHERE c.tblUser.role.id <= :role GROUP BY c ORDER BY SUM(d.tblNewsHeader.views) DESC", TblUserInfo.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
         return query.getResultList();
     }

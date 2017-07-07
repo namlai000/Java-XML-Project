@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -60,6 +61,10 @@ public class TblNewsHeader implements Serializable {
     @Basic(optional = false)
     @Column(name = "Type")
     private Integer type;
+    @Basic(optional = false)
+    @Column(name = "Views")
+    @XmlElement(defaultValue = "0")
+    private int views;
 
     public TblNewsHeader() {
     }
@@ -146,6 +151,14 @@ public class TblNewsHeader implements Serializable {
     @Override
     public String toString() {
         return "Entities.TblNewsHeader[ id=" + id + " ]";
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
     }
     
 }

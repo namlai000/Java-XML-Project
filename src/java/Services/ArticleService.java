@@ -24,7 +24,7 @@ import javax.persistence.TypedQuery;
 public class ArticleService {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Resource.Persistence);
-    private EntityManager em = emf.createEntityManager();;
+    private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> Random3NewsByCategories(int sub) {
         int tmp = (int) GetNewsRow(sub);

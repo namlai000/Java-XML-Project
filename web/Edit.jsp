@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
@@ -53,8 +54,13 @@
 <script>
     var ar = 'article';
     var contentTmp = '${requestScope.article.tblNews.content}';
+    <fm:formatDate value="${requestScope.article.date}" var="fmdate1" type="date" pattern="YYYY-MM-dd" />
+    <fm:formatDate value="${requestScope.article.date}" var="fmdate2" type="date" pattern="hh:mm:ss" />
+    var date = '${fmdate1}T${fmdate2}';
+    console.log(date);
 
     var type = '${requestScope.article.type}';
+    var views = '${requestScope.article.views}';
 
     if (type != '1') {
         var remove = document.getElementById("addimage");
@@ -248,6 +254,11 @@
         node.appendChild(newText);
         var elements = xmlDoc.getElementsByTagName(root);
         elements[0].appendChild(node);
+        var node = xmlDoc.createElement("date");
+        var newText = xmlDoc.createTextNode(date);
+        node.appendChild(newText);
+        var elements = xmlDoc.getElementsByTagName(root);
+        elements[0].appendChild(node);
 
         var node = xmlDoc.createElement(child);
         elements[0].appendChild(node);
@@ -293,6 +304,11 @@
 
         var node = xmlDoc.createElement("type");
         var newText = xmlDoc.createTextNode(type);
+        node.appendChild(newText);
+        var elements = xmlDoc.getElementsByTagName(root);
+        elements[0].appendChild(node);
+        var node = xmlDoc.createElement("views");
+        var newText = xmlDoc.createTextNode(views);
         node.appendChild(newText);
         var elements = xmlDoc.getElementsByTagName(root);
         elements[0].appendChild(node);

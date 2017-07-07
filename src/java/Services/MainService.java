@@ -38,7 +38,7 @@ public class MainService {
     }
     
     public List<TblNewsHeader> GetTopHotNews() {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e JOIN e.tblUser f WHERE c.type = :role ORDER BY c.date ASC", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e JOIN e.tblUser f WHERE c.type = :role ORDER BY c.views DESC", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_JOURNALIST_TYPENEWS);
         query.setMaxResults(10);
         return query.getResultList();

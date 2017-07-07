@@ -8,6 +8,7 @@ package Servlet;
 import Entities.TblNewsHeader;
 import Resources.Resource;
 import Services.AuthorArticleService;
+import Services.ViewService;
 import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,6 +50,13 @@ public class AuthorArticleServlet extends HttpServlet {
 
                     List<TblNewsHeader> list = service.Random3Articles();
                     request.setAttribute("ran3", list);
+
+                    Boolean hasViewed = (Boolean) request.getSession(false).getAttribute(article.getId().toString());
+                    if (hasViewed == null || !hasViewed.booleanValue()) {
+                        ViewService view = new ViewService();
+                        view.IncreaseView(article.getId());
+                        request.getSession().setAttribute(article.getId().toString(), true);
+                    }
                 }
             }
         } catch (Exception e) {
