@@ -88,7 +88,7 @@
         console.log(res);
         for (var i = 0; i < res.length; i++) {
             if (res[i] != '') {
-                var result = res[i].substring(res[i].indexOf(":") + 1);
+                var result = res[i];
                 var format = result.replaceAll("<br/>", "\n").replaceAll("<p>", "");
                 if (format.contains("<b>")) {
                     AddBigWord(format.replaceAll("<b>", "").replaceAll("</b>", ""));
@@ -325,9 +325,9 @@
             return;
         }
 
-        var url = "ProcessServlet?location=editarticle&content=" + "<?xml version='1.0' encoding='UTF-8'?>" + new XMLSerializer().serializeToString(xmlDoc);
+        var url = "ProcessServlet?location=editarticle" 
         xmlHttp.open("POST", url, true);
-        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {
                 var result = JSON.parse(xmlHttp.responseText);
@@ -340,6 +340,6 @@
                 }
             }
         };
-        xmlHttp.send(url);
+        xmlHttp.send("content=" + "<?xml version='1.0' encoding='UTF-8'?>" + new XMLSerializer().serializeToString(xmlDoc));
     }
 </script>

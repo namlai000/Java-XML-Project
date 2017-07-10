@@ -7,25 +7,14 @@ and open the template in the editor.
 
 <xsd:schema version="1.0"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:cm="http://www.project.com/customTypes"
             elementFormDefault="qualified">
-    <xsd:simpleType name="Max300-NotEmpty">
-        <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="300" />
-            <xsd:minLength value="1"/>
-            <xsd:whiteSpace value="collapse"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-    <xsd:simpleType name="NotEmpty">
-        <xsd:restriction base="xsd:string">
-            <xsd:minLength value="1"/>
-            <xsd:whiteSpace value="collapse"/>
-        </xsd:restriction>
-    </xsd:simpleType>
+    <xsd:import schemaLocation="customValidations.xsd" namespace="http://www.project.com/customTypes"/>
     <xsd:element name="tblNewsHeader">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="tittle" type="Max300-NotEmpty" />
-                <xsd:element name="description" type="Max300-NotEmpty" />
+                <xsd:element name="tittle" type="cm:Max300-NotEmpty" />
+                <xsd:element name="description" type="cm:Max300-NotEmpty" />
                 <xsd:element ref="tblNews" />
                 <xsd:element name="type" type="xsd:positiveInteger" />
             </xsd:sequence>
@@ -34,7 +23,7 @@ and open the template in the editor.
     <xsd:element name="tblNews">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="content" type="NotEmpty" />
+                <xsd:element name="content" type="cm:NotEmpty" />
                 <xsd:element ref="tblImageList" minOccurs="0" maxOccurs="10"/>
                 <xsd:element ref="catID" minOccurs="0" maxOccurs="10"/>
             </xsd:sequence>

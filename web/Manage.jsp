@@ -93,9 +93,9 @@
         }
 
         if (confirm("Are you sure?") == true) {
-            var url = "ProcessServlet?location=delete&id=" + id;
+            var url = "ProcessServlet?location=delete";
             xmlHttp.open("POST", url, true);
-            xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded;charset=UTF-8');
             xmlHttp.onreadystatechange = function () {
                 if (xmlHttp.readyState == 4) {
                     var result = JSON.parse(xmlHttp.responseText);
@@ -108,7 +108,7 @@
                     }
                 }
             };
-            xmlHttp.send();
+            xmlHttp.send("id=" + id);
         }
     }
 

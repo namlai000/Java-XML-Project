@@ -65,12 +65,11 @@
                     </div>
                 </div>
             </div>
+                    
+            <!-- Footer -->
+            <c:import url="PartialPages/Footer.jsp"/>
         </div>
-
-        <!-- Footer -->
-        <c:import url="PartialPages/Footer.jsp"/>
-    </div>
-</body>
+    </body>
 </html>
 
 <script>
@@ -104,7 +103,7 @@
 
         var url = "ProcessServlet?location=post";
         xmlHttp.open("POST", url, true);
-        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         xmlHttp.onreadystatechange = function () {
             if (xmlHttp.readyState == 4) {
                 var result = JSON.parse(xmlHttp.responseText);
