@@ -6,10 +6,12 @@
 package Servlet;
 
 import Entities.TblNewsHeader;
+import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.SearchService;
 import Ultilities.XMLUltilities;
 import Wrapper.TblNewsHeaderWrapper;
+import Wrapper.TblUserInfoWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -44,9 +46,13 @@ public class SearchServlet extends HttpServlet {
                 List<TblNewsHeader> result = service.SearchByTittle(query);
                 TblNewsHeaderWrapper wrap = new TblNewsHeaderWrapper();
                 wrap.setListOfHeaders(result);
-                String path = Resource.LOCATION_PATH + "WEB-INF/searchResult.xml";
                 String xml = XMLUltilities.JAXBMarshallerToString(wrap);
-                request.setAttribute("xml", xml);
+                request.setAttribute("xmlNews", xml);
+                List<TblUserInfo> result2 = service.SearchAuthorByName(query);
+                TblUserInfoWrapper wrap2 = new TblUserInfoWrapper();
+                wrap2.setListUsers(result2);
+                String xml2 = XMLUltilities.JAXBMarshallerToString(wrap2);
+                request.setAttribute("xmlAuthor", xml2);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,7 +28,13 @@
                     <div class="row">
                         <h4>Thông tin cơ bản</h4>
                         <ul>
-                            <li>Loại tài khoản: ${user.tblUser.role.id}</li>
+                            <li>Loại tài khoản: 
+                                <ul>
+                                    <li>Mã chức vụ: ${user.tblUser.role.id}</li>
+                                    <li>Tên chức vụ: ${user.tblUser.role.roleName}</li>
+                                </ul>
+                            </li>
+                            <br/>
                             <li>Số CMND: ${user.IDNumber}</li>
                                 <fm:formatDate value="${user.createDate}" var="fmCreate" type="date" pattern="yyyy-MM-dd" />
                             <li>Ngày thành lập: ${fmCreate}</li>
