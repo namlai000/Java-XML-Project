@@ -16,7 +16,7 @@
         <title>Login</title>
     </head>
     <body>
-        <div style="margin: 0px auto 0px auto; width: 60%;">
+        <div class="body-centered">
             <!-- Header -->
             <c:import url="PartialPages/Header.jsp"/>
 
@@ -56,7 +56,9 @@
                                 <input id="iDNumber" type="number" name="iDNumber" placeholder="Identification Card Number" class="form-control"/>
                             </div>
                             <div>
-                                <input id="check" type="checkbox" onchange="read();" /> Tôi đã đọc và đồng ý điểu khoản sử dụng ở <a target="_blank" href="eula.jsp">đây</a>
+                                <!--<input class="css-checkbox" id="check" type="checkbox" o /> -->
+                                <input type="checkbox" id="check" class="css-checkbox" onchange="read();" />
+                                <label for="check" class="css-label">Tôi đã đọc và đồng ý điểu khoản sử dụng ở <a target="_blank" href="eula.jsp">đây</a></label>
                             </div>
                         </div>
                         <div style="margin: 0px auto 0px auto; width: 100%; text-align: left">

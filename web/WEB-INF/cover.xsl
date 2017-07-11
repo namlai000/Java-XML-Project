@@ -33,7 +33,7 @@
                     <tr>
                         <xsl:for-each select="TblNewsHeader">
                             <xsl:if test="position() &gt; 1 and position() &lt; 5">
-                                <td>
+                                <td style="vertical-align: top">
                                     <div class="row">
                                         <div>
                                             <img src="{tblNews/tblImageList/link}" alt="" onerror="this.src='Images/placeholder-blue.png'"/>
@@ -72,6 +72,7 @@
                                 </h4>
                             </div>
                         </div>
+                        <hr/>
                     </xsl:if>
                 </xsl:for-each>
                 <xsl:if test="count(TblNewsHeader) &gt; 5">

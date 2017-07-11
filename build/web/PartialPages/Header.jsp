@@ -6,7 +6,10 @@
         <tr class="nav-header">
             <td colspan="5">
                 <div>
-                    <h2 style="display: inline-table">Title Placeholder</h2>
+                    <div class="nav-logo">
+                        <img src="Images/logo.png" alt=""/>   
+                    </div>
+                    <h2 style="display: inline-table">FPT Insiders</h2>
                     <span style="display: inline-table">
                         <form id="form" action="ProcessServlet">
                             <input type="hidden" name="location" value="search"/>
@@ -57,7 +60,7 @@
     </table>
 </div>
 
-<script>    
+<script>
     document.getElementById("txtSearch")
             .addEventListener("keydown", function (event) {
                 if (event.keyCode == 13) {

@@ -17,7 +17,7 @@
         <title>Edit Profile</title>
     </head>
     <body>
-        <div style="margin: 0px auto 0px auto; width: 60%;">
+        <div class="body-centered">
             <!-- Header -->
             <c:import url="PartialPages/Header.jsp"/>
 
@@ -75,6 +75,7 @@
                 <!-- Footer -->
                 <c:import url="PartialPages/Footer.jsp"/>
             </div>
+        </div>
     </body>
 </html>
 

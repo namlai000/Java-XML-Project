@@ -16,7 +16,7 @@
         <title>Create Article</title>
     </head>
     <body>
-        <div style="margin: 0px auto 0px auto; width: 60%;">
+        <div class="body-centered">
             <!-- Header -->
             <c:import url="PartialPages/Header.jsp"/>
 
@@ -242,7 +242,7 @@
         elements[0].appendChild(node);
 
         var node = xmlDoc.createElement("content");
-        var newText = xmlDoc.createCDATASection(content);
+        var newText = xmlDoc.createCDATASection(encodeURIComponent(content));
         node.appendChild(newText);
         var elements = xmlDoc.getElementsByTagName(child);
         elements[0].appendChild(node);

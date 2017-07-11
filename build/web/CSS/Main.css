@@ -2,14 +2,9 @@ body {
     font-family: "Segoe UI";
 }
 
-.nav-header {
-    background-color: #48d9fd;
-    color: black;
-}
-
-.nav-bar {
-    background-color: #abffff;
-    color: black; 
+.body-centered {
+    margin: 0px auto 0px auto; 
+    width: 80%;
 }
 
 .body-main {
@@ -127,4 +122,29 @@ a {
     background-position: 10px 10px; 
     background-repeat: no-repeat;
     padding-left: 40px;
+}
+
+input[type=checkbox].css-checkbox {
+    position:absolute; 
+    height:1px; 
+    width:1px; 
+}
+
+input[type=checkbox].css-checkbox + label.css-label {
+    padding-left:30px;
+    height:25px; 
+    display:inline-block;
+    background-repeat:no-repeat;
+    font-size:16px;
+    cursor:pointer;
+    margin-top: 14px;
+    margin-bottom: 34px;
+}
+
+input[type=checkbox].css-checkbox:checked + label.css-label {
+    background-position: 0 -25px;
+}
+
+label.css-label {
+    background-image:url(../Images/checkbox.png);
 }

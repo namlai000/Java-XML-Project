@@ -17,6 +17,15 @@
             <fo:page-sequence master-reference="one">
                 <fo:flow flow-name="xsl-region-body">
                     <fo:block font-family="Segoe UI" font-size="24px">
+                        <fo:inline>
+                            <fo:external-graphic src="url('Images/logo.png')" content-width="120px" vertical-align="middle"/>
+                        </fo:inline>
+                        <fo:inline font-weight="bold">                        
+                            <xsl:text>FPT Insiders</xsl:text>
+                        </fo:inline>
+                    </fo:block>
+                    <fo:block border-bottom-width="1px" border-bottom-style="solid" border-bottom-color="black" margin-bottom="80px" margin-top="28px"></fo:block>                
+                    <fo:block font-family="Segoe UI" font-size="24px">
                         <xsl:value-of select="tittle"/>
                     </fo:block>
                     <fo:block font-family="Segoe UI" margin-top="12px">               
@@ -46,16 +55,27 @@
             <xsl:variable name="count" select="position()"/>
             <xsl:for-each select="str:split(., '&lt;/p&gt;')">
                 <xsl:for-each select="str:split(., '&lt;br/&gt;')">
-                    <fo:block space-before="3mm">
-                        <xsl:choose>
-                            <xsl:when test="contains(., '&lt;p&gt;')">
-                                <xsl:value-of select="substring-after(., '&lt;p&gt;')"/>
-                            </xsl:when>
-                            <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="contains(., '&lt;p&gt;')">
+                            <xsl:choose>
+                                <xsl:when test="contains(., '&lt;b&gt;')">
+                                    <fo:block space-before="3mm" font-weight="bold">
+                                        <xsl:value-of select="substring-after(substring-before(., '&lt;/b&gt;'), '&lt;b&gt;')"/>
+                                    </fo:block>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <fo:block space-before="3mm">
+                                        <xsl:value-of select="substring-after(., '&lt;p&gt;')"/>
+                                    </fo:block>
+                                </xsl:otherwise>
+                            </xsl:choose> 
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <fo:block space-before="3mm">
                                 <xsl:value-of select="."/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </fo:block>
+                            </fo:block>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:for-each>
             </xsl:for-each>
             <fo:block margin-top="16px">
