@@ -25,7 +25,7 @@ public class AuthorArticleService {
     private EntityManager em = emf.createEntityManager();;
 
     public List<TblNewsHeader> GetAuthorArticlesByPage(int page) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role ORDER BY c.views DESC", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID e WHERE c.type = :role ORDER BY c.date DESC", TblNewsHeader.class);
         query.setParameter("role", Resource.ROLE_AUTHORIZEDUSER_TYPEARTICLE);
 
         if (page == 0) {
