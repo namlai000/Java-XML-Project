@@ -6,6 +6,7 @@
 package Servlet;
 
 import Resources.Resource;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,16 +33,16 @@ public class LogoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try {
             HttpSession session = request.getSession(false);
             if (session.getAttribute("user") != null) {
                 session.removeAttribute("user");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
-        
+
         response.sendRedirect(Resource.ProcessServlet);
     }
 

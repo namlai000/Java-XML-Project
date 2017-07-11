@@ -57,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
         CustomValidator validator = null;
         try {
             em = emf.createEntityManager();
-            
+
             String path = Resource.LOCATION_PATH + "WEB-INF/registerSchema.xsd";
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new File(path));
@@ -97,7 +97,8 @@ public class RegisterServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

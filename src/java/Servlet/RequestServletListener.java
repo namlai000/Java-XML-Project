@@ -9,7 +9,10 @@ import Entities.TblUser;
 import Services.LoginService;
 import Ultilities.XMLUltilities;
 import Wrapper.TblUserWrapper;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 
@@ -21,7 +24,7 @@ public class RequestServletListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent sre) {
-        
+
     }
 
     @Override
@@ -32,7 +35,7 @@ public class RequestServletListener implements ServletRequestListener {
             String result = XMLUltilities.JAXBMarshallerToString(new TblUserWrapper(users));
             sre.getServletRequest().setAttribute("loginList", result);
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
     }
 

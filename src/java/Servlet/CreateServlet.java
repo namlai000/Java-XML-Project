@@ -8,6 +8,7 @@ package Servlet;
 import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.ExploreService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -42,14 +43,14 @@ public class CreateServlet extends HttpServlet {
                 response.sendError(403);
                 return;
             }
-            
+
             ExploreService service = new ExploreService();
             request.setAttribute("cats", service.getAllSubCategories());
             request.setAttribute("cur", currentUser);
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher(Resource.CreateArticleServlet_Page);
         rd.forward(request, response);
     }

@@ -48,10 +48,11 @@ public class DeleteArticleServlet extends HttpServlet {
             if (XMLUltilities.isInteger(key)) {
                 service.RemoveArticle(Integer.parseInt(key));
             }
-            
+
             response.getWriter().write("{ \"success\" : true }");
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

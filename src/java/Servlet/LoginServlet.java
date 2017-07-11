@@ -7,6 +7,7 @@ package Servlet;
 
 import Resources.Resource;
 import Services.LoginService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.StringReader;
 import javax.servlet.ServletException;
@@ -72,7 +73,8 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

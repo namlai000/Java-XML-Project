@@ -39,7 +39,7 @@ public class ManageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         try {
             HttpSession session = request.getSession(false);
             TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
@@ -47,15 +47,15 @@ public class ManageServlet extends HttpServlet {
                 response.sendError(403);
                 return;
             }
-            
+
             ManageService service = new ManageService();
             List<TblNewsHeader> headers = service.GetArticleListByUserID(currentUser.getUserId());
             String xml = XMLUltilities.JAXBMarshallerToString(new TblNewsHeaderWrapper(headers));
             request.setAttribute("xmlDoc", xml);
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
-        
+
         RequestDispatcher rd = request.getRequestDispatcher(Resource.ManageServlet_Page);
         rd.forward(request, response);
     }

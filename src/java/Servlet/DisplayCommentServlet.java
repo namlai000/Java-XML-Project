@@ -57,7 +57,7 @@ public class DisplayCommentServlet extends HttpServlet {
                 response.getOutputStream().flush();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
     }
 

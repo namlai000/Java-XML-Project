@@ -10,6 +10,7 @@ import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.AuthorArticleService;
 import Services.AuthorService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -45,11 +46,11 @@ public class AuthorDetailServlet extends HttpServlet {
             TblUserInfo author = service.getAuthorById(i);
             request.setAttribute("author", author);
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorDetailServlet_Page);
-            rd.forward(request, response);
+            XMLUltilities.ExceptionLogging(e);
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorDetailServlet_Page);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

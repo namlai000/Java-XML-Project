@@ -51,7 +51,7 @@ public class MainServlet extends HttpServlet {
             String xml = XMLUltilities.JAXBMarshallerToString(new TblNewsHeaderWrapper(list2));
             request.setAttribute("xml", xml);
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         request.getRequestDispatcher(Resource.MainServlet_Page).forward(request, response);

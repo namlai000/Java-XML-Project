@@ -5,16 +5,25 @@
  */
 package Ultilities;
 
+import Resources.Resource;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -123,5 +132,28 @@ public class XMLUltilities {
     public static String Random128String() {
         SecureRandom random = new SecureRandom();
         return new BigInteger(130, random).toString(128);
+    }
+
+    public static void ExceptionLogging(Exception e) {
+        try {
+            System.err.println("ERROR LOGGED: " + e.getMessage());
+
+            // Write to file
+            FileWriter fw = new FileWriter(new File(Resource.LOCATION_PATH + "/../../" + "Exceptions." + new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()) + ".txt"), true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            
+            out.println("DATE: " + new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(Calendar.getInstance().getTime()));
+            out.println("ERROR LEVEL: " + Level.SEVERE.getName());
+            out.print("STACK TRACES: ");
+            e.printStackTrace(out);
+            out.println("------------------------------------------");
+            
+            out.close();
+            bw.close();
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(XMLUltilities.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

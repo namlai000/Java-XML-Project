@@ -55,7 +55,7 @@ public class SearchServlet extends HttpServlet {
                 request.setAttribute("xmlAuthor", xml2);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(Resource.SearchServlet_Page);

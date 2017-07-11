@@ -12,6 +12,7 @@ import Entities.TblSubCategory;
 import Entities.TblUserInfo;
 import Resources.Resource;
 import Ultilities.CustomValidator;
+import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -110,13 +111,14 @@ public class CreateArticleServlet extends HttpServlet {
                     }
                 }
                 em.flush();
-                
+
                 em.getTransaction().commit();
 
                 response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

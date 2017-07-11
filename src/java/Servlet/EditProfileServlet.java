@@ -61,7 +61,7 @@ public class EditProfileServlet extends HttpServlet {
 //        CustomValidator validator = null;
         try {
             em = emf.createEntityManager();
-            
+
             String schema = Resource.LOCATION_PATH + "WEB-INF/updateprofileSchema.xsd";
 
             HttpSession session = request.getSession(false);
@@ -89,7 +89,7 @@ public class EditProfileServlet extends HttpServlet {
                 userinfo.setIDNumber(currentUser.getIDNumber());
                 userinfo.setCreateDate(currentUser.getCreateDate());
                 userinfo.setTblUser(currentUser.getTblUser());
-                
+
                 em.getTransaction().begin();
                 if (userinfo.getImageID().getLink().isEmpty()) {
                     userinfo.setImageID(em.find(TblUserInfo.class, currentUser.getUserId()).getImageID());
@@ -103,7 +103,8 @@ public class EditProfileServlet extends HttpServlet {
                 response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

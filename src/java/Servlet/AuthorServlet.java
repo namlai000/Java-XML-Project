@@ -50,10 +50,10 @@ public class AuthorServlet extends HttpServlet {
             AuthorArticleService auService = new AuthorArticleService();
             request.setAttribute("authorList", auService.GetAuthorArticlesByPage(i));
 
-            i = (int)auService.GetAuthorArticlesSize();
+            i = (int) auService.GetAuthorArticlesSize();
             request.setAttribute("pages", XMLUltilities.getPages(i));
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         request.getRequestDispatcher(Resource.AuthorServlet_Page).forward(request, response);

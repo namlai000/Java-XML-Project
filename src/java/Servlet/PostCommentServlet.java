@@ -54,7 +54,7 @@ public class PostCommentServlet extends HttpServlet {
                 result = ser.postComment(content, Integer.parseInt(userId), Integer.parseInt(newsId));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         response.getWriter().write("{ \"success\" : " + result + " }");

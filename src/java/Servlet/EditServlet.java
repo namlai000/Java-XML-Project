@@ -37,7 +37,7 @@ public class EditServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String id = request.getParameter("id");
         try {
             HttpSession session = request.getSession(false);
@@ -46,14 +46,14 @@ public class EditServlet extends HttpServlet {
                 response.sendError(403);
                 return;
             }
-            
+
             if (XMLUltilities.isInteger(id)) {
                 ArticleService service = new ArticleService();
                 TblNewsHeader header = service.GetNewsById(Integer.parseInt(id));
                 request.setAttribute("article", header);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(Resource.EditArticleServlet_Page);

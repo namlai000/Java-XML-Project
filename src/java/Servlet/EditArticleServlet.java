@@ -13,6 +13,7 @@ import Entities.TblUserInfo;
 import Resources.Resource;
 import Services.ManageService;
 import Ultilities.CustomValidator;
+import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -117,7 +118,8 @@ public class EditArticleServlet extends HttpServlet {
                 response.getWriter().write("{ \"success\" : true }");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false , \"error\" : \"" + e.getMessage() + "\" }");
         }
     }

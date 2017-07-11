@@ -66,7 +66,7 @@ public class ExploreServlet extends HttpServlet {
             List<TblCategory> list2 = service.getAllCategories();
             request.setAttribute("menuList", list2);
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         request.getRequestDispatcher(Resource.ExploreServlet_Page).forward(request, response);

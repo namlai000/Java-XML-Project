@@ -45,7 +45,7 @@ public class PrintServet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/pdf;charset=UTF-8");
-        
+
         String currentFile = request.getParameter("name");
         try {
             String path = Resource.LOCATION_PATH;
@@ -53,7 +53,7 @@ public class PrintServet extends HttpServlet {
             String xmlPath = path + "WEB-INF/" + currentFile + ".xml";
             String foPath = path + "WEB-INF/" + currentFile + ".fo";
             String foConfig = path + "WEB-INF/fop.xconf";
-            
+
             // TO PDF
             XMLUltilities.methodTrAX(xslPath, xmlPath, foPath, path);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -62,7 +62,7 @@ public class PrintServet extends HttpServlet {
             ff.setBaseURL(path);
             FOUserAgent fua = ff.newFOUserAgent();
             Fop fop = ff.newFop(MimeConstants.MIME_PDF, fua, out);
-            
+
             // TO FO FILE
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer trans = tf.newTransformer();
@@ -70,13 +70,13 @@ public class PrintServet extends HttpServlet {
             Source src = new StreamSource(fo);
             SAXResult result = new SAXResult(fop.getDefaultHandler());
             trans.transform(src, result);
-            
+
             byte[] content = out.toByteArray();
             response.setContentLength(content.length);
             response.getOutputStream().write(content);
             response.getOutputStream().flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
     }
 

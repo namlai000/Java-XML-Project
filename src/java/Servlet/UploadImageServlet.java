@@ -75,7 +75,8 @@ public class UploadImageServlet extends HttpServlet {
                 response.getWriter().write("{ \"success\" : true, \"data\" : [ " + tmp + " ] }");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false }");
         }
     }

@@ -31,6 +31,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.stream.XMLStreamWriter;
@@ -63,8 +64,9 @@ public class ArticleServlet extends HttpServlet {
                 XMLUltilities.JAXBMarshallerWithPath(news, Resource.LOCATION_PATH + "WEB-INF/article.xml", true);
                 List<TblNewsHeader> ran3 = service.Random3NewsByCategories(news.getTblNews().getCatID().getId());
                 request.setAttribute("ran3", ran3);
-                
-                Boolean hasViewed = (Boolean)request.getSession(false).getAttribute(news.getId().toString());
+
+                HttpSession session = request.getSession(false);
+                Boolean hasViewed = (Boolean) session.getAttribute(news.getId().toString());
                 if (hasViewed == null || !hasViewed.booleanValue()) {
                     ViewService view = new ViewService();
                     view.IncreaseView(news.getId());
@@ -72,7 +74,7 @@ public class ArticleServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         request.getRequestDispatcher(Resource.ArticleServlet_Page).forward(request, response);

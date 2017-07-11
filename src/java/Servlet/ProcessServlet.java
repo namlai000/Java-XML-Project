@@ -9,6 +9,7 @@ import Entities.TblNews;
 import Entities.TblNewsHeader;
 import Entities.TblUserInfo;
 import Resources.Resource;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -97,7 +98,7 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.EditArticleServlet;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);

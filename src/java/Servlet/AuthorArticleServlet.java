@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,7 +52,8 @@ public class AuthorArticleServlet extends HttpServlet {
                     List<TblNewsHeader> list = service.Random3Articles();
                     request.setAttribute("ran3", list);
 
-                    Boolean hasViewed = (Boolean) request.getSession(false).getAttribute(article.getId().toString());
+                    HttpSession session = request.getSession(false);
+                    Boolean hasViewed = (Boolean) session.getAttribute(article.getId().toString());
                     if (hasViewed == null || !hasViewed.booleanValue()) {
                         ViewService view = new ViewService();
                         view.IncreaseView(article.getId());
@@ -60,11 +62,11 @@ public class AuthorArticleServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorArticleServlet_Page);
-            rd.forward(request, response);
+            XMLUltilities.ExceptionLogging(e);
         }
+
+        RequestDispatcher rd = request.getRequestDispatcher(Resource.AuthorArticleServlet_Page);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

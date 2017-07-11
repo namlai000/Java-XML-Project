@@ -8,6 +8,7 @@ package Servlet;
 import Entities.TblImage;
 import Entities.TblUserInfo;
 import Services.UploadImageService;
+import Ultilities.XMLUltilities;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -75,7 +76,8 @@ public class UploadImageWithCheckingServlet extends HttpServlet {
             }
             response.getWriter().write("{ \"success\" : true, \"data\" : [ " + tmp + " ] }");
         } catch (Exception e) {
-            e.printStackTrace();
+            XMLUltilities.ExceptionLogging(e);
+            
             response.getWriter().write("{ \"success\" : false }");
         }
     }
