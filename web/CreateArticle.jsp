@@ -241,7 +241,7 @@
                 var match = e[i].value.match(regExp);
                 if (match && match[2].length == 11) {
                     var url = "https://www.youtube.com/embed/" + match[2] + "?autoplay=1";
-                    content += '<p><iframe type="text/html" width="640" height="360" src="' + url + '" frameborder="0"></iframe></p>';
+                    content += '<p><iframe type="text/html" width="640" height="360" src="' + url + '" frameborder="0" allowfullscreen></iframe></p>';
                 }
             }
         }
