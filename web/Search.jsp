@@ -16,11 +16,11 @@
         <title>Search Page</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <c:import url="WEB-INF/searchResult.xsl" var="xslDoc" charEncoding="UTF-8"/>
                 <c:import url="WEB-INF/searchResultAuthor.xsl" var="xslDocAuthor" charEncoding="UTF-8"/>
@@ -56,16 +56,16 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>
 
 <script>
     document.getElementById("default").click();
-    
+
     function openTab(evt, cityName) {
         // Declare all variables
         var i, tabcontent, tablinks;

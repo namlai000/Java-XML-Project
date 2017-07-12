@@ -25,7 +25,7 @@ public class ManageService {
     private EntityManager em = emf.createEntityManager();
 
     public List<TblNewsHeader> GetArticleListByUserID(int authorId) {
-        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.userId = :id", TblNewsHeader.class);
+        TypedQuery<TblNewsHeader> query = em.createQuery("SELECT c FROM TblNewsHeader c JOIN c.tblNews d JOIN d.authorID f WHERE f.userId = :id ORDER BY c.date DESC", TblNewsHeader.class);
         query.setParameter("id", authorId);
         return query.getResultList();
     }

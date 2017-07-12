@@ -16,11 +16,11 @@
         <title>Create Article</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <div class="row">
                     <h2>Title</h2>
@@ -42,6 +42,7 @@
                         <button type="button" class="button-green" onclick="AddBigWord()">Thêm chữ to</button>
                         <button type="button" class="button-green" onclick="AddParagraph()">Thêm đoạn văn</button>
                         <button type="button" class="button-green" onclick="AddImage()">Thêm hình ảnh</button>
+                        <button type="button" class="button-green" onclick="AddVideo()">Thêm Video clip</button>
                     </div>
                     <div class="row">
                         <div id="article1">
@@ -76,16 +77,16 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>
 
 <script>
     console.log(${requestScope.cur.tblUser.role.id});
-    
+
     var typeArticle = '1';
 
     var ar = 'article1';
@@ -138,6 +139,19 @@
         var container = document.createElement("p");
         container.className = "parent";
         container.innerHTML = "<img class='viewer' src='#' style='max-height: 200px;'/><input name='image' type='file' accept='image/*' class='form-control' onchange='readURL(this)'/> <button class='delete'>X</button>";
+        article.appendChild(container);
+
+        var x = document.querySelectorAll(".parent");
+        for (var i = 0; i < x.length; i++) {
+            x[i].querySelector(".delete").onclick = registerClickHandler;
+        }
+    }
+
+    function AddVideo() {
+        var article = document.getElementById(ar);
+        var container = document.createElement("p");
+        container.className = "parent";
+        container.innerHTML = "<label>Youtube URL</label> <input name='video' type='text' class='form-control' placeholder='E.g: https://www.youtube.com/watch?v=zMVWufohW64'/> <button class='delete'>X</button>";
         article.appendChild(container);
 
         var x = document.querySelectorAll(".parent");
@@ -222,6 +236,13 @@
                 content += '<p>' + e[i].value.replace(/(?:\r\n|\r|\n)/g, '<br/>') + '</p>';
             } else if (e[i].getAttribute("name") == "image" && e[i].value != "") {
                 content += '<p><img name="image" src="none" class="ar-image"/></p>';
+            } else if (e[i].getAttribute("name") == "video" && e[i].value != "") {
+                var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                var match = e[i].value.match(regExp);
+                if (match && match[2].length == 11) {
+                    var url = "https://www.youtube.com/embed/" + match[2] + "?autoplay=1";
+                    content += '<p><iframe type="text/html" width="640" height="360" src="' + url + '" frameborder="0"></iframe></p>';
+                }
             }
         }
 

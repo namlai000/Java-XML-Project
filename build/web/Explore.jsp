@@ -11,11 +11,11 @@
         <title>Home Page</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <div class="left-menu">
                     <div>
@@ -104,9 +104,9 @@
                     </c:if>
                 </div> 
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>

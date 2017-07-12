@@ -16,11 +16,11 @@
         <title>Góc nhìn - Web Name</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <div class="container">
                     <h2>Các tác giả tiêu biểu tuần này</h2>
@@ -96,9 +96,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>

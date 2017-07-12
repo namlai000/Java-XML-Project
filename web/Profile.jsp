@@ -17,11 +17,11 @@
         <title>Edit Profile</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <c:set var="user" value="${sessionScope.user}"/>
                 <div class="row">
@@ -71,17 +71,17 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Footer -->
-                <c:import url="PartialPages/Footer.jsp"/>
             </div>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>
 
 <script>
     console.log('Type: ' + ${user.tblUser.role.id})
-    
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

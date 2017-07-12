@@ -16,11 +16,11 @@
         <title>Manage Articles</title>
     </head>
     <body>
-        <div class="body-centered">
-            <!-- Header -->
-            <c:import url="PartialPages/Header.jsp"/>
+        <!-- Header -->
+        <c:import url="PartialPages/Header.jsp"/>
 
-            <!-- BODY -->
+        <!-- BODY -->
+        <div class="body-centered">
             <div class="body-main">
                 <c:import url="WEB-INF/manageArticles.xsl" var="xslDoc" charEncoding="UTF-8"/>
 
@@ -46,14 +46,14 @@
                         </x:transform>
                     </div>
                 </div>
-                
+
                 <div id="error1">                  
                 </div>
             </div>
-
-            <!-- Footer -->
-            <c:import url="PartialPages/Footer.jsp"/>
         </div>
+
+        <!-- Footer -->
+        <c:import url="PartialPages/Footer.jsp"/>
     </body>
 </html>
 

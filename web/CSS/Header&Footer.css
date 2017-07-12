@@ -20,6 +20,7 @@
 .dropdown-content {
     display: none;
     position: absolute;
+    text-align: left;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -41,15 +42,13 @@
 .show {display:block;}
 
 .nav-header {
-    background-color: #48d9fd;
     color: black;
-    height: 120px;
+    height: 140px;
 }
 
 .nav-bar {
-    background-color: #abffff;
     color: black; 
-    height: 50px;
+    height: 30px;
     text-align: center;
 }
 
@@ -62,6 +61,11 @@
     width: 120px;
 }
 
+.nav-top {
+    background-color: #f0f0f0;
+    margin: 0px 0px 0px 0px;
+}
+
 .nav-footer {
     margin-top: 80px;
 }
@@ -71,5 +75,6 @@
 }
 
 .nav-app {
-    width: 65%;
+    width: 60%;
+    max-width: 250px;
 }
