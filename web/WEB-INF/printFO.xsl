@@ -63,6 +63,12 @@
                                         <xsl:value-of select="substring-after(substring-before(., '&lt;/b&gt;'), '&lt;b&gt;')"/>
                                     </fo:block>
                                 </xsl:when>
+                                <xsl:when test="contains(., '&lt;/iframe&gt;')">
+                                    <xsl:variable name="imagefromyt" select="substring-after(substring-before(., '?autoplay=1&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;'), '&lt;p&gt;&lt;iframe type=&quot;text/html&quot; width=&quot;640&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/embed/')"/>
+                                    <fo:block space-before="3mm" font-weight="bold">
+                                        <fo:external-graphic src="url('http://img.youtube.com/vi/{$imagefromyt}/0.jpg')" width="100%" content-height="100%" content-width="scale-to-fit" scaling="uniform"/>
+                                    </fo:block>
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <fo:block space-before="3mm">
                                         <xsl:value-of select="substring-after(., '&lt;p&gt;')"/>
