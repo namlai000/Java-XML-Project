@@ -92,6 +92,10 @@
         <servlet-name>UploadImageWithCheckingServlet</servlet-name>
         <servlet-class>Servlet.UploadImageWithCheckingServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrawServlet</servlet-name>
+        <servlet-class>Servlet.CrawServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>UploadImageWithCheckingServlet</servlet-name>
         <url-pattern>/UploadImageWithCheckingServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrawServlet</servlet-name>
+        <url-pattern>/CrawServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

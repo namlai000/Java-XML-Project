@@ -45,8 +45,6 @@ public class ProcessServlet extends HttpServlet {
         String url = Resource.MainServlet;
 
         try {
-            Resource.LOCATION_PATH = getServletContext().getRealPath("/");
-
             String requestLocation = request.getParameter("location");
             if (requestLocation == null || requestLocation.isEmpty()) {
                 url = Resource.MainServlet;
@@ -96,6 +94,10 @@ public class ProcessServlet extends HttpServlet {
                 url = Resource.EditServlet;
             } else if (requestLocation.equals("editarticle")) {
                 url = Resource.EditArticleServlet;
+            } else if (requestLocation.equals("crawl")) {
+                url = Resource.CrawlServlet_Page;
+            } else if (requestLocation.equals("crawldata")) {
+                url = Resource.CrawlServlet;
             }
         } catch (Exception e) {
             XMLUltilities.ExceptionLogging(e);

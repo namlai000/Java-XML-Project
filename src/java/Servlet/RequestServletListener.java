@@ -6,6 +6,7 @@
 package Servlet;
 
 import Entities.TblUser;
+import Resources.Resource;
 import Services.LoginService;
 import Ultilities.XMLUltilities;
 import Wrapper.TblUserWrapper;
@@ -34,6 +35,7 @@ public class RequestServletListener implements ServletRequestListener {
             List<TblUser> users = service.GetAllLogins();
             String result = XMLUltilities.JAXBMarshallerToString(new TblUserWrapper(users));
             sre.getServletRequest().setAttribute("loginList", result);
+            Resource.LOCATION_PATH = sre.getServletContext().getRealPath("/");
         } catch (Exception e) {
             XMLUltilities.ExceptionLogging(e);
         }

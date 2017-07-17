@@ -33,8 +33,10 @@
                     <div class="row">
                         <button type="button" class="button-green" onclick="AddBigWord('')">Thêm chữ to</button>
                         <button type="button" class="button-green" onclick="AddParagraph('')">Thêm đoạn văn</button>
-                        <button id="addimage" type="button" class="button-green" onclick="AddImage('')">Thêm hình ảnh</button>
-                        <button type="button" class="button-green" onclick="AddVideo('')">Thêm Video clip</button>
+                        <c:if test="${requestScope.article.type gt 1}">
+                            <button id="addimage" type="button" class="button-green" onclick="AddImage('')">Thêm hình ảnh</button>
+                            <button type="button" class="button-green" onclick="AddVideo('')">Thêm Video clip</button>
+                        </c:if>
                     </div>
                     <div id="article">
                     </div>

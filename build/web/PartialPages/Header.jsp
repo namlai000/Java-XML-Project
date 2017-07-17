@@ -17,6 +17,9 @@
                                     <a href="ProcessServlet?location=create">Write Article</a>
                                     <a href="ProcessServlet?location=manage">Manage your Articles</a>
                                 </c:if>
+                                <c:if test="${user.tblUser.role.id gt 3}">
+                                    <a href="ProcessServlet?location=crawl">Craw Data From VNExpress</a>
+                                </c:if>
                                 <a href="ProcessServlet?location=profile">Your profile</a>
                                 <hr/>
                                 <a href="ProcessServlet?location=logout">Logout</a>
