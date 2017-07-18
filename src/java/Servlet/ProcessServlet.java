@@ -95,7 +95,7 @@ public class ProcessServlet extends HttpServlet {
             } else if (requestLocation.equals("editarticle")) {
                 url = Resource.EditArticleServlet;
             } else if (requestLocation.equals("crawl")) {
-                url = Resource.CrawlServlet_Page;
+                url = Resource.CrawlPageServlet;
             } else if (requestLocation.equals("crawldata")) {
                 url = Resource.CrawlServlet;
             }

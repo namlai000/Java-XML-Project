@@ -96,6 +96,10 @@
         <servlet-name>CrawServlet</servlet-name>
         <servlet-class>Servlet.CrawServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CrawlPageServlet</servlet-name>
+        <servlet-class>Servlet.CrawlPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProcessServlet</servlet-name>
         <url-pattern>/ProcessServlet</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>CrawServlet</servlet-name>
         <url-pattern>/CrawServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CrawlPageServlet</servlet-name>
+        <url-pattern>/CrawlPageServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

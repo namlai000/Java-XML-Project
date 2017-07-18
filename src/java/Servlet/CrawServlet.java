@@ -7,7 +7,9 @@ package Servlet;
 
 import Entities.TblNews;
 import Entities.TblNewsHeader;
+import Entities.TblUserInfo;
 import Resources.Resource;
+import Services.ExploreService;
 import Ultilities.XMLUltilities;
 import java.io.File;
 import java.io.FileWriter;
@@ -110,9 +112,14 @@ public class CrawServlet extends HttpServlet {
             news.setContent(content);
             header.setTblNews(news);
             
-            HttpSession session = request.getSession();
-            session.setAttribute("crawl", header);
+            request.setAttribute("crawl", header);
 
+            HttpSession session = request.getSession(false);
+            TblUserInfo currentUser = (TblUserInfo) session.getAttribute("user");
+            ExploreService service = new ExploreService();
+            request.setAttribute("cats", service.getAllSubCategories());
+            request.setAttribute("cur", currentUser);
+            
 //            System.out.println("Content: " + content);
             // Output valdiated
 //            DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
@@ -134,12 +141,9 @@ public class CrawServlet extends HttpServlet {
 //            transformer.transform(source, result);
         } catch (Exception e) {
             XMLUltilities.ExceptionLogging(e);
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("crawl", null);
         }
 
-        response.sendRedirect(Resource.CrawlServlet_Page);
+        request.getRequestDispatcher(Resource.CrawlServlet_Page).forward(request, response);
     }
 
     private String processText(String text) {
