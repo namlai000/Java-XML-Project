@@ -97,12 +97,23 @@
             var article = document.getElementById(ar);
             var container = document.createElement("p");
             container.className = "parent";
-            container.innerHTML = "<img class='viewer' src='none' style='max-height: 200px;'/><input name='image' type='file' accept='image/*' class='form-control' /> <button class='delete'>X</button>";
+            container.innerHTML = "<img class='viewer' src='none' style='max-height: 200px;'/><input name='image' type='file' accept='image/*' class='form-control' onchange='readURL(this)'/> <button class='delete'>X</button>";
             article.appendChild(container);
 
             var x = document.querySelectorAll(".parent");
             for (var i = 0; i < x.length; i++) {
                 x[i].querySelector(".delete").onclick = registerClickHandler;
+            }
+        }
+
+        function readURL(input) {
+            console.log(input.parentNode);
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    input.parentNode.querySelector(".viewer").src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
             }
         }
 

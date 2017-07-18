@@ -33,7 +33,7 @@
                     <div class="row">
                         <button type="button" class="button-green" onclick="AddBigWord('')">Thêm chữ to</button>
                         <button type="button" class="button-green" onclick="AddParagraph('')">Thêm đoạn văn</button>
-                        <c:if test="${requestScope.article.type gt 1}">
+                        <c:if test="${requestScope.article.type lt 2}">
                             <button id="addimage" type="button" class="button-green" onclick="AddImage('')">Thêm hình ảnh</button>
                             <button type="button" class="button-green" onclick="AddVideo('')">Thêm Video clip</button>
                         </c:if>
@@ -64,11 +64,6 @@
 
         var type = '${requestScope.article.type}';
         var views = '${requestScope.article.views}';
-
-        if (type != '1') {
-            var remove = document.getElementById("addimage");
-            remove.outerHTML = "";
-        }
 
         var category = '${requestScope.article.tblNews.catID.id}';
         var id = '${requestScope.article.id}';
